@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 10:34:28 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 10:53:56 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,8 +38,45 @@
 #define IntersectBox(x0,y0, x1,y1, x2,y2, x3,y3) (Overlap(x0,x1,x2,x3) && Overlap(y0,y1,y2,y3)) // IntersectBox: Determine whether two 2D-boxes intersect.
 #define PointSide(px,py, x0,y0, x1,y1) vxs((x1)-(x0), (y1)-(y0), (px)-(x0), (py)-(y0)) // PointSide: Determine which side of a line the point is on. Return value: <0, =0 or >0.
 #define Intersect(x1,y1, x2,y2, x3,y3, x4,y4) ((struct s_xy) { \
-    vxs(vxs(x1,y1, x2,y2), (x1)-(x2), vxs(x3,y3, x4,y4), (x3)-(x4)) / vxs((x1)-(x2), (y1)-(y2), (x3)-(x4), (y3)-(y4)), \
-    vxs(vxs(x1,y1, x2,y2), (y1)-(y2), vxs(x3,y3, x4,y4), (y3)-(y4)) / vxs((x1)-(x2), (y1)-(y2), (x3)-(x4), (y3)-(y4)) }) // Intersect: Calculate the point of intersection between two lines.
+		vxs(vxs(x1,y1, x2,y2), (x1)-(x2), vxs(x3,y3, x4,y4), (x3)-(x4)) / vxs((x1)-(x2), (y1)-(y2), (x3)-(x4), (y3)-(y4)), \
+		vxs(vxs(x1,y1, x2,y2), (y1)-(y2), vxs(x3,y3, x4,y4), (y3)-(y4)) / vxs((x1)-(x2), (y1)-(y2), (x3)-(x4), (y3)-(y4)) }) // Intersect: Calculate the point of intersection between two lines.
 #define Yaw(y,z) (y + z*player.yaw)
 
+typedef struct      s_vertex
+{
+	float           x;
+	float           y;
+}                   t_vertex;
+
+typedef struct      s_linedef
+{
+	float           x;
+	float           y;
+}                   t_linedef;
+
+typedef struct      s_sidedef
+{
+	char            upper[8];
+	char            middle[8];
+	char            lower[8];
+	float           texture;
+}                   t_sidedef;
+
+typedef struct      s_sector
+{
+	float           h_floor;
+	float           h_ceill;
+	char           	tex_floor;
+	char           	tex_ceill;
+	char            *neighbors; 
+}                   t_sector
+
+typedef sruct       s_level
+{
+	t_vertex        *point;
+	t_linedef       line;
+	t_sidedef       side[2];
+	t_sector        sector;
+	t_level			*next;
+}                   t_level;
 #endif
