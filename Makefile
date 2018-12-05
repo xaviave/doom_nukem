@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/05 10:33:34 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/05 13:52:28 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,6 +33,7 @@ SRCS_PATH = ./srcs/
 OBJS_PATH = ./srcs/
 
 FILES = main.c\
+		parse_map.c\
 
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))

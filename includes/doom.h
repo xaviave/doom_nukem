@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 10:53:56 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 14:09:32 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include "fcntl.h"
 # include <math.h>
 # include "../libft/header/libft.h"
 # include <SDL2/SDL.h>
@@ -69,14 +70,17 @@ typedef struct      s_sector
 	char           	tex_floor;
 	char           	tex_ceill;
 	char            *neighbors; 
-}                   t_sector
+}                   t_sector;
 
-typedef sruct       s_level
+typedef struct      s_level
 {
 	t_vertex        *point;
 	t_linedef       line;
 	t_sidedef       side[2];
 	t_sector        sector;
-	t_level			*next;
+	struct s_level	*next;
 }                   t_level;
+
+void				parse_map(int aac, char **av, t_level *level);
+
 #endif

@@ -6,16 +6,17 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 10:34:31 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 13:47:51 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	if (ac || av)
-		;
+	t_level	level;
+
+	parse_map(ac, av, &level);
 	return (0);
 }
