@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 14:10:23 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 14:12:37 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ t_level		*parse_file(int fd)
 
 		i++;
 	}
+	return (NULL);
 }
 
 void		parse_map(int ac, char **av, t_level *level)
