@@ -1,36 +1,49 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   create_vertex.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/16 22:37:18 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/12/14 14:52:04 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2018/12/16 22:19:08 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
+#include "../../includes/doom.h"
 
-static void	init_parse(t_parse *parse)
+int			count_int(char *str)
 {
-	parse->sector = NULL;
-	parse->sector = NULL;
-	parse->player.x = -1;
-	parse->player.y = -1;
+	int		i;
+	int		nu;
+
+	i = 0;
+	nu = 0;
+	while (i < (int)ft_strlen(str))
+	{
+		nu++;
+		i += pass_digit_space(&str[i]);
+	}
+	return (nu);
 }
 
-/*
-** check coord of the player if his coord aren't in the map
-*/
-
-int			main(int ac, char **av)
+int			*create_vertex(char *str)
 {
-	t_parse	parse;
+	int		i;
+	int		j;
+	int		max;
+	int		*new;
 
-	init_parse(&parse);
-	parse_map(ac, av, &parse);
-	free_parse(&parse);
-	return (0);
+	j = -1;
+	i = 0;
+	max = count_int(str);
+	if (!(new = (int *)malloc(sizeof(int) * max)))
+		return (NULL);
+	while (++j < max)
+	{
+		new[j] = ft_atoi(&str[i]);
+		i += pass_digit_space(&str[i]);
+	}
+	return (new);
 }

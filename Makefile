@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/05 13:52:28 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/16 23:00:27 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -34,6 +34,14 @@ OBJS_PATH = ./srcs/
 
 FILES = main.c\
 		parse_map.c\
+		parse_vertex.c\
+		parse_sector.c\
+		error.c\
+		tools/check_int.c\
+		tools/list.c\
+		tools/create_vertex.c\
+
+#main_sdl.c\
 
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))

@@ -1,36 +1,44 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   check_int.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/16 22:37:18 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/12/05 19:12:49 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2018/12/16 22:19:37 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
+#include "../../includes/doom.h"
 
-static void	init_parse(t_parse *parse)
+int			check_int(char *tmp)
 {
-	parse->sector = NULL;
-	parse->sector = NULL;
-	parse->player.x = -1;
-	parse->player.y = -1;
+	int		i;
+	int		j;
+	int		ret;
+
+	i = 0;
+	j = 0;
+	ret = 1;
+	while (tmp[i] && (tmp[i] != ' ' || tmp[i] != '\t'))
+		i++;
+	while (tmp[i + j] && ft_isdigit(tmp[i + j]))
+		j++;
+	if (j > 11 || ft_atoi(tmp) > 2147483647 || ft_atoi(tmp) < 0)
+		ret = 0;
+	return (ret);
 }
 
-/*
-** check coord of the player if his coord aren't in the map
-*/
-
-int			main(int ac, char **av)
+int			pass_digit_space(char *str)
 {
-	t_parse	parse;
+	int		i;
 
-	init_parse(&parse);
-	parse_map(ac, av, &parse);
-	free_parse(&parse);
-	return (0);
+	i = 0;
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	return (i);
 }
