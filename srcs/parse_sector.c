@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:31:32 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/16 22:21:50 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 13:19:32 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,10 @@ static int		double_vertex(t_psector *sector, int error)
 			i = -1;
 			while (++i < tmp->nu_vertex)
 				if (i != j && tmp2[i] == tmp->vertex[j])
+				{
+					ft_printf("%d | %d\n", tmp2[i], tmp->vertex[j]);
 					error++;
+				}
 		}
 		tmp = tmp->next;
 	}
@@ -91,7 +94,7 @@ void			parse_sector(t_parse *parse, char *str)
 	int			i;
 	int			error;
 
-	error = (ft_strlen(str) < 15) ? 1 : 0;
+	error = (ft_strlen(str) < 13) ? 1 : 0;
 	i = 0;
 	while (!error && str[++i])
 		if (!ft_isdigit(str[i]) && str[i] != '\t' && str[i] != ' ')

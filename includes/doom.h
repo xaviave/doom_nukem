@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/16 22:55:07 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 13:06:34 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -146,5 +146,7 @@ int						count_int(char *str);
 int						*create_vertex(char *str);
 void					add_list_v(t_pvertex **vertex, char *y, char *x, char *id);
 void					add_list_s(t_psector **sector, char *str);
+int						list_len_s(t_psector *list);
+int						list_len_v(t_pvertex *list);
 
 #endif

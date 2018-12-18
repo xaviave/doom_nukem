@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/16 23:00:27 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/18 13:09:39 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -40,6 +40,7 @@ FILES = main.c\
 		tools/check_int.c\
 		tools/list.c\
 		tools/create_vertex.c\
+		tools/list_len.c\
 
 #main_sdl.c\
 

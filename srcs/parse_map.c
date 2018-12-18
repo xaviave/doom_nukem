@@ -6,18 +6,12 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/16 23:00:59 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 13:23:41 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
-
-void			init_player(int x, int y, t_player *player)
-{
-	player->x = x;
-	player->y = y;
-}
 
 void			parse_player(t_parse *parse, char *str)
 {
@@ -84,7 +78,9 @@ void			parse_map(int ac, char **av, t_parse *parse)
 	if (fd < 1)
 		return_error(2, NULL);
 	parse_file(fd, parse);
-	
+	ft_printf("test\n");
+	if (list_len_s(parse->sector) < 1 || list_len_v(parse->vertex) < 3)	
+		return_error(7, parse);
 
 
 
