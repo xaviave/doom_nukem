@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:30:06 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 13:09:14 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 13:36:42 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,9 @@ void			return_error(int error, t_parse *parse)
 		ft_printf("\nError 6 : Unknown character found\n");
 	else if (error == 7)
 		ft_printf("\nError 7 : Not enougth vertex or sector\n");
-	free_parse(parse);
+	else if (error == 8)
+		ft_printf("\nError 8 : Bad floor or ceiling heigth\n");
+	if (parse)
+		free_parse(parse);
 	exit(0);
 }

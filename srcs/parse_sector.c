@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:31:32 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 13:19:32 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 13:38:03 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,10 +30,7 @@ static int		double_vertex(t_psector *sector, int error)
 			i = -1;
 			while (++i < tmp->nu_vertex)
 				if (i != j && tmp2[i] == tmp->vertex[j])
-				{
-					ft_printf("%d | %d\n", tmp2[i], tmp->vertex[j]);
 					error++;
-				}
 		}
 		tmp = tmp->next;
 	}
@@ -89,6 +86,20 @@ static void		check_nu(t_parse *parse, char *nu, int *error)
 		add_list_s(&parse->sector, nu);
 }
 
+int				heigth_sector(t_parse *parse)
+{
+	t_psector	*tmp;
+
+	tmp = parse->sector;
+	while (tmp)
+	{
+		if (tmp->ceiling <= tmp->ground)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 void			parse_sector(t_parse *parse, char *str)
 {
 	int			i;
@@ -105,5 +116,10 @@ void			parse_sector(t_parse *parse, char *str)
 	{
 		free(str);
 		return_error(4, parse);
+	}
+	if (heigth_sector(parse))
+	{
+		free(str);
+		return_error(8, parse);
 	}
 }
