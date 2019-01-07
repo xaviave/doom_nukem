@@ -6,12 +6,12 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 13:37:42 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/07 14:43:41 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
+#include "../../includes/doom.h"
 
 void			parse_player(t_parse *parse, char *str)
 {
@@ -80,38 +80,4 @@ void			parse_map(int ac, char **av, t_parse *parse)
 	parse_file(fd, parse);
 	if (list_len_s(parse->sector) < 1 || list_len_v(parse->vertex) < 3)	
 		return_error(7, parse);
-
-
-
-	t_pvertex *tmp;
-
-	tmp = parse->vertex;
-	ft_printf("_________________________________________\n");
-	ft_printf("||     y     |      x     |      id    ||\n");
-	ft_printf("_________________________________________\n");
-	while (tmp)
-	{
-		ft_printf("|| y = %5d | x = %5d  | id = %5d ||\n", tmp->y, tmp->x, tmp->id);
-		tmp = tmp->next;
-	}
-	ft_printf("_________________________________________\n");
-
-	t_psector *tmp1;
-
-	tmp1 = parse->sector;
-	ft_printf("\n______________________________\n");
-	ft_printf("|| sector |      vertex     ||\n");
-	ft_printf("______________________________\n");
-	int j;
-	while (tmp1)
-	{
-		j = -1;
-		ft_printf("|| %5d  |", tmp1->id);
-		while (++j < tmp1->nu_vertex)
-			ft_printf(" %3d", tmp1->vertex[j]);
-		ft_printf(" ||\n");
-	ft_printf("______________________________\n");
-		tmp1 = tmp1->next;
-	}
-	ft_printf("player x = %d y = %d", parse->player.x, parse->player.y);
 }

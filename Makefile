@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/18 13:09:39 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/07 11:19:45 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -32,17 +32,18 @@ SDLFLAGS =  -rpath ./Frameworks -F ./Frameworks  -framework SDL2 \
 SRCS_PATH = ./srcs/
 OBJS_PATH = ./srcs/
 
-FILES = main.c\
-		parse_map.c\
-		parse_vertex.c\
-		parse_sector.c\
-		error.c\
-		tools/check_int.c\
-		tools/list.c\
-		tools/create_vertex.c\
-		tools/list_len.c\
-
-#main_sdl.c\
+FILES = main.c \
+		parser/parse_map.c \
+		parser/parse_vertex.c \
+		parser/parse_sector.c \
+		parser/parse_to_level.c \
+		tools/error_parsing.c \
+		tools/check_int.c \
+		tools/list.c \
+		tools/create_vertex.c \
+		tools/list_len.c \
+		#main_sdl.c\
+		event.c\
 
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))

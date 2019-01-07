@@ -6,12 +6,12 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:31:32 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 13:38:03 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/19 11:06:55 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
+#include "../../includes/doom.h"
 
 static int		double_vertex(t_psector *sector, int error)
 {

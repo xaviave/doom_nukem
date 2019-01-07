@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 13:06:34 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/07 17:19:05 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,6 @@
 # include <SDL2_mixer/SDL_mixer.h>
 # include <SDL2_ttf/SDL_ttf.h>
 */
-
 /*
 ** Define window size
 */
@@ -55,6 +54,7 @@ typedef struct      	s_vertex
 {
 	float           	x;
 	float           	y;
+	int					id;
 }                   	t_vertex;
 
 typedef struct      	s_linedef
@@ -79,12 +79,32 @@ typedef struct      	s_sidedef
 
 typedef struct      	s_sector
 {
+	int					id;
 	float           	h_floor;
 	float           	h_ceil;
-	char           		tex_floor;
-	char           		tex_ceil;
-	char            	*neighbors; 
+	char           		tex_floor; // no initialise
+	char           		tex_ceil; // no initialise
+	int					nb_vertex;
+	int					*vertex; // id of vertex which compose the sector
+	int					nb_neighbors;
+	int           	 	*neighbors; // id of neighbors's sector 
 }                   	t_sector;
+
+typedef struct      	s_level
+{
+	int					nb_vertex;
+	t_vertex        	*vertex; //coord vertex
+	int					nb_sector;
+	t_sector        	*sector;
+	t_linedef       	line; // no initialise
+	t_sidedef       	side[2]; // no initialise
+	t_player			player;
+	struct s_level		*next;
+}                   	t_level;
+
+/*
+**	Parsing functions & Stucture
+*/
 
 typedef struct			s_pvertex
 {
@@ -111,29 +131,17 @@ typedef struct			s_parse
 	t_player			player;
 }						t_parse;
 
-typedef struct      	s_level
-{
-	t_vertex        	*point;
-	t_linedef       	line;
-	t_sidedef       	side[2];
-	t_sector        	sector;
-	t_player			player;
-	struct s_level		*next;
-}                   	t_level;
-
-/*
-**	Parsing functions
-*/
-
 void					parse_map(int aac, char **av, t_parse *parse);
 void					parse_sector(t_parse *parse, char *str);
 void					parse_vertex(t_parse *parse, char *str);
+void					parse_to_level(t_parse *parse, t_level *level);
 
 /*
 **	Error case & free
 */
 
 void					free_parse(t_parse *parse);
+void					free_level(t_level *level);
 void					return_error(int error, t_parse *parse);
 
 /*
@@ -149,4 +157,31 @@ void					add_list_s(t_psector **sector, char *str);
 int						list_len_s(t_psector *list);
 int						list_len_v(t_pvertex *list);
 
+/*
+** Test graphique
+*/
+/*
+typedef struct			s_coord
+{
+	int					x;
+	int					y;
+	int					x1;
+	int					y1;
+}						t_coord;
+
+typedef struct			s_sdl
+{
+	int					quit;
+	SDL_Event			ev;
+	SDL_Window			*win;
+	SDL_Renderer    	*rend;
+	SDL_Color			c;
+	SDL_Texture			*tex;
+}						t_sdl;
+
+void					keyboard(t_sdl *sdl);
+
+void 					draw_line(t_sdl *sdl);
+void					draw_circle(t_sdl *sdl);
+*/
 #endif

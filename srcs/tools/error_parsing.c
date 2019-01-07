@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   error.c                                          .::    .:/ .      .::   */
+/*   error_parsing.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:30:06 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 13:36:42 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/07 14:59:26 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
+#include "../../includes/doom.h"
 
 void			free_parse(t_parse *parse)
 {
@@ -36,6 +36,25 @@ void			free_parse(t_parse *parse)
 			free(tmp2->vertex);
 			free(tmp2);
 		}
+	}
+}
+
+void			free_level(t_level *level)
+{
+	int			i;
+
+	i = -1;
+	if (level->vertex)
+		free(level->vertex);
+	if (level->sector)
+	{
+		while (++i < level->nb_sector)
+		{
+			free(level->sector[i].vertex);
+			if (level->sector[i].neighbors)
+				free(level->sector[i].neighbors);
+		}
+		free(level->sector);
 	}
 }
 

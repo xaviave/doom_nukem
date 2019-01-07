@@ -6,12 +6,12 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:31:40 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/16 22:21:57 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/19 11:06:52 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/doom.h"
+#include "../../includes/doom.h"
 
 static int		double_coord(t_parse *parse, int error)
 {
