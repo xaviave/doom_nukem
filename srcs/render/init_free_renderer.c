@@ -6,7 +6,7 @@
 /*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/08 15:06:44 by flombard     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 17:01:56 by flombard    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/08 17:27:32 by flombard    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,6 @@ void	init_render(t_render *r, t_level *level)
 	if (SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &r->win, &r->rend))
 		render_error(11, r, level);
 	SDL_SetWindowTitle(r->win, "Doom Nukem");
-	if (!(r->s = SDL_CreateRGBSurface(0, WID, HEIGHT, 32, 0, 0, 0, 0)))
+	if (!(r->s = SDL_CreateRGBSurface(0, WIDTH, HEIGHT, 32, 0, 0, 0, 0)))
 		render_error(12, r, level);
 }
