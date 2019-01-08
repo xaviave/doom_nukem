@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/07 14:43:49 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/08 15:46:09 by flombard    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,13 +34,16 @@ static void	init_level(t_level *level)
 
 int			main(int ac, char **av)
 {
-	t_parse	parse;
-	t_level	level;
+	t_parse		parse;
+	t_level		level;
+	t_render	r;
 
 	init_parse(&parse);
 	parse_map(ac, av, &parse);
 	init_level(&level);
 	parse_to_level(&parse, &level);
+	init_render(&r, &level);
 	free_level(&level);
+	free_render(&r);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/07 17:19:05 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/08 17:01:59 by flombard    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,8 @@
 # include "fcntl.h"
 # include <math.h>
 # include "../libft/header/libft.h"
-/*
-# include <SDL2/SDL.h>
+
+# include <SDL2/SDL.h>/*
 # include <SDL2_image/SDL_image.h>
 # include <SDL2_mixer/SDL_mixer.h>
 # include <SDL2_ttf/SDL_ttf.h>
@@ -135,6 +135,34 @@ void					parse_map(int aac, char **av, t_parse *parse);
 void					parse_sector(t_parse *parse, char *str);
 void					parse_vertex(t_parse *parse, char *str);
 void					parse_to_level(t_parse *parse, t_level *level);
+
+/*
+** Rendering functions & Structure
+*/
+
+# define WIDTH 640
+# define HEIGHT 480
+
+typedef struct			s_map
+{
+	int					xmin;
+	int					ymin;
+	int					xmax;
+	int					ymax;
+	int					sizex;
+	int					sizey;
+}						t_map;
+
+typedef struct			s_render
+{
+	SDL_Renderer		*rend;
+	SDL_Window			*win;
+	SDL_Surface			*s;
+}						t_render;
+
+void					init_render(t_render *r, t_level *level);
+void					render_error(int error, t_render *r, t_level *level);
+void					free_render(t_render *r);
 
 /*
 **	Error case & free

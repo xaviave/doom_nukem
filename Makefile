@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/07 11:19:45 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/08 16:07:18 by flombard    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -42,6 +42,8 @@ FILES = main.c \
 		tools/list.c \
 		tools/create_vertex.c \
 		tools/list_len.c \
+		render/init_free_renderer.c \
+		render/render_map.c
 		#main_sdl.c\
 		event.c\
 

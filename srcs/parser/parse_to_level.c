@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 11:02:43 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/08 13:21:32 by flombard    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,9 +38,9 @@ void			aff_debug(t_level *level)
 		j = -1;
 		while (++j < level->sector[i].nb_neighbors)
 			ft_printf(" %d //", level->sector[i].neighbors[j]);
-		ft_printf("\n_________________________________________\n");
+		ft_printf("\033[31m\n_________________________________________\n\033[0m");
 	}
-	ft_printf("\nplayer x = %d y = %d", level->player.x, level->player.y);
+	ft_printf("\n\nplayer x = %d y = %d", level->player.x, level->player.y);
 }
 
 static void		p_to_vertex(t_level *level, t_parse *parse)
@@ -113,21 +113,12 @@ static int		count_same_vertex(int *tab1, int *tab2, int nb1, int nb2)
 	{
 		j = -1;
 		while (++j < nb2)
-			if (i != j && tab1[i] == tab2[j])
+		{
+			if (tab1[i] == tab2[j])
 				nu++;
+		}
 	}
 	return (nu);
-}
-
-static int		double_id(int *tab, int nu, int id)
-{
-	int			i;
-
-	i = -1;
-	while (++i < nu)
-		if (tab[i] == id)
-			return (1);
-	return (0);
 }
 
 static void		add_sector_n(t_sector *sector, int id)
@@ -135,8 +126,7 @@ static void		add_sector_n(t_sector *sector, int id)
 	int			i;
 	int			*tab;
 
-	if (double_id(sector->neighbors, sector->nb_neighbors ,id)
-		|| !(tab = (int *)malloc(sizeof(int) * (sector->nb_neighbors + 1))))
+	if (!(tab = (int *)malloc(sizeof(int) * (sector->nb_neighbors + 1))))
 		return ;
 	i = 0;
 	while (i < sector->nb_neighbors)
