@@ -3,47 +3,23 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/08 15:40:54 by flombard     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 17:28:30 by flombard    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/09 16:55:45 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-static t_map	find_extremums(t_level *level)
+void			render_map(t_sdl *sdl, t_level *level)
 {
-	t_map	ret;
-	int		i;
-
-	i = -1;
-	ret.xmin = level->vertex[0].x;
-	ret.ymin = level->vertex[0].y;
-	ret.xmax = level->vertex[0].x;
-	ret.ymax = level->vertex[0].y;
-	while (++i < level->nb_vertex)
-	{
-		if (ret.xmax < level->vertex[i].x)
-			ret.xmax = level->vertex[i].x;
-		else if (ret.xmin > level->vertex[i].x)
-			ret.xmin = level->vertex[i].x;
-		if (ret.ymax < level->vertex[i].y)
-			ret.ymax = level->vertex[i].y;
-		else if (ret.ymin > level->vertex[i].y)
-			ret.ymin = level->vertex[i].y;
-	}
-	ret.sizex = WIDTH / (ret.xmax - ((ret.xmin > 0) ? ret.xmin : -ret.xmin) + 1);
-	ret.sizey = HEIGHT / (ret.ymax - ((ret.ymin > 0) ? ret.ymin : -ret.ymin) + 1);
-	return (ret);
-}
-
-void			render_map(t_render *r, t_level *level)
-{
-	t_map	map;
-
-	(void)r;
-	map = find_extremums(level);
+	if (level)
 	;
+	while (sdl->quit)
+	{
+		keyboard(sdl);
+	}
+	
 }

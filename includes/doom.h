@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 17:01:59 by flombard    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/09 16:30:26 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,17 +20,11 @@
 # include <math.h>
 # include "../libft/header/libft.h"
 
-# include <SDL2/SDL.h>/*
+# include <SDL2/SDL.h>
 # include <SDL2_image/SDL_image.h>
 # include <SDL2_mixer/SDL_mixer.h>
 # include <SDL2_ttf/SDL_ttf.h>
-*/
-/*
-** Define window size
-*/
 
-#define W 1000
-#define H 789
 
 #define hfov (0.73f*H)  // Affects the horizontal field of vision
 #define vfov (.2f*H)    // Affects the vertical field of vision
@@ -137,34 +131,6 @@ void					parse_vertex(t_parse *parse, char *str);
 void					parse_to_level(t_parse *parse, t_level *level);
 
 /*
-** Rendering functions & Structure
-*/
-
-# define WIDTH 640
-# define HEIGHT 480
-
-typedef struct			s_map
-{
-	int					xmin;
-	int					ymin;
-	int					xmax;
-	int					ymax;
-	int					sizex;
-	int					sizey;
-}						t_map;
-
-typedef struct			s_render
-{
-	SDL_Renderer		*rend;
-	SDL_Window			*win;
-	SDL_Surface			*s;
-}						t_render;
-
-void					init_render(t_render *r, t_level *level);
-void					render_error(int error, t_render *r, t_level *level);
-void					free_render(t_render *r);
-
-/*
 **	Error case & free
 */
 
@@ -188,28 +154,48 @@ int						list_len_v(t_pvertex *list);
 /*
 ** Test graphique
 */
-/*
+
+# define W 1280
+# define H 720
+
 typedef struct			s_coord
 {
-	int					x;
-	int					y;
 	int					x1;
 	int					y1;
+	int					x2;
+	int					y2;
 }						t_coord;
+
+typedef struct			s_line
+{
+	int					dx;
+	int					sx;
+	int					dy;
+	int					sy;
+	int					err;
+	int					e2;
+}						t_line;
 
 typedef struct			s_sdl
 {
 	int					quit;
+	int					modif;
+	t_coord				coord;
 	SDL_Event			ev;
 	SDL_Window			*win;
 	SDL_Renderer    	*rend;
-	SDL_Color			c;
+	SDL_Color			color;
 	SDL_Texture			*tex;
 }						t_sdl;
+
+void					render_map(t_sdl *sdl, t_level *level);
 
 void					keyboard(t_sdl *sdl);
 
 void 					draw_line(t_sdl *sdl);
 void					draw_circle(t_sdl *sdl);
-*/
+
+void					free_sdl(t_sdl *sdl);
+void					render_error(int error, t_sdl *sdl, t_level *level);
+
 #endif
