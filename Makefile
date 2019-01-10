@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/09 15:34:05 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/10 14:19:15 by mel-akio    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -21,10 +21,8 @@ NAME = doom_nukem
 LIBFT = libft/
 INC = includes/doom.h
 CFLAGS = -Wall -Wextra -Werror -I includes -F ./Frameworks -O2
-SDLFLAGS =  -rpath ./Frameworks -F ./Frameworks  -framework SDL2 \
-			-framework SDL2_image \
-			-framework SDL2_mixer \
-			-framework SDL2_ttf
+MINILIBX = minilibx_macos/libmlx.a
+LIB_FLAG = -framework OpenGl -framework AppKit
 
 
 #PATH
@@ -43,9 +41,10 @@ FILES = main.c \
 		tools/create_vertex.c \
 		tools/list_len.c \
 		render/error_graph.c \
-		render/render_map.c \
 		render/draw.c \
-		render/event.c \
+		render/img.c \
+		render/color.c \
+		render/render_map.c \
 
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))
@@ -58,7 +57,8 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT)
-	$(CC) $(CFLAGS) $(LIB_FLAG) -o $@ $(OBJS) $(SDLFLAGS)  $(CFLAGS) -L $(LIBFT) -lft
+	make -C minilibx_macos
+	$(CC) $(CFLAGS) $(LIB_FLAG) -o $@ $(OBJS) $(MINILIBX)  $(CFLAGS) -L $(LIBFT) -lft
 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INC)
@@ -67,10 +67,12 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INC)
 
 clean:
 	@make -C $(LIBFT) clean
+	@make -C minilibx_macos clean
 	@rm -f $(OBJS)
 
 fclean: clean
 	@rm -f libft/libft.a
+	@rm -f minilibx_macos/libmlx.a
 	@rm -f $(NAME)
 
 re: fclean all

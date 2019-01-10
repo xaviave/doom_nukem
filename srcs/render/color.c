@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   error_graph.c                                    .::    .:/ .      .::   */
+/*   color.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/08 15:06:44 by flombard     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/09 15:32:35 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/10/09 13:23:13 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/10 17:42:33 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-void	render_error(int error, t_level *level)
+t_color				get_color(int a, t_mem *mem)
 {
-	if (error == 10)
-		ft_printf("Error 10 : SDL initialisation didn't work\n");
-	else if (error == 11)
-		ft_printf("Error 11 : Window couldn't be created\n");
-	else if (error == 12)
-		ft_printf("Error 12 : Renderer couldn't be created\n");
-	free_level(level);
-	exit(EXIT_FAILURE);
+	t_color			color;
+
+	color.r = (a * 5 + 30) + mem->color.i % 255;
+	color.g = (255 - (a * 10 + 150)) + mem->color.i % 255;
+	color.b = (255 - (a * 2 + 45)) + mem->color.i % 255;
+	return (color);
 }

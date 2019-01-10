@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 13:21:32 by flombard    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/10 14:52:43 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -168,5 +168,5 @@ void			parse_to_level(t_parse *parse, t_level *level)
 	p_to_sector(level, parse);
 	free_parse(parse);
 	sector_neighbors(level);
-	aff_debug(level);
+	//aff_debug(level);
 }
