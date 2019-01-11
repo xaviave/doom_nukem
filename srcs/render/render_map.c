@@ -30,13 +30,13 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 int key_hook(int k, t_mem *mem)
 {
     if (k == TOUCH_LEFT)
-        mem->x -= 5;
+        mem->level->player.x -= 5;
     if (k == TOUCH_RIGHT)
-        mem->x += 5;
+        mem->level->player.x += 5;
     if (k == TOUCH_UP)
-        mem->y -= 5;
+        mem->level->player.y -= 5;
     if (k == TOUCH_DOWN)
-        mem->y += 5;
+        mem->level->player.y += 5;
     if (k == TOUCH_NUMPAD_LESS)
         mem->z -= 2;
     if (k == TOUCH_NUMPAD_PLUS)

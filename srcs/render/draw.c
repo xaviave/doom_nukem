@@ -52,10 +52,12 @@ void        draw_camera(t_mem *mem)
     color.b = 0;
     color.a = 0;
 
-    ft_put_pixel(mem, mem->level->player.x * mem->z + mem->x + 100, mem->level->player.y * mem->z + mem->y + 100, color);
-    ft_put_pixel(mem, mem->level->player.x * mem->z + mem->x + 100 + 1, mem->level->player.y * mem->z + mem->y + 100 + 1, color);
-    ft_put_pixel(mem, mem->level->player.x * mem->z + mem->x + 100 + 1, mem->level->player.y * mem->z + mem->y + 100, color);
-    ft_put_pixel(mem, mem->level->player.x * mem->z + mem->x + 100, mem->level->player.y * mem->z + mem->y + 100 + 1, color);
+
+
+    ft_put_pixel(mem, 100 + (mem->z * 0.01 * mem->level->player.x) ,  100 + (mem->z * 0.01 * mem->level->player.y), color);
+   // ft_put_pixel(mem, mem->level->player.x * mem->z + 100 + 1, mem->level->player.y * mem->z + 100 + 1, color);
+    //ft_put_pixel(mem, mem->level->player.x * mem->z + 100 + 1, mem->level->player.y * mem->z + 100, color);
+  //  ft_put_pixel(mem, mem->level->player.x * mem->z + 100, mem->level->player.y * mem->z + 100 + 1, color);
 }
 
 void        draw_square(t_mem *mem)
