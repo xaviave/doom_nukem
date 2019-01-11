@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/10 15:02:00 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/10 17:40:09 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -190,13 +190,23 @@ typedef struct			s_mem
 	t_color				color;
 	void				*mlx_ptr;
 	t_coord				coord;
+	t_level				*level;
+	int					z;
+	int					x;
+	int					y;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
 void					ft_put_pixel(t_mem *mem, int x, int y, t_color color);
 t_color					get_color(int a, t_mem *mem);
-void					render_map(t_mem *mem, t_level *level);
+void					render_map(t_mem *mem);
 void 					draw_line(t_mem *mem);
+void       				draw_camera(t_mem *mem);
+void					draw_minimap(t_mem *mem);
+void        			draw_square(t_mem *mem);
+void					draw_circle(t_mem *mem);
+
+
 
 
 /*

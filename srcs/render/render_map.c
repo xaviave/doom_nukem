@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/10 14:14:48 by mel-akio     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/10 15:22:00 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Created: mem->z19/01/10 14:14:48 by mel-akio     #+#   ##    ##    #+#       */
+/*   Updated: mem->z19/01/10 15:58:17 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,12 +29,23 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 
 int key_hook(int k, t_mem *mem)
 {
-    if (mem)
-        ;
+    if (k == TOUCH_LEFT)
+        mem->x -= 5;
+    if (k == TOUCH_RIGHT)
+        mem->x += 5;
+    if (k == TOUCH_UP)
+        mem->y -= 5;
+    if (k == TOUCH_DOWN)
+        mem->y += 5;
+    if (k == TOUCH_NUMPAD_LESS)
+        mem->z -= 2;
+    if (k == TOUCH_NUMPAD_PLUS)
+        mem->z += 2;
     if (k == TOUCH_ECHAP)
     {
         exit(1);
     }
+    render_map(mem);
     return (0);
 }
 
@@ -72,47 +83,47 @@ int send_vy(t_level *level, int id)
     return (0);
 }
 
-void draw_minimap(t_mem *mem, t_level *level)
+void draw_minimap(t_mem *mem)
 {
     int i;
     int j;
 
     i = -1;
-
-    while (++i < level->nb_sector)
+    while (++i < mem->level->nb_sector)
     {
         j = -1;
-        // t_vertex tmp;
-
-        while (++j < level->sector[i].nb_vertex)
+        while (++j < mem->level->sector[i].nb_vertex)
         {
-            mem->coord.x1 = send_vx(level, level->sector[i].vertex[j]) * 20 + 100;
-            mem->coord.y1 = send_vy(level, level->sector[i].vertex[j]) * 20 + 100;
-            if (j + 1 == level->sector[i].nb_vertex)
-            {
-                mem->coord.x2 = send_vx(level, level->sector[i].vertex[0]) * 20 + 100;
-                mem->coord.y2 = send_vy(level, level->sector[i].vertex[0]) * 20 + 100;
-            }
-            else
-            {
-                mem->coord.x2 = send_vx(level, level->sector[i].vertex[j + 1]) * 20 + 100;
-                mem->coord.y2 = send_vy(level, level->sector[i].vertex[j + 1]) * 20 + 100;
-            }
-            draw_line(mem);
+                mem->coord.x1 = send_vx(mem->level, mem->level->sector[i].vertex[j]) * mem->z + 100;
+                mem->coord.y1 = send_vy(mem->level, mem->level->sector[i].vertex[j]) * mem->z + 100;
+                if (j + 1 == mem->level->sector[i].nb_vertex)
+                {
+                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].vertex[0]) * mem->z + 100;
+                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].vertex[0]) * mem->z + 100;
+                }
+                else
+                {
+                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].vertex[j + 1]) * mem->z + 100;
+                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].vertex[j + 1]) * mem->z + 100;
+                }
+                draw_line(mem);
+                draw_circle(mem);
         }
+        
     }
+    draw_camera(mem);
 }
 
-void render_map(t_mem *mem, t_level *level)
+void render_map(t_mem *mem)
 {
     if (mem->img.ptr)
         mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
     ft_create_img(mem);
-    draw_minimap(mem, level);
+    draw_minimap(mem);
     mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
     mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
     mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-             mouse_move_hook, mem);
+            mouse_move_hook, mem);
     mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
     mlx_key_hook(mem->win.win_ptr, key_hook, mem);
     mlx_loop(mem->mlx_ptr);

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/09 16:09:57 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/10 14:29:06 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/mem->z 16:00:01 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,9 +22,9 @@ void 			draw_line(t_mem *mem)
   	line.dy = abs(mem->coord.y2 - mem->coord.y1);
 	line.sy = mem->coord.y1 < mem->coord.y2 ? 1 : -1; 
   	line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
-  	line.e2 = line.err;
- 
-  	while (101)
+    line.e2 = line.err;
+
+    while (101)
 	{
     	ft_put_pixel(mem, mem->coord.x1, mem->coord.y1, mem->color);
 		if (mem->coord.x1 == mem->coord.x2 && mem->coord.y1 == mem->coord.y2)
@@ -40,23 +40,55 @@ void 			draw_line(t_mem *mem)
 			line.err += line.dx;
 			mem->coord.y1 += line.sy;
 		}
-  	}
+    }
 }
-/*
+
+void        draw_camera(t_mem *mem)
+{
+    t_color color;
+
+    color.r = 0;
+    color.g = 255;
+    color.b = 0;
+    color.a = 0;
+
+    ft_put_pixel(mem, mem->level->player.x * mem->z + mem->x + 100, mem->level->player.y * mem->z + mem->y + 100, color);
+    ft_put_pixel(mem, mem->level->player.x + 1 * mem->z + mem->x + 100, mem->level->player.y * mem->z + mem->y + 100, color);
+    ft_put_pixel(mem, mem->level->player.x * mem->z + mem->x + 100, mem->level->player.y + 1 * mem->z + mem->y + 100, color);
+    ft_put_pixel(mem, mem->level->player.x + 1 * mem->z + mem->x + 100, mem->level->player.y + 1 * mem->z + mem->y + 100, color);
+        
+}
+
+void        draw_square(t_mem *mem)
+{
+    t_color color;
+
+    color.r = 0;
+    color.g = 255;
+    color.b = 0;
+    color.a = 0;
+
+    ft_put_pixel(mem, mem->coord.x1, mem->coord.y1, color);
+        
+}
+
 void			draw_circle(t_mem *mem)
 {
-	int	radius = 5;
+    t_coord     coord = {mem->coord.x1, mem->coord.y1, 0, 0};
+    t_color     color = {0, 255, 0, 0, 0};
+	int	radius = 2;
 	int f = 1 - radius;
     int ddF_x = 0;
     int ddF_y2 = -2 * radius;
-    int mem->coord.x2 = 0;
+    int x2 = 0;
     int y2 = radius;
- 
-    mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2, mem->coord.y2 - radius);
-    mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 + radius, mem->coord.y2);
-    mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 - radius, mem->coord.y2);
- 
-    while(mem->coord.x2 < y2) 
+
+    ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
+    ft_put_pixel(mem, coord.x1, coord.y1 - radius, color);
+    ft_put_pixel(mem, coord.x1 + radius, coord.y1, color);
+    ft_put_pixel(mem, coord.x1 - radius, coord.y1, color);
+
+    while(x2 < y2) 
     {
         if(f >= 0) 
         {
@@ -64,17 +96,16 @@ void			draw_circle(t_mem *mem)
             ddF_y2 += 2;
             f += ddF_y2;
         }
-        mem->coord.x2++;
+        x2++;
         ddF_x += 2;
         f += ddF_x + 1;    
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 + mem->coord.x2, mem->coord.y2 + y2);
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 - mem->coord.x2, mem->coord.y2 + y2);
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 + mem->coord.x2, mem->coord.y2 - y2);
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 - mem->coord.x2, mem->coord.y2 - y2);
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 + y2, mem->coord.y2 + mem->coord.x2);
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 - y2, mem->coord.y2 + mem->coord.x2);
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 + y2, mem->coord.y2 - mem->coord.x2);
-        mem_RenderDrawPoint(mem->rend, mem->coord.mem->coord.x2 - y2, mem->coord.y2 - mem->coord.x2);
+        ft_put_pixel(mem, coord.x1 + x2, coord.y1 + y2, color);
+        ft_put_pixel(mem, coord.x1 - x2, coord.y1 + y2, color);
+        ft_put_pixel(mem, coord.x1 + x2, coord.y1 - y2, color);
+        ft_put_pixel(mem, coord.x1 - x2, coord.y1 - y2, color);
+        ft_put_pixel(mem, coord.x1 + y2, coord.y1 + x2, color);
+        ft_put_pixel(mem, coord.x1 - y2, coord.y1 + x2, color);
+        ft_put_pixel(mem, coord.x1 + y2, coord.y1 - x2, color);
+        ft_put_pixel(mem, coord.x1 - y2, coord.y1 - x2, color);
     }
 }
-*/
