@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 13:34:17 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 14:29:54 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,11 +55,12 @@ typedef struct      	s_sidedef
 
 typedef struct			s_linedef
 {
+	int					id;
 	t_sidedef			side[2];
 	t_coord				vertex;
-	int					id1;
-	int					id2;
-	int					neigboors;
+	int					id_v1;
+	int					id_v2;
+	int					nb_neigboors; // dans check_neighboors de sector
 }						t_linedef;
 
 typedef struct      	s_sector
@@ -67,10 +68,11 @@ typedef struct      	s_sector
 	int					id;
 	int		           	h_floor;
 	int		           	h_ceil;
-	char           		tex_floor; // no initialise
-	char           		tex_ceil; // no initialise
+	int           		tex_floor; // no initialise
+	int           		tex_ceil; // no initialise
 	int					nb_vertex;
-	int					*vertex; // id of vertex which compose the sector
+	int					nb_linedef;
+	int					*linedef;
 	int					nb_neighbors;
 	int           	 	*neighbors; // id of neighbors's sector 
 }                   	t_sector;
@@ -79,10 +81,10 @@ typedef struct      	s_level
 {
 	int					nb_vertex;
 	t_vertex        	*vertex; //coord vertex
+	int					nb_linedef;
+	t_linedef			*linedef;
 	int					nb_sector;
 	t_sector        	*sector;
-	t_coord		       	line; // no initialise
-	t_sidedef       	side[2]; // no initialise
 	t_player			player;
 	struct s_level		*next;
 }                   	t_level;
@@ -99,26 +101,40 @@ typedef struct			s_pvertex
 	struct s_pvertex	*next;
 }						t_pvertex;
 
+typedef struct			s_plinedef
+{
+	int					id;
+	t_sidedef			side[2];
+	int					id_v1;
+	int					id_v2;
+	struct s_plinedef	*next;
+}						t_plinedef;
+
 typedef struct			s_psector
 {
 	int					id;
 	int					ceiling;
 	int					ground;
-	int					*vertex;
-	int					nu_vertex;
+	int           		tex_ground; // no initialise
+	int           		tex_ceil; // no initialise
+	int					*linedef;
+	int					nb_linedef;
+	int					nb_vertex;
 	struct s_psector	*next;
 }						t_psector;
 
 typedef struct			s_parse
 {
 	t_pvertex			*vertex;
+	t_plinedef			*linedef;
 	t_psector			*sector;
 	t_player			player;
 }						t_parse;
 
 void					parse_map(int aac, char **av, t_parse *parse);
-void					parse_sector(t_parse *parse, char *str);
 void					parse_vertex(t_parse *parse, char *str);
+void					parse_linedef(t_parse *parse, char *str);
+void					parse_sector(t_parse *parse, char *str);
 void					parse_to_level(t_parse *parse, t_level *level);
 
 /*

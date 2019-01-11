@@ -6,14 +6,14 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:31:32 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/19 11:06:55 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 14:29:26 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-static int		double_vertex(t_psector *sector, int error)
+static int		double_linedef(t_psector *sector, int error)
 {
 	int			i;
 	int			j;
@@ -24,12 +24,12 @@ static int		double_vertex(t_psector *sector, int error)
 	while (!error && tmp)
 	{
 		j = -1;
-		tmp2 = tmp->vertex;
-		while (!error && ++j < tmp->nu_vertex)
+		tmp2 = tmp->linedef;
+		while (!error && ++j < tmp->nb_linedef)
 		{
 			i = -1;
-			while (++i < tmp->nu_vertex)
-				if (i != j && tmp2[i] == tmp->vertex[j])
+			while (++i < tmp->nb_linedef)
+				if (i != j && tmp2[i] == tmp->linedef[j])
 					error++;
 		}
 		tmp = tmp->next;
@@ -37,12 +37,12 @@ static int		double_vertex(t_psector *sector, int error)
 	return (error);
 }
 
-static void		check_vertex(char *str, t_parse *parse, int *error)
+static void		check_linedef(char *str, t_parse *parse, int *error)
 {
 	int			i;
 	int			ok;
 	int			tmp;
-	t_pvertex	*v;
+	t_plinedef	*v;
 
 	tmp = 0;
 	i = pass_digit_space(&str[0]);
@@ -50,7 +50,7 @@ static void		check_vertex(char *str, t_parse *parse, int *error)
 	{
 		ok = 0;
 		*error += (!(*error) && !check_int(&str[i])) ? 1 : 0;
-		v = parse->vertex;
+		v = parse->linedef;
 		while (!(*error) && v)
 		{
 			if (v->id == ft_atoi(&str[i]))
@@ -81,7 +81,7 @@ static void		check_nu(t_parse *parse, char *nu, int *error)
 		i += pass_digit_space(&nu[i]);
 		*error += (!(*error) && !check_int(&nu[i])) ? 1 : 0;
 	}
-	check_vertex(&nu[i], parse, error);
+	check_linedef(&nu[i], parse, error);
 	if (!(*error))
 		add_list_s(&parse->sector, nu);
 }
@@ -112,7 +112,7 @@ void			parse_sector(t_parse *parse, char *str)
 			error = 1;
 	if (!error)
 		check_nu(parse, &str[1], &error);
-	if (double_vertex(parse->sector, error))
+	if (double_linedef(parse->sector, error))
 	{
 		free(str);
 		return_error(4, parse);

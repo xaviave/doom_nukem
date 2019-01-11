@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 13:45:34 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 14:15:38 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,14 +47,19 @@ void			parse_file(int fd, t_parse *parse)
 	{
 		if (line[0] == 'v' && !check)
 			parse_vertex(parse, line);
-		else if (line[0] == 's')
+		else if (line[0] == 'l')
 		{
 			check = 1;
+			parse_linedef(parse, line);
+		}
+		else if (line[0] == 's')
+		{
+			check = 2;
 			parse_sector(parse, line);
 		}
 		else if (line[0] == 'p')
 		{
-			check = 2;
+			check = 3;
 			parse_player(parse, line);
 		}
 		else if (line[0] != '#' && line[0] != '\0')
