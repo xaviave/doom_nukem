@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/10 17:40:09 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 11:18:19 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,8 +28,8 @@
 
 typedef struct      	s_vertex
 {
-	float           	x;
-	float           	y;
+	int		           	x;
+	int		           	y;
 	int					id;
 }                   	t_vertex;
 
@@ -56,8 +56,8 @@ typedef struct      	s_sidedef
 typedef struct      	s_sector
 {
 	int					id;
-	float           	h_floor;
-	float           	h_ceil;
+	int		           	h_floor;
+	int		           	h_ceil;
 	char           		tex_floor; // no initialise
 	char           		tex_ceil; // no initialise
 	int					nb_vertex;

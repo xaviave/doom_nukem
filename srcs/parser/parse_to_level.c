@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/10 16:04:34 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 11:17:56 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ void			aff_debug(t_level *level)
 	ft_printf("||       y        |        x        |    id      ||\n");
 	ft_printf("___________________________________________________\n");
 	while (++i < level->nb_vertex)
-		printf("|| y = %10f | x = %10f  | id = %5d ||\n", level->vertex[i].y,
+		printf("|| y = %10d | x = %10d  | id = %5d ||\n", level->vertex[i].y,
 			level->vertex[i].x, level->vertex[i].id);
 	ft_printf("___________________________________________________\n");
 	ft_printf("\n_________________________________________\n");

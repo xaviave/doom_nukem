@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/10 18:59:32 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 11:25:18 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,8 +41,8 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->color.a = 100;
 	mem->color.i = 0;
 	mem->z = 100;
-	mem->x = 0;
-	mem->y = 0;
+	mem->x = 100 - level->player.x * 10;
+	mem->y = 100 - level->player.y * 10;
 	mem->level = level;
 	ft_create_img(mem);
 }
