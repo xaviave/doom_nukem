@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 11:17:56 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 13:44:43 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -168,5 +168,5 @@ void			parse_to_level(t_parse *parse, t_level *level)
 	p_to_sector(level, parse);
 	free_parse(parse);
 	sector_neighbors(level);
-	//aff_debug(level);
+	aff_debug(level);
 }
