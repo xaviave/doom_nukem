@@ -89,6 +89,7 @@ void draw_minimap(t_mem *mem)
     int j;
 
     i = -1;
+    mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
     while (++i < mem->level->nb_sector)
     {
         j = -1;
