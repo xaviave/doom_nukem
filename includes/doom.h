@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 11:18:19 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/11 13:34:17 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,11 +33,13 @@ typedef struct      	s_vertex
 	int					id;
 }                   	t_vertex;
 
-typedef struct      	s_linedef
+typedef struct			s_coord
 {
-	float           	x;
-	float           	y;
-}                   	t_linedef;
+	int					x1;
+	int					y1;
+	int					x2;
+	int					y2;
+}						t_coord;
 
 typedef struct			s_player
 {
@@ -47,11 +49,18 @@ typedef struct			s_player
 
 typedef struct      	s_sidedef
 {
-	char            	upper[8];
-	char            	middle[8];
-	char            	lower[8];
-	float           	texture;
+	int					*text;
+	int           		nb_text;
 }                   	t_sidedef;
+
+typedef struct			s_linedef
+{
+	t_sidedef			side[2];
+	t_coord				vertex;
+	int					id1;
+	int					id2;
+	int					neigboors;
+}						t_linedef;
 
 typedef struct      	s_sector
 {
@@ -72,7 +81,7 @@ typedef struct      	s_level
 	t_vertex        	*vertex; //coord vertex
 	int					nb_sector;
 	t_sector        	*sector;
-	t_linedef       	line; // no initialise
+	t_coord		       	line; // no initialise
 	t_sidedef       	side[2]; // no initialise
 	t_player			player;
 	struct s_level		*next;
@@ -140,14 +149,6 @@ int						list_len_v(t_pvertex *list);
 # define W 1280
 # define H 720
 
-typedef struct			s_coord
-{
-	int					x1;
-	int					y1;
-	int					x2;
-	int					y2;
-}						t_coord;
-
 typedef struct			s_line
 {
 	int					dx;
@@ -205,9 +206,6 @@ void       				draw_camera(t_mem *mem);
 void					draw_minimap(t_mem *mem);
 void        			draw_square(t_mem *mem);
 void					draw_circle(t_mem *mem);
-
-
-
 
 /*
 ** keyboard touch value
