@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: mem->z19/01/10 14:14:48 by mel-akio     #+#   ##    ##    #+#       */
-/*   Updated: mem->z19/01/10 15:58:17 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/12 16:22:43 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/12 16:23:29 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,29 +57,45 @@ static int cross_close(t_mem *mem)
     return (1);
 }
 
-int send_vx(t_level *level, int id)
+int send_vx(t_level *level, int id, int nb)
 {
     int i;
+    int j;
 
     i = -1;
-    while (++i < level->nb_vertex)
+    while (++i < level->nb_linedef)
     {
-        if (level->vertex[i].id == id)
-            return (level->vertex[i].x);
+        if (level->linedef[i].id == id)
+            break ;
     }
+    j = -1;
+    while (++j < level->nb_vertex)
+    {
+         if (level->vertex[i].id == i)
+            return (nb == 1 ? level->vertex[level->linedef[i].id_v1].x
+                : level->vertex[level->linedef[i].id_v2].x);
+    } 
     return (0);
 }
 
-int send_vy(t_level *level, int id)
+int send_vy(t_level *level, int id, int nb)
 {
     int i;
+    int j;
 
     i = -1;
-    while (++i < level->nb_vertex)
+    while (++i < level->nb_linedef)
     {
-        if (level->vertex[i].id == id)
-            return (level->vertex[i].y);
+        if (level->linedef[i].id == id)
+            break ;
     }
+    j = -1;
+    while (++j < level->nb_vertex)
+    {
+         if (level->vertex[i].id == i)
+            return (nb == 1 ? level->vertex[level->linedef[i].id_v1].y
+                : level->vertex[level->linedef[i].id_v2].y);
+    } 
     return (0);
 }
 
@@ -95,17 +111,17 @@ void draw_minimap(t_mem *mem)
         j = -1;
         while (++j < mem->level->sector[i].nb_vertex)
         {
-                mem->coord.x1 = send_vx(mem->level, mem->level->sector[i].vertex[j]) * mem->z + 100;
-                mem->coord.y1 = send_vy(mem->level, mem->level->sector[i].vertex[j]) * mem->z + 100;
+                mem->coord.x1 = send_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z + 100;
+                mem->coord.y1 = send_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z + 100;
                 if (j + 1 == mem->level->sector[i].nb_vertex)
                 {
-                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].vertex[0]) * mem->z + 100;
-                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].vertex[0]) * mem->z + 100;
+                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z + 100;
+                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z + 100;
                 }
-                else
+                else\
                 {
-                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].vertex[j + 1]) * mem->z + 100;
-                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].vertex[j + 1]) * mem->z + 100;
+                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z + 100;
+                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z + 100;
                 }
                 draw_line(mem);
                 draw_circle(mem);

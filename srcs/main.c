@@ -6,29 +6,32 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 13:43:27 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/15 17:49:46 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 
-static void init_parse(t_parse *parse)
+static void		init_parse(t_parse *parse)
 {
+	parse->linedef = NULL;
 	parse->vertex = NULL;
 	parse->sector = NULL;
 	parse->player.x = -1;
 	parse->player.y = -1;
+	parse->nb = 0;
 }
 
-static void init_level(t_level *level)
+static void		init_level(t_level *level)
 {
 	level->vertex = NULL;
 	level->sector = NULL;
 	level->next = NULL;
+	level->linedef = NULL;
 }
 
-static void init_mem(t_mem *mem, t_level *level)
+static void		init_mem(t_mem *mem, t_level *level)
 {
 	mem->mlx_ptr = mlx_init();
 	mem->win.width = W;
@@ -47,11 +50,11 @@ static void init_mem(t_mem *mem, t_level *level)
 	ft_create_img(mem);
 }
 
-int main(int ac, char **av)
+int				main(int ac, char **av)
 {
-	t_parse parse;
-	t_level level;
-	t_mem	mem;
+	t_parse		parse;
+	t_level		level;
+	t_mem		mem;
 
 	init_parse(&parse);
 	parse_map(ac, av, &parse);
@@ -59,6 +62,6 @@ int main(int ac, char **av)
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
 	render_map(&mem);
-	free_level(mem.level);
+	free_level(&level);
 	return (0);
 }

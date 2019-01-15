@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 14:15:38 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/15 16:50:06 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,19 +49,13 @@ void			parse_file(int fd, t_parse *parse)
 			parse_vertex(parse, line);
 		else if (line[0] == 'l')
 		{
-			check = 1;
+			check++;
 			parse_linedef(parse, line);
 		}
 		else if (line[0] == 's')
-		{
-			check = 2;
 			parse_sector(parse, line);
-		}
 		else if (line[0] == 'p')
-		{
-			check = 3;
 			parse_player(parse, line);
-		}
 		else if (line[0] != '#' && line[0] != '\0')
 		{
 			free(line);
@@ -69,6 +63,45 @@ void			parse_file(int fd, t_parse *parse)
 		}
 		free(line);
 	}
+}
+
+static int		return_line_h(t_plinedef *list, t_psector *sector)
+{
+	int			i;
+
+	i = -1;
+	while (++i < list->nb_text)
+	{
+		if (list->heigth[i] != -1 && (sector->ground > list->heigth[i]
+			|| sector->ceiling < list->heigth[i]))
+			return (1);
+	}
+	return (0);
+}
+
+static int		check_text_heigth(t_parse *parse)
+{
+	int			i;
+	int			j;
+	t_plinedef	*tmp;
+	t_psector	*tmp1;
+
+	j = 0;
+	tmp1 = parse->sector;
+	while (tmp1)
+	{
+		i = 0;
+		while (++i < tmp1->nb_linedef + 1)
+		{
+			tmp = parse->linedef;
+			while (tmp && i != tmp->id)
+				tmp = tmp->next;
+			if (return_line_h(tmp, tmp1))
+				return (1);
+		}
+		tmp1 = tmp1->next;
+	}
+	return (0);
 }
 
 void			parse_map(int ac, char **av, t_parse *parse)
@@ -83,6 +116,9 @@ void			parse_map(int ac, char **av, t_parse *parse)
 	if (fd < 1)
 		return_error(2, NULL);
 	parse_file(fd, parse);
-	if (list_len_s(parse->sector) < 1 || list_len_v(parse->vertex) < 3)	
+	if (check_text_heigth(parse))
+		return_error(-1, parse);
+	if (list_len_s(parse->sector) < 1 || list_len_v(parse->vertex) < 3
+		|| list_len_l(parse->linedef) < 3)
 		return_error(7, parse);
 }

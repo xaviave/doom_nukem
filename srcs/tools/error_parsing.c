@@ -3,15 +3,32 @@
 /*                                                              /             */
 /*   error_parsing.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: flombard <flombard@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:30:06 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 14:17:26 by flombard    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/15 17:30:38 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
+
+static void		free_parse2(t_parse *parse)
+{
+	t_plinedef	*tmp3;
+
+	if (parse->linedef)
+	{
+		while (parse->linedef)
+		{
+			tmp3 = parse->linedef;
+			parse->linedef = parse->linedef->next;
+			free(tmp3->heigth);
+			free(tmp3->text);
+			free(tmp3);
+		}
+	}
+}
 
 void			free_parse(t_parse *parse)
 {
@@ -33,27 +50,38 @@ void			free_parse(t_parse *parse)
 		{
 			tmp2 = parse->sector;
 			parse->sector = parse->sector->next;
-			free(tmp2->vertex);
+			free(tmp2->linedef);
 			free(tmp2);
 		}
 	}
+	free_parse2(parse);
 }
 
 void			free_level(t_level *level)
 {
 	int			i;
 
-	i = -1;
 	if (level->vertex)
 		free(level->vertex);
-	if (level->sector)
+	if (level->linedef)
 	{
-		while (++i < level->nb_sector)
+		i = -1;
+		while (++i < level->nb_linedef)
 		{
-			free(level->sector[i].vertex);
-			if (level->sector[i].neighbors)
-				free(level->sector[i].neighbors);
+			if (level->linedef[i].side.heigth)
+				free(level->linedef[i].side.heigth);
+			if (level->linedef[i].side.text)
+				free(level->linedef[i].side.text);
 		}
+		free(level->linedef);
+	}
+	if (level->sector && (i = -1))
+	{
+		while (++i < level->nb_sector && level->sector[i].nb_linedef)
+			free(level->sector[i].linedef);
+		i = -1;
+		while (++i < level->nb_sector && level->sector[i].nb_neighbors)
+			free(level->sector[i].neighbors);
 		free(level->sector);
 	}
 }
@@ -78,6 +106,10 @@ void			return_error(int error, t_parse *parse)
 		ft_printf("\nError 7 : Not enougth vertex or sector\n");
 	else if (error == 8)
 		ft_printf("\nError 8 : Bad floor or ceiling heigth\n");
+	else if (error == 9)
+		ft_printf("\nError 9 : Bad linedef init\n");
+	else if (error == -1)
+		ft_printf("\nError -1 : Bad texture heigth in linedef\n");
 	if (parse)
 		free_parse(parse);
 	exit(0);
