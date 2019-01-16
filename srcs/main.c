@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 15:20:28 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 16:59:57 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,36 +72,11 @@ int main(int ac, char **av)
 	t_level level;
 	t_mem mem;
 
-	int octet = 0;
-	int mask1 = 0;
-	int mask2 = 0;
-
-
-	mask1 = (1 << 1);
-	mask2 = (1 << 2);
-	
-
-	//octet |= mask;
-
-	
-
-	//octet &= ~mask;
-	// OCTET ET= NOT(MASK)
-
-	//octet |= mask1;
-	octet |= mask2;
 	init_parse(&parse);
 	parse_map(ac, av, &parse);
 	init_level(&level);
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
-	printf("----------------------------------\n");
-	print_bits(octet);
-	if (mask1 & octet)
-		printf("\nTouch Find\n");
-	else
-		printf("\nNot Found\n");
-	printf("----------------------------------\n");
 	event_loop(&mem);
 	free_level(&level);
 	return (0);
@@ -112,4 +87,14 @@ int main(int ac, char **av)
 **	AND (&) 1 1 -> 1 / 0 0 -> 0 / 0 1 -> 0
 **	OR	(|) 1 0 -> 1 / 0 0 -> 0 / 1 1 -> 1
 **	NOT	(~)	1 -> 0 / 0 -> 1 / ~(010101) -> 101010
+
+
+//octet |= mask;
+
+	
+
+	//octet &= ~mask;
+	// OCTET ET= NOT(MASK)
+
+	//octet |= mask1;
 */

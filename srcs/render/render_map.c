@@ -104,16 +104,9 @@ void draw_minimap(t_mem *mem)
 		{
 			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
 			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			if (j + 1 == mem->level->sector[i].nb_vertex)
-			{
-				mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z;
-				mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z;
-			}
-			else
-			{
-				mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z;
-				mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z;
-			}
+			mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+
 			draw_line(mem);
 			draw_circle(mem);
 		}
