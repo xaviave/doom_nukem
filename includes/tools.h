@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tools.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 17:02:03 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 17:24:44 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 15:37:45 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,5 +30,6 @@ void					add_list_s(t_psector **sector, char *str);
 int						list_len_l(t_plinedef *list);
 int						list_len_s(t_psector *list);
 int						list_len_v(t_pvertex *list);
+void					print_bits(int n);
 
 #endif

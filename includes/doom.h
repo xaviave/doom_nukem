@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 17:19:50 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 13:05:54 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@
 
 /*
 ** Test graphique
-*/
+*/ 
 
 # define W 1280
 # define H 720
@@ -82,5 +82,8 @@ void					draw_camera(t_mem *mem);
 void					draw_minimap(t_mem *mem);
 void					draw_square(t_mem *mem);
 void					draw_circle(t_mem *mem);
+void 					refresh_screen(t_mem *mem);
+void					event_loop(t_mem *mem);
+
 
 #endif

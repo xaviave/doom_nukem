@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/12 16:22:43 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/12 16:23:29 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Created: mem->z19/01/10 14:14:48 by mel-akio     #+#   ##    ##    #+#       */
+/*   Updated: mem->z19/01/10 15:58:17 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,133 +15,172 @@
 
 int mouse_move_hook(int x, int y, t_mem *mem)
 {
-    if (x || y || mem)
-        return (0);
-    return (0);
+	if (x || y || mem)
+		return (0);
+	return (0);
 }
 
 int mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
-    if (k || x || y || mem)
-        return (0);
-    return (0);
+	if (k || x || y || mem)
+		return (0);
+	return (0);
 }
 
-int key_hook(int k, t_mem *mem)
+int add_key(int k, t_mem *mem)
 {
-    if (k == TOUCH_LEFT)
-        mem->level->player.x -= 5;
-    if (k == TOUCH_RIGHT)
-        mem->level->player.x += 5;
-    if (k == TOUCH_UP)
-        mem->level->player.y -= 5;
-    if (k == TOUCH_DOWN)
-        mem->level->player.y += 5;
-    if (k == TOUCH_NUMPAD_LESS)
-        mem->z -= 2;
-    if (k == TOUCH_NUMPAD_PLUS)
-        mem->z += 2;
-    if (k == TOUCH_ECHAP)
-    {
-        exit(1);
-    }
-    render_map(mem);
-    return (0);
+	mem->level->player.keyspressed |= mem->level->player.keys_shortcuts[k];
+	return (0);
+}
+
+int remove_key(int k, t_mem *mem)
+{
+	mem->level->player.keyspressed &= ~mem->level->player.keys_shortcuts[k];
+	return (0);
 }
 
 static int cross_close(t_mem *mem)
 {
-    if (mem)
-        ;
-    exit(1);
-    return (1);
+	if (mem)
+		;
+	exit(1);
+	return (1);
 }
 
-int send_vx(t_level *level, int id, int nb)
+int send_vx(t_level *level, int id)
 {
-    int i;
-    int j;
+	int i;
 
-    i = -1;
-    while (++i < level->nb_linedef)
-    {
-        if (level->linedef[i].id == id)
-            break ;
-    }
-    j = -1;
-    while (++j < level->nb_vertex)
-    {
-         if (level->vertex[i].id == i)
-            return (nb == 1 ? level->vertex[level->linedef[i].id_v1].x
-                : level->vertex[level->linedef[i].id_v2].x);
-    } 
-    return (0);
+	i = -1;
+	while (++i < level->nb_vertex)
+	{
+		if (level->vertex[i].id == id)
+			return (level->vertex[i].x);
+	}
+	return (0);
 }
 
-int send_vy(t_level *level, int id, int nb)
+int send_vy(t_level *level, int id)
 {
-    int i;
-    int j;
+	int i;
 
-    i = -1;
-    while (++i < level->nb_linedef)
-    {
-        if (level->linedef[i].id == id)
-            break ;
-    }
-    j = -1;
-    while (++j < level->nb_vertex)
-    {
-         if (level->vertex[i].id == i)
-            return (nb == 1 ? level->vertex[level->linedef[i].id_v1].y
-                : level->vertex[level->linedef[i].id_v2].y);
-    } 
-    return (0);
+	i = -1;
+	while (++i < level->nb_vertex)
+	{
+		if (level->vertex[i].id == id)
+			return (level->vertex[i].y);
+	}
+	return (0);
+}
+
+int send_l_vx(t_level *level, int id, int vertex)
+{
+	if (vertex == 1)
+		return (send_vx(level, level->linedef[id].id_v1));
+	else
+		return (send_vx(level, level->linedef[id].id_v2));
+}
+
+int send_l_vy(t_level *level, int id, int vertex)
+{
+	if (vertex == 1)
+		return (send_vy(level, level->linedef[id].id_v1));
+	else
+		return (send_vy(level, level->linedef[id].id_v2));
 }
 
 void draw_minimap(t_mem *mem)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = -1;
-    mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
-    while (++i < mem->level->nb_sector)
-    {
-        j = -1;
-        while (++j < mem->level->sector[i].nb_vertex)
-        {
-                mem->coord.x1 = send_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z + 100;
-                mem->coord.y1 = send_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z + 100;
-                if (j + 1 == mem->level->sector[i].nb_vertex)
-                {
-                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z + 100;
-                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z + 100;
-                }
-                else\
-                {
-                    mem->coord.x2 = send_vx(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z + 100;
-                    mem->coord.y2 = send_vy(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z + 100;
-                }
-                draw_line(mem);
-                draw_circle(mem);
-        }
-        
-    }
-    draw_camera(mem);
+	i = -1;
+	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
+
+	while (++i < mem->level->nb_sector)
+	{
+		j = -1;
+		while (++j < mem->level->sector[i].nb_linedef)
+		{
+			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			if (j + 1 == mem->level->sector[i].nb_vertex)
+			{
+				mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z;
+				mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[0], 2) * mem->z;
+			}
+			else
+			{
+				mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z;
+				mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j + 1], 2) * mem->z;
+			}
+			draw_line(mem);
+			draw_circle(mem);
+		}
+	}
+
+	draw_camera(mem);
+	mem->coord.x2 = ((3 * mem->z * (cos(mem->level->player.angle)) + mem->coord.x1));
+	mem->coord.y2 = ((3 * mem->z * (sin(mem->level->player.angle)) + mem->coord.y1));
+	draw_line(mem);
 }
 
-void render_map(t_mem *mem)
+int update_keys(t_mem *mem)
 {
-    if (mem->img.ptr)
-        mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
-    ft_create_img(mem);
-    draw_minimap(mem);
-    mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
-    mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
-    mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-            mouse_move_hook, mem);
-    mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
-    mlx_key_hook(mem->win.win_ptr, key_hook, mem);
-    mlx_loop(mem->mlx_ptr);
+	if (mem->level->player.keyspressed & MOVE_LEFT)
+	{
+		mem->level->player.x -= 5;
+	}
+	if (mem->level->player.keyspressed & MOVE_RIGHT)
+	{
+		mem->level->player.x += 5;
+	}
+	if (mem->level->player.keyspressed & MOVE_UP)
+	{
+		mem->level->player.y -= 5;
+	}
+	if (mem->level->player.keyspressed & MOVE_DOWN)
+	{
+		mem->level->player.y += 5;
+	}
+	if (mem->level->player.keyspressed & ROTATE_LEFT)
+	{
+		mem->level->player.angle -= 0.05;
+	}
+	if (mem->level->player.keyspressed & ROTATE_RIGHT)
+	{
+		mem->level->player.angle += 0.05;
+	}
+	if (mem->level->player.keyspressed & ZOOM_OUT)
+		mem->z -= 2;
+	if (mem->level->player.keyspressed & ZOOM_IN)
+		mem->z += 2;
+	if (mem->level->player.keyspressed & EXIT_GAME)
+	{
+		exit(1);
+	}
+	refresh_screen(mem);
+	return (1);
+}
+
+void refresh_screen(t_mem *mem)
+{
+	if (mem->img.ptr)
+		mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
+	ft_create_img(mem);
+	draw_minimap(mem);
+
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 100, 100);
+}
+
+void event_loop(t_mem *mem)
+{
+	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
+	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
+			 mouse_move_hook, mem);
+	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
+	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
+	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);
+	mlx_loop_hook(mem->mlx_ptr, update_keys, mem);
+	mlx_loop(mem->mlx_ptr);
 }

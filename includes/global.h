@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 17:23:41 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 16:36:20 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include "fcntl.h"
 # include <math.h>
+# include <time.h>
+# include <sys/time.h>
 # include "../libft/header/libft.h"
 
 /*
@@ -43,6 +45,11 @@ typedef struct			s_player
 {
 	int					x;
 	int					y;
+	int					vx;
+	int					vy;
+	float				angle;
+	int					keys_shortcuts[256];
+	int					keyspressed;
 }						t_player;
 
 typedef struct			s_sidedef
@@ -150,5 +157,17 @@ typedef struct			s_level
 # define TOUCH_NUMPAD_HOME 115
 # define PTR_MOTION_MASK (1L<<6)
 # define MOTION_NOTIFY 6
+
+// Define of actions
+
+# define MOVE_UP (1 << 0)
+# define MOVE_DOWN (1 << 1)
+# define MOVE_LEFT (1 << 2)
+# define MOVE_RIGHT (1 << 3)
+# define ROTATE_LEFT (1 << 4)
+# define ROTATE_RIGHT (1 << 5)
+# define EXIT_GAME (1 << 6)
+# define ZOOM_IN (1 << 7)
+# define ZOOM_OUT (1 << 8)
 
 #endif

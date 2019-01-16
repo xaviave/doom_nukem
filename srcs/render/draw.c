@@ -47,17 +47,17 @@ void        draw_camera(t_mem *mem)
 {
     t_color color;
 
-    color.r = 0;
+    color.r = 255;
     color.g = 255;
-    color.b = 0;
+    color.b = 255;
     color.a = 0;
 
 
 
-    ft_put_pixel(mem, 100 + (mem->z * 0.01 * mem->level->player.x) ,  100 + (mem->z * 0.01 * mem->level->player.y), color);
-   // ft_put_pixel(mem, mem->level->player.x * mem->z + 100 + 1, mem->level->player.y * mem->z + 100 + 1, color);
-    //ft_put_pixel(mem, mem->level->player.x * mem->z + 100 + 1, mem->level->player.y * mem->z + 100, color);
-  //  ft_put_pixel(mem, mem->level->player.x * mem->z + 100, mem->level->player.y * mem->z + 100 + 1, color);
+    ft_put_pixel(mem, (mem->z * 0.01 * mem->level->player.x) , (mem->z * 0.01 * mem->level->player.y), color);
+    mem->coord.x1 = (mem->z * 0.01 * mem->level->player.x);
+    mem->coord.y1 = (mem->z * 0.01 * mem->level->player.y);
+    draw_circle(mem);
 }
 
 void        draw_square(t_mem *mem)

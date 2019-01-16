@@ -3,17 +3,17 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 17:49:46 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 15:20:28 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 
-static void		init_parse(t_parse *parse)
+static void init_parse(t_parse *parse)
 {
 	parse->linedef = NULL;
 	parse->vertex = NULL;
@@ -23,7 +23,7 @@ static void		init_parse(t_parse *parse)
 	parse->nb = 0;
 }
 
-static void		init_level(t_level *level)
+static void init_level(t_level *level)
 {
 	level->vertex = NULL;
 	level->sector = NULL;
@@ -31,13 +31,13 @@ static void		init_level(t_level *level)
 	level->linedef = NULL;
 }
 
-static void		init_mem(t_mem *mem, t_level *level)
+static void init_mem(t_mem *mem, t_level *level)
 {
 	mem->mlx_ptr = mlx_init();
 	mem->win.width = W;
 	mem->win.height = H;
 	mem->win.win_ptr = mlx_new_window(mem->mlx_ptr, mem->win.width,
-		mem->win.height, "doomy nukoom");
+									  mem->win.height, "doomy nukoom");
 	mem->color.r = 255;
 	mem->color.g = 0;
 	mem->color.b = 0;
@@ -49,19 +49,67 @@ static void		init_mem(t_mem *mem, t_level *level)
 	mem->level = level;
 	ft_create_img(mem);
 }
-
-int				main(int ac, char **av)
+void print_bits(int n)
 {
-	t_parse		parse;
-	t_level		level;
-	t_mem		mem;
+	int i;
 
+	i = 32;
+	while (i--)
+	{
+
+		if (n & (1 << i))
+			ft_putchar('1');
+		else
+			ft_putchar('0');
+		if (!(i % 8))
+			ft_putchar(' ');
+	}
+}
+
+int main(int ac, char **av)
+{
+	t_parse parse;
+	t_level level;
+	t_mem mem;
+
+	int octet = 0;
+	int mask1 = 0;
+	int mask2 = 0;
+
+
+	mask1 = (1 << 1);
+	mask2 = (1 << 2);
+	
+
+	//octet |= mask;
+
+	
+
+	//octet &= ~mask;
+	// OCTET ET= NOT(MASK)
+
+	//octet |= mask1;
+	octet |= mask2;
 	init_parse(&parse);
 	parse_map(ac, av, &parse);
 	init_level(&level);
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
-	render_map(&mem);
+	printf("----------------------------------\n");
+	print_bits(octet);
+	if (mask1 & octet)
+		printf("\nTouch Find\n");
+	else
+		printf("\nNot Found\n");
+	printf("----------------------------------\n");
+	event_loop(&mem);
 	free_level(&level);
 	return (0);
 }
+
+/*
+**	XOR (^) 1 0 -> 1 / 1 1 -> 0 / 0 0 -> 0 
+**	AND (&) 1 1 -> 1 / 0 0 -> 0 / 0 1 -> 0
+**	OR	(|) 1 0 -> 1 / 0 0 -> 0 / 1 1 -> 1
+**	NOT	(~)	1 -> 0 / 0 -> 1 / ~(010101) -> 101010
+*/

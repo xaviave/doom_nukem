@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 17:16:05 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 16:36:46 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,9 +73,25 @@ static void		sector_neighbors(t_level *level)
 	}
 }
 
+void			keys_shortcuts(t_level *level)
+{
+	ft_bzero(level->player.keys_shortcuts, sizeof(level->player.keys_shortcuts));
+	level->player.keys_shortcuts[TOUCH_W] = MOVE_UP;
+	level->player.keys_shortcuts[TOUCH_S] = MOVE_DOWN;
+	level->player.keys_shortcuts[TOUCH_A] = MOVE_LEFT;
+	level->player.keys_shortcuts[TOUCH_D] = MOVE_RIGHT;
+	level->player.keys_shortcuts[TOUCH_LEFT] = ROTATE_LEFT;
+	level->player.keys_shortcuts[TOUCH_RIGHT] = ROTATE_RIGHT;
+	level->player.keys_shortcuts[TOUCH_NUMPAD_LESS] = ZOOM_OUT;
+	level->player.keys_shortcuts[TOUCH_NUMPAD_PLUS] = ZOOM_IN;
+	level->player.keys_shortcuts[TOUCH_ECHAP] = EXIT_GAME;
+
+}
+
 void			parse_to_level(t_parse *parse, t_level *level)
 {
 	level->player = parse->player;
+	keys_shortcuts(level);
 	p_to_vertex(level, parse);
 	p_to_linedef(level, parse);
 	p_to_sector(level, parse);
