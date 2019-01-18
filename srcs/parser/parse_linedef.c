@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_linedef.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 14:30:10 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 16:48:24 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/17 15:18:40 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ static void		check_nu(t_parse *parse, char *nu, int *error)
 	*error += !check_int(&nu[i]) ? 1 : 0;
 	while (!(*error) && ++tmp < 3)
 	{
-		i += pass_digit_space(&nu[i]);
+		i += pass_digit_space(&nu[i]) + 1;
 		*error += (!(*error) && !check_int(&nu[i])) ? 1 : 0;
 	}
 	check_vertex(&nu[i], parse, error);

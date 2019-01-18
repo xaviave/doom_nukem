@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 16:36:20 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/17 15:57:29 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,8 @@ typedef struct			s_level
 	int					nb_sector;
 	t_sector			*sector;
 	t_player			player;
-	struct s_level		*next;
+	struct s_level		*next; 
+	char				map[2000][2000];
 }						t_level;
 
 /*
@@ -169,5 +170,9 @@ typedef struct			s_level
 # define EXIT_GAME (1 << 6)
 # define ZOOM_IN (1 << 7)
 # define ZOOM_OUT (1 << 8)
+
+// Other Ddefine
+
+#define MARGE 100
 
 #endif

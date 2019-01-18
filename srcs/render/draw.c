@@ -54,9 +54,9 @@ void        draw_camera(t_mem *mem)
 
 
 
-    ft_put_pixel(mem, (mem->z * 0.01 * mem->level->player.x) , (mem->z * 0.01 * mem->level->player.y), color);
-    mem->coord.x1 = (mem->z * 0.01 * mem->level->player.x);
-    mem->coord.y1 = (mem->z * 0.01 * mem->level->player.y);
+    ft_put_pixel(mem, (mem->z * 0.01 * mem->level->player.x + MARGE) , (mem->z * 0.01 * mem->level->player.y + MARGE), color);
+    mem->coord.x1 = (mem->z * 0.01 * mem->level->player.x) + MARGE;
+    mem->coord.y1 = (mem->z * 0.01 * mem->level->player.y) + MARGE;
     draw_circle(mem);
 }
 
@@ -83,6 +83,8 @@ void			draw_circle(t_mem *mem)
     int ddF_y2 = -2 * radius;
     int x2 = 0;
     int y2 = radius;
+
+	//ft_printf("\033[32mx = %d ; y = %d\n\033[0m", mem->coord.x1, mem->coord.y1);
 
     ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
     ft_put_pixel(mem, coord.x1, coord.y1 - radius, color);

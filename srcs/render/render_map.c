@@ -93,6 +93,12 @@ void draw_minimap(t_mem *mem)
 {
 	int i;
 	int j;
+	int tx1;
+	int tx2;
+	int ty1;
+	int ty2;
+	int tz1;
+	int tz2;
 
 	i = -1;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
@@ -102,16 +108,33 @@ void draw_minimap(t_mem *mem)
 		j = -1;
 		while (++j < mem->level->sector[i].nb_linedef)
 		{
-			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
-			mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			
+			mem->coord.x1 = MARGE + send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			mem->coord.y1 = MARGE + send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			mem->coord.x2 = MARGE + send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			mem->coord.y2 = MARGE + send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			tx1 = mem->coord.x2 - mem->coord.x1;
+			tx2 = mem->coord.x2 - mem->coord.x2;
+			ty1 = mem->coord.x2 - mem->coord.y1;
+			ty2 = mem->coord.x2 - mem->coord.y2;
+			tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
+			tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
+			tx1 = tx1 * sin(mem->level->player.angle) + ty1 * cos(mem->level->player.angle);
+			tx2 = tx2 * sin(mem->level->player.angle) + ty2 * cos(mem->level->player.angle);
 
+
+
+
+		//	ft_printf("Depart :x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1));
+		//	ft_printf("Arriver : x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2));
+		//	ft_printf("------------------------------\n");
+			draw_circle(mem);
 			draw_line(mem);
 			draw_circle(mem);
 		}
+		ft_printf(mem->level->map[i]);
 	}
-
+//	ft_printf("______________________________________________________________\n");
 	draw_camera(mem);
 	mem->coord.x2 = ((3 * mem->z * (cos(mem->level->player.angle)) + mem->coord.x1));
 	mem->coord.y2 = ((3 * mem->z * (sin(mem->level->player.angle)) + mem->coord.y1));
@@ -163,7 +186,7 @@ void refresh_screen(t_mem *mem)
 	ft_create_img(mem);
 	draw_minimap(mem);
 
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 100, 100);
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 }
 
 void event_loop(t_mem *mem)

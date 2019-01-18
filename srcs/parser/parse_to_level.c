@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 16:36:46 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/17 15:30:06 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,5 +97,5 @@ void			parse_to_level(t_parse *parse, t_level *level)
 	p_to_sector(level, parse);
 	free_parse(parse);
 	sector_neighbors(level);
-	aff_debug(level);
+	//aff_debug(level);
 }
