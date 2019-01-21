@@ -199,8 +199,8 @@ void draw_minimap(t_mem *mem)
 						tz2 = iz2;
 					}
 				}
-				x1 = -tx1 * 200 / tz1;
-				x2 = -tx2 * 200 / tz2;
+				x1 = -tx1 * 360 / tz1;
+				x2 = -tx2 * 360 / tz2;
 				y1a = -H / 2 / tz1;
 				y2a = -H / 2 / tz2;
 				y1b = H / 2 / tz1;
@@ -229,26 +229,30 @@ void draw_minimap(t_mem *mem)
 	mem->coord.y2 = 150 + 30;
 
 	draw_line(mem);
-	
 }
 
 int update_keys(t_mem *mem)
 {
+
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
-		mem->level->player.x -= 1;
+		mem->level->player.x = mem->level->player.x + 3 * sin(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y + 3 * cos(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_RIGHT)
 	{
-		mem->level->player.x += 1;
+		mem->level->player.x = mem->level->player.x - 3 * sin(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y - 3 * cos(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
-		mem->level->player.y -= 1;
+		mem->level->player.x = mem->level->player.x + 3 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y + 3 * sin(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_DOWN)
 	{
-		mem->level->player.y += 1;
+		mem->level->player.x = mem->level->player.x - 3 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y - 3 * sin(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
 	{
