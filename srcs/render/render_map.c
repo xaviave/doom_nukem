@@ -199,19 +199,17 @@ void draw_minimap(t_mem *mem)
 						tz2 = iz2;
 					}
 				}
-				x1 = -tx1 * 360 / tz1;
-				x2 = -tx2 * 360 / tz2;
-				y1a = -H / 2 / tz1;
-				y2a = -H / 2 / tz2;
-				y1b = H / 2 / tz1;
-				y2b = H / 2 / tz2;
+				x1 = -tx1 * 800 / tz1;
+				x2 = -tx2 * 800 / tz2;
+				y1a = -H * 5 / tz1;
+				y2a = -H * 5 / tz2;
+				y1b = H * 5 / tz1;
+				y2b = H * 5 / tz2;
 			}
-
-			draw_to_line(W / 2 + x1, H / 2 + y1a, W / 2 + x2, H / 2 + y2a, mem);
-			draw_to_line(W / 2 + x1, H / 2 + y1b, W / 2 + x2, H / 2 + y2b, mem);
-			draw_to_line(W / 2 + x1, H / 2 + y1a, W / 2 + x1, H / 2 + y1b, mem);
-			draw_to_line(W / 2 + x2, H / 2 + y2a, W / 2 + x2, H / 2 + y2b, mem);
-
+				draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
+				draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
+				draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
+				draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
 			//	ft_printf("Depart :x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1));
 			//	ft_printf("Arriver : x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2));
 			//	ft_printf("------------------------------\n");

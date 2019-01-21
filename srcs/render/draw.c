@@ -54,11 +54,9 @@ void 			draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
   	line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
     line.e2 = line.err;
 
-    while (101)
+    while (!(x1 == x2 && y1 == y2))
 	{
     	ft_put_pixel(mem, x1, y1, mem->color);
-		if (x1 == x2 && y1 == y2)
-			break;
     	line.e2 = line.err;
     	if (line.e2 >-line.dx)
 		{
