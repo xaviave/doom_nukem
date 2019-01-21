@@ -43,6 +43,36 @@ void 			draw_line(t_mem *mem)
     }
 }
 
+void 			draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
+{
+	t_line		line;
+	
+	line.dx = abs(x2 - x1);
+	line.sx = x1 < x2 ? 1 : -1;
+  	line.dy = abs(y2 - y1);
+	line.sy = y1 < y2 ? 1 : -1; 
+  	line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
+    line.e2 = line.err;
+
+    while (101)
+	{
+    	ft_put_pixel(mem, x1, y1, mem->color);
+		if (x1 == x2 && y1 == y2)
+			break;
+    	line.e2 = line.err;
+    	if (line.e2 >-line.dx)
+		{
+			line.err -= line.dy;
+			x1 += line.sx;
+		}
+    	if (line.e2 < line.dy)
+		{
+			line.err += line.dx;
+			y1 += line.sy;
+		}
+    }
+}
+
 void        draw_camera(t_mem *mem)
 {
     t_color color;
@@ -54,9 +84,9 @@ void        draw_camera(t_mem *mem)
 
 
 
-    ft_put_pixel(mem, (mem->z * 0.01 * mem->level->player.x + MARGE) , (mem->z * 0.01 * mem->level->player.y + MARGE), color);
-    mem->coord.x1 = (mem->z * 0.01 * mem->level->player.x) + MARGE;
-    mem->coord.y1 = (mem->z * 0.01 * mem->level->player.y) + MARGE;
+    ft_put_pixel(mem, (mem->z * 0.01 * mem->level->player.x) , (mem->z * 0.01 * mem->level->player.y), color);
+    mem->coord.x1 = (mem->z * 0.01 * mem->level->player.x);
+    mem->coord.y1 = (mem->z * 0.01 * mem->level->player.y);
     draw_circle(mem);
 }
 

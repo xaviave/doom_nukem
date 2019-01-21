@@ -73,34 +73,76 @@ int send_vy(t_level *level, int id)
 	return (0);
 }
 
-int send_l_vx(t_level *level, int id, int vertex)
+int send_l_vx(t_level *level, int id_l, int vertex)
 {
+	int i;
+
+	i = -1;
+	while (++i < level->nb_linedef)
+	{
+		if (id_l == level->linedef[i].id)
+			break;
+	}
 	if (vertex == 1)
-		return (send_vx(level, level->linedef[id].id_v1));
+		return (send_vx(level, level->linedef[i].id_v1));
 	else
-		return (send_vx(level, level->linedef[id].id_v2));
+		return (send_vx(level, level->linedef[i].id_v2));
 }
 
-int send_l_vy(t_level *level, int id, int vertex)
+int send_l_vy(t_level *level, int id_l, int vertex)
 {
+	int i;
+
+	i = -1;
+	while (++i < level->nb_linedef)
+	{
+		if (id_l == level->linedef[i].id)
+			break;
+	}
 	if (vertex == 1)
-		return (send_vy(level, level->linedef[id].id_v1));
+		return (send_vy(level, level->linedef[i].id_v1));
 	else
-		return (send_vy(level, level->linedef[id].id_v2));
+		return (send_vy(level, level->linedef[i].id_v2));
+}
+
+int fn_cross(float x1, float y1, float x2, float y2)
+{
+	return ((x1 * y2) - (y1 * x2));
+}
+
+void intersect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float *x, float *y)
+{
+	float det;
+	*x = fn_cross(x1, y1, x2, y2);
+	*y = fn_cross(x3, y3, x4, y4);
+	det = fn_cross(x1 - x2, y1 - y2, x3 - x4, y3 - y4);
+	*x = fn_cross(*x, x1 - x2, *y, x3 - x4) / det;
+	*y = fn_cross(*x, y1 - y2, *y, y3 - y4) / det;
 }
 
 void draw_minimap(t_mem *mem)
 {
 	int i;
 	int j;
-	int tx1;
-	int tx2;
-	int ty1;
-	int ty2;
-	int tz1;
-	int tz2;
+	float tx1;
+	float tx2;
+	float ty1;
+	float ty2;
+	float tz1;
+	float tz2;
+	float x1;
+	float x2;
+	float y1a;
+	float y1b;
+	float y2a;
+	float y2b;
+	float ix1;
+	float ix2;
+	float iz1;
+	float iz2;
 
 	i = -1;
+	mem->z = 10;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 
 	while (++i < mem->level->nb_sector)
@@ -108,56 +150,105 @@ void draw_minimap(t_mem *mem)
 		j = -1;
 		while (++j < mem->level->sector[i].nb_linedef)
 		{
-			
-			mem->coord.x1 = MARGE + send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.y1 = MARGE + send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.x2 = MARGE + send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
-			mem->coord.y2 = MARGE + send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
-			tx1 = mem->coord.x2 - mem->coord.x1;
-			tx2 = mem->coord.x2 - mem->coord.x2;
-			ty1 = mem->coord.x2 - mem->coord.y1;
-			ty2 = mem->coord.x2 - mem->coord.y2;
+
+			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			tx1 = mem->coord.x1 - mem->level->player.x;
+			tx2 = mem->coord.x2 - mem->level->player.x;
+			ty1 = mem->coord.y1 - mem->level->player.y;
+			ty2 = mem->coord.y2 - mem->level->player.y;
 			tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
 			tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
-			tx1 = tx1 * sin(mem->level->player.angle) + ty1 * cos(mem->level->player.angle);
-			tx2 = tx2 * sin(mem->level->player.angle) + ty2 * cos(mem->level->player.angle);
+			tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
+			tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
 
+			mem->coord.x1 = tx1 + 150; //(mem->z * 0.01 * mem->level->player.x);
+			mem->coord.x2 = tx2 + 150; //(mem->z * 0.01 * mem->level->player.x);
+			mem->coord.y1 = tz1 + 150; //(mem->z * 0.01 * mem->level->player.y);
+			mem->coord.y2 = tz2 + 150; //(mem->z * 0.01 * mem->level->player.y);
 
+			if (tz1 > 0 || tz2 > 0)
+			{
+				intersect(tx1, tz1, tx2, tz2, -0.0001, 0.0001, -30, 5, &ix1, &iz1);
+				intersect(tx1, tz1, tx2, tz2, 0.0001, 0.0001, 30, 5, &ix2, &iz2);
+				if (tz1 <= 0)
+				{
+					if (iz1 > 0)
+					{
+						tx1 = ix1;
+						tz1 = iz1;
+					}
+					else
+					{
+						tx1 = ix2;
+						tz1 = iz2;
+					}
+				}
+				if (tz2 <= 0)
+				{
+					if (iz1 > 0)
+					{
+						tx2 = ix1;
+						tz2 = iz1;
+					}
+					else
+					{
+						tx2 = ix2;
+						tz2 = iz2;
+					}
+				}
+				x1 = -tx1 * 200 / tz1;
+				x2 = -tx2 * 200 / tz2;
+				y1a = -H / 2 / tz1;
+				y2a = -H / 2 / tz2;
+				y1b = H / 2 / tz1;
+				y2b = H / 2 / tz2;
+			}
 
+			draw_to_line(W / 2 + x1, H / 2 + y1a, W / 2 + x2, H / 2 + y2a, mem);
+			draw_to_line(W / 2 + x1, H / 2 + y1b, W / 2 + x2, H / 2 + y2b, mem);
+			draw_to_line(W / 2 + x1, H / 2 + y1a, W / 2 + x1, H / 2 + y1b, mem);
+			draw_to_line(W / 2 + x2, H / 2 + y2a, W / 2 + x2, H / 2 + y2b, mem);
 
-		//	ft_printf("Depart :x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1));
-		//	ft_printf("Arriver : x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2));
-		//	ft_printf("------------------------------\n");
+			//	ft_printf("Depart :x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1));
+			//	ft_printf("Arriver : x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2));
+			//	ft_printf("------------------------------\n");
 			draw_circle(mem);
 			draw_line(mem);
 			draw_circle(mem);
 		}
-		ft_printf(mem->level->map[i]);
 	}
-//	ft_printf("______________________________________________________________\n");
-	draw_camera(mem);
-	mem->coord.x2 = ((3 * mem->z * (cos(mem->level->player.angle)) + mem->coord.x1));
-	mem->coord.y2 = ((3 * mem->z * (sin(mem->level->player.angle)) + mem->coord.y1));
+	//	ft_printf("______________________________________________________________\n");
+
+	mem->coord.x1 = 150;
+	mem->coord.y1 = 150;
+	draw_circle(mem);
+	mem->coord.x2 = 150;
+	mem->coord.y2 = 150 + 30;
+
 	draw_line(mem);
+	
 }
 
 int update_keys(t_mem *mem)
 {
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
-		mem->level->player.x -= 5;
+		mem->level->player.x -= 1;
 	}
 	if (mem->level->player.keyspressed & MOVE_RIGHT)
 	{
-		mem->level->player.x += 5;
+		mem->level->player.x += 1;
 	}
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
-		mem->level->player.y -= 5;
+		mem->level->player.y -= 1;
 	}
 	if (mem->level->player.keyspressed & MOVE_DOWN)
 	{
-		mem->level->player.y += 5;
+		mem->level->player.y += 1;
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
 	{
