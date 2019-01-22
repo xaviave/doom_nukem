@@ -164,6 +164,13 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 	}
 }
 
+void	change_color(t_color *color, int hex)
+{
+	color->r = hex & 0xFF0000;
+	color->g = hex & 0xFF00;
+	color->b = hex & 0xFF; 
+}
+
 void draw_minimap(t_mem *mem)
 {
 	int i;
@@ -252,7 +259,6 @@ void draw_minimap(t_mem *mem)
 			}
 
 
-			mem->color = get_color(124, mem);
 /*
 			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
 			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
@@ -262,11 +268,12 @@ void draw_minimap(t_mem *mem)
 			//	ft_printf("Depart :x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1));
 			//	ft_printf("Arriver : x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2));
 			//	ft_printf("------------------------------\n");
+			change_color(&mem->color, 0xaf2215);
 			
 			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1a, H / 2 + y2a, mem);
 			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1b, H / 2 + y2b, mem);
 
-			mem->color = get_color(2556567, mem);
+			change_color(&mem->color, 0x14aa1e);
 
 			draw_circle(mem);
 			draw_line(mem);
