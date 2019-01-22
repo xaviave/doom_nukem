@@ -120,6 +120,50 @@ void intersect(float x1, float y1, float x2, float y2, float x3, float y3, float
 	*y = fn_cross(*x, y1 - y2, *y, y3 - y4) / det;
 }
 
+int return_min(int x1, int x2)
+{
+	return ((x1 > x2 ? x2 : x1));
+}
+
+void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
+{
+	t_line line;
+	t_color color = {0, 70, 200, 0, 0};
+
+	mem->color = color;
+	line.dx = abs(x2 - x1);
+	line.sx = x1 < x2 ? 1 : -1;
+	line.dy = abs(y2 - y1);
+	line.sy = y1 < y2 ? 1 : -1;
+	line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
+	line.e2 = line.err;
+	while (x1 != x2 && y1 != y2)
+	{
+		line.e2 = line.err;
+		if (line.e2 > -line.dx)
+		{
+			line.err -= line.dy;
+			x1 += line.sx;
+		}
+		if (line.e2 < line.dy)
+		{
+			line.err += line.dx;
+			y1 += line.sy;
+		}
+		if ((y1 < H && y1 > 0) && (x1 > 0 && x1 < W))
+		{
+			if (y1 > H / 2)
+			{
+				draw_to_line(x1, y1, x1, (H / 2), mem);
+			}
+			else
+			{
+				draw_to_line(x1, y1, x1, (H / 2) + 1, mem);
+			}
+		}
+	}
+}
+
 void draw_minimap(t_mem *mem)
 {
 	int i;
@@ -206,17 +250,29 @@ void draw_minimap(t_mem *mem)
 				y1b = H * 5 / tz1;
 				y2b = H * 5 / tz2;
 			}
-				draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
-				draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
-				draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
-				draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
+
+
+			mem->color = get_color(124, mem);
+/*
+			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
+			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
+			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
+			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
+*/			
 			//	ft_printf("Depart :x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1));
 			//	ft_printf("Arriver : x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2));
 			//	ft_printf("------------------------------\n");
+			
+			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1a, H / 2 + y2a, mem);
+			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1b, H / 2 + y2b, mem);
+
+			mem->color = get_color(2556567, mem);
+
 			draw_circle(mem);
 			draw_line(mem);
 			draw_circle(mem);
 		}
+		
 	}
 	//	ft_printf("______________________________________________________________\n");
 
