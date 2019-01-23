@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/22 13:53:35 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/22 19:41:57 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@
 */ 
 
 # define W 1280
-# define H 801
+# define H 800
 
 typedef struct			s_line
 {
@@ -85,6 +85,9 @@ void					draw_square(t_mem *mem);
 void					draw_circle(t_mem *mem);
 void 					refresh_screen(t_mem *mem);
 void					event_loop(t_mem *mem);
+void					change_color(t_color *color, int hex);
+
+
 
 
 #endif

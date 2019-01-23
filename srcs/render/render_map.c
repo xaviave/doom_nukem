@@ -132,10 +132,10 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 
 	mem->color = color;
 	line.dx = abs(x2 - x1);
-	line.sx = x1 < x2 ? 1 : -1;
+	line.sx = (x1 < x2) ? 1 : -1;
 	line.dy = abs(y2 - y1);
-	line.sy = y1 < y2 ? 1 : -1;
-	line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
+	line.sy = (y1 < y2) ? 1 : -1;
+	line.err = ((line.dx > line.dy) ? line.dx : -line.dy) / 2;
 	line.e2 = line.err;
 	while (x1 != x2 && y1 != y2)
 	{
@@ -150,16 +150,12 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 			line.err += line.dx;
 			y1 += line.sy;
 		}
-		if ((y1 < H && y1 > 0) && (x1 > 0 && x1 < W))
+		if ((y1 <= H && y1 > 0) && (x1 > 0 && x1 < W))
 		{
 			if (y1 > H / 2)
-			{
 				draw_to_line(x1, y1, x1, (H / 2), mem);
-			}
 			else
-			{
 				draw_to_line(x1, y1, x1, (H / 2) + 1, mem);
-			}
 		}
 	}
 }
@@ -258,21 +254,18 @@ void draw_minimap(t_mem *mem)
 				y2b = H * 5 / tz2;
 			}
 
-
-/*
-			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
-			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
-			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
-			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
-*/			
-			//	ft_printf("Depart :x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1));
-			//	ft_printf("Arriver : x %d | y %d\n", send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2), send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2));
-			//	ft_printf("------------------------------\n");
 			change_color(&mem->color, 0xaf2215);
 			
 			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1a, H / 2 + y2a, mem);
 			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1b, H / 2 + y2b, mem);
 
+			change_color(&mem->color, 0xffff00);
+
+			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
+			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
+			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
+			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
+			
 			change_color(&mem->color, 0xa81291);
 
 			draw_circle(mem);
@@ -281,8 +274,7 @@ void draw_minimap(t_mem *mem)
 		}
 		
 	}
-	//	ft_printf("______________________________________________________________\n");
-
+	//player position
 	mem->coord.x1 = 150;
 	mem->coord.y1 = 150;
 	draw_circle(mem);
@@ -290,6 +282,7 @@ void draw_minimap(t_mem *mem)
 	mem->coord.y2 = 150 + 30;
 
 	draw_line(mem);
+
 }
 
 int update_keys(t_mem *mem)
