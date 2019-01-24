@@ -13,7 +13,7 @@
 
 #include "../../includes/doom.h"
 
-void 			draw_line(t_mem *mem)
+void draw_line(t_mem *mem)
 {
 	t_line		line;
 	
@@ -43,7 +43,7 @@ void 			draw_line(t_mem *mem)
 	}
 }
 
-void 			draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
+void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
 {
 	t_line		line;
 	
@@ -71,7 +71,22 @@ void 			draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
 	}
 }
 
-void        draw_camera(t_mem *mem)
+void fill_column(int x, int y1, int y2, t_mem *mem)
+{
+    int i;
+
+    i = 1;
+    if (y1 > y2)
+        i = -1;
+    while (y1 != y2)
+    {
+        if (y1 > 0 && y1 < H)
+            ft_put_pixel(mem, x, y1, mem->color);
+        y1 += i;
+    }
+}
+
+void draw_camera(t_mem *mem)
 {
 	t_color color;
 
@@ -114,7 +129,7 @@ void        draw_square(t_coord ya, t_coord yb, t_mem *mem)
 		draw_to_line(ya.x2, ya.y2, yb.x2, yb.y2, mem);
 }
 
-void			draw_circle(t_mem *mem)
+void draw_circle(t_mem *mem)
 {
 	t_coord     coord = {mem->coord.x1, mem->coord.y1, 0, 0};
 	t_color     color = {0, 255, 0, 0, 0};
@@ -125,31 +140,32 @@ void			draw_circle(t_mem *mem)
 	int x2 = 0;
 	int y2 = radius;
 
-	//ft_printf("\033[32mx = %d ; y = %d\n\033[0m", mem->coord.x1, mem->coord.y1);
+    //ft_printf("\033[32mx = %d ; y = %d\n\033[0m", mem->coord.x1, mem->coord.y1);
 
-	ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
-	ft_put_pixel(mem, coord.x1, coord.y1 - radius, color);
-	ft_put_pixel(mem, coord.x1 + radius, coord.y1, color);
-	ft_put_pixel(mem, coord.x1 - radius, coord.y1, color);
 
-	while(x2 < y2) 
-	{
-		if(f >= 0) 
-		{
-			y2--;
-			ddF_y2 += 2;
-			f += ddF_y2;
-		}
-		x2++;
-		ddF_x += 2;
-		f += ddF_x + 1;    
-		ft_put_pixel(mem, coord.x1 + x2, coord.y1 + y2, color);
-		ft_put_pixel(mem, coord.x1 - x2, coord.y1 + y2, color);
-		ft_put_pixel(mem, coord.x1 + x2, coord.y1 - y2, color);
-		ft_put_pixel(mem, coord.x1 - x2, coord.y1 - y2, color);
-		ft_put_pixel(mem, coord.x1 + y2, coord.y1 + x2, color);
-		ft_put_pixel(mem, coord.x1 - y2, coord.y1 + x2, color);
-		ft_put_pixel(mem, coord.x1 + y2, coord.y1 - x2, color);
-		ft_put_pixel(mem, coord.x1 - y2, coord.y1 - x2, color);
-	}
+ /*   ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
+    ft_put_pixel(mem, coord.x1, coord.y1 - radius, color);
+    ft_put_pixel(mem, coord.x1 + radius, coord.y1, color);
+    ft_put_pixel(mem, coord.x1 - radius, coord.y1, color);
+*/
+    while (x2 < y2)
+    {
+        if (f >= 0)
+        {
+            y2--;
+            ddF_y2 += 2;
+            f += ddF_y2;
+        }
+        x2++;
+        ddF_x += 2;
+        f += ddF_x + 1;
+        ft_put_pixel(mem, coord.x1 + x2, coord.y1 + y2, color);
+        ft_put_pixel(mem, coord.x1 - x2, coord.y1 + y2, color);
+        ft_put_pixel(mem, coord.x1 + x2, coord.y1 - y2, color);
+        ft_put_pixel(mem, coord.x1 - x2, coord.y1 - y2, color);
+        ft_put_pixel(mem, coord.x1 + y2, coord.y1 + x2, color);
+        ft_put_pixel(mem, coord.x1 - y2, coord.y1 + x2, color);
+        ft_put_pixel(mem, coord.x1 + y2, coord.y1 - x2, color);
+        ft_put_pixel(mem, coord.x1 - y2, coord.y1 - x2, color);
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/23 18:51:07 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/24 13:34:01 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,6 +75,7 @@ t_color					get_color(int a, t_mem *mem);
 void					render_map(t_mem *mem);
 void					draw_line(t_mem *mem);
 void					draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem);
+void					fill_column(int x, int y1, int y2, t_mem *mem);
 void					draw_camera(t_mem *mem);
 void					draw_minimap(t_mem *mem);
 void					draw_square(t_coord ya, t_coord yb, t_mem *mem);
@@ -112,5 +113,6 @@ int						return_max(int x1, int x2);
 int						return_min(int x1, int x2);
 void					intersect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float *x, float *y);
 int						fn_cross(float x1, float y1, float x2, float y2);
+
 
 #endif

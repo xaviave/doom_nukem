@@ -27,13 +27,6 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 	line.e2 = line.err;
 	while (x1 != x2 || y1 != y2)
 	{
-		if (x1 < 0 && x1 < W)
-		{
-			if (y1 > H / 2)
-				draw_to_line(x1, y1, x1, (H / 2), mem);
-			else
-				draw_to_line(x1, y1, x1, (H / 2) + 1, mem);
-		}
 		line.e2 = line.err;
 		if (line.e2 > -line.dx)
 		{
@@ -44,6 +37,13 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 		{
 			line.err += line.dx;
 			y1 += line.sy;
+		}
+		if ((x1 > 0 && x1 < W))
+		{
+			if (y1 > H / 2)
+				fill_column(x1, y1, (H / 2), mem);
+			else
+				fill_column(x1, y1, (H / 2) + 1, mem);
 		}
 	}
 }
@@ -134,7 +134,7 @@ void draw_minimap(t_mem *mem)
 			}
 
 			change_color(&mem->color, 0xaf2215);
-/* faire une fonction pour modifier une valeur superieure a H ou W en maintenant
+		/* faire une fonction pour modifier une valeur superieure a H ou W en maintenant
 			le coefficient de la droite */
 			//if (in_screen(ya.x1, ya.x2, ya.y1, ya.y2))	
 				fill_form(ya.x1, ya.x2, ya.y1, ya.y2, mem);
@@ -150,7 +150,6 @@ void draw_minimap(t_mem *mem)
 			draw_line(mem);
 			draw_circle(mem);
 		}
-		
 	}
 	//player position
 	mem->coord.x1 = 150;
@@ -160,7 +159,6 @@ void draw_minimap(t_mem *mem)
 	mem->coord.y2 = 150 + 30;
 
 	draw_line(mem);
-
 }
 
 int update_keys(t_mem *mem)
