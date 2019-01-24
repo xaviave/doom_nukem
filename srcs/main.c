@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 16:37:57 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/24 17:00:39 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,9 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->y = 100 - level->player.y * 10;
 	mem->level = level;
 	mem->level->c[0] = 0xff;
-	mem->level->c[1] = 0xffffff;
+	mem->level->c[1] = 0x00ff;
+	mem->level->c[2] = 0x0000ff;
+	mem->level->c[3] = 0xffffff;
 	ft_create_img(mem);
 }
 

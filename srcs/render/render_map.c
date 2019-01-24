@@ -132,7 +132,7 @@ void draw_minimap(t_mem *mem)
 				y1b = H * 5 / tz1 + H / 2;
 				y2b = H * 5 / tz2 + H / 2;
 			}
-			change_color(&mem->color, mem->level->c[i]);
+			change_color(&mem->color, mem->level->c[j]);
 
 			fill_form(x1, x2, y1a, y2a, mem);
 			fill_form(x1, x2, y1b, y2b, mem);
