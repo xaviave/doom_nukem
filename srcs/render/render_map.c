@@ -13,124 +13,10 @@
 
 #include "../../includes/doom.h"
 
-int mouse_move_hook(int x, int y, t_mem *mem)
-{
-	if (x || y || mem)
-		return (0);
-	return (0);
-}
-
-int mouse_click_hook(int k, int x, int y, t_mem *mem)
-{
-	if (k || x || y || mem)
-		return (0);
-	return (0);
-}
-
-int add_key(int k, t_mem *mem)
-{
-	mem->level->player.keyspressed |= mem->level->player.keys_shortcuts[k];
-	return (0);
-}
-
-int remove_key(int k, t_mem *mem)
-{
-	mem->level->player.keyspressed &= ~mem->level->player.keys_shortcuts[k];
-	return (0);
-}
-
-static int cross_close(t_mem *mem)
-{
-	if (mem)
-		;
-	exit(1);
-	return (1);
-}
-
-int send_vx(t_level *level, int id)
-{
-	int i;
-
-	i = -1;
-	while (++i < level->nb_vertex)
-	{
-		if (level->vertex[i].id == id)
-			return (level->vertex[i].x);
-	}
-	return (0);
-}
-
-int send_vy(t_level *level, int id)
-{
-	int i;
-
-	i = -1;
-	while (++i < level->nb_vertex)
-	{
-		if (level->vertex[i].id == id)
-			return (level->vertex[i].y);
-	}
-	return (0);
-}
-
-int send_l_vx(t_level *level, int id_l, int vertex)
-{
-	int i;
-
-	i = -1;
-	while (++i < level->nb_linedef)
-	{
-		if (id_l == level->linedef[i].id)
-			break;
-	}
-	if (vertex == 1)
-		return (send_vx(level, level->linedef[i].id_v1));
-	else
-		return (send_vx(level, level->linedef[i].id_v2));
-}
-
-int send_l_vy(t_level *level, int id_l, int vertex)
-{
-	int i;
-
-	i = -1;
-	while (++i < level->nb_linedef)
-	{
-		if (id_l == level->linedef[i].id)
-			break;
-	}
-	if (vertex == 1)
-		return (send_vy(level, level->linedef[i].id_v1));
-	else
-		return (send_vy(level, level->linedef[i].id_v2));
-}
-
-int fn_cross(float x1, float y1, float x2, float y2)
-{
-	return ((x1 * y2) - (y1 * x2));
-}
-
-void intersect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float *x, float *y)
-{
-	float det;
-	*x = fn_cross(x1, y1, x2, y2);
-	*y = fn_cross(x3, y3, x4, y4);
-	det = fn_cross(x1 - x2, y1 - y2, x3 - x4, y3 - y4);
-	*x = fn_cross(*x, x1 - x2, *y, x3 - x4) / det;
-	*y = fn_cross(*x, y1 - y2, *y, y3 - y4) / det;
-}
-
-int return_min(int x1, int x2)
-{
-	return ((x1 > x2 ? x2 : x1));
-}
-
 void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 {
 	t_line line;
-	t_color color = {0, 70, 200, 0, 0};
 
-	mem->color = color;
 	line.dx = abs(x2 - x1);
 	line.sx = (x1 < x2) ? 1 : -1;
 	line.dy = abs(y2 - y1);
@@ -158,13 +44,6 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 				fill_column(x1, y1, (H / 2) + 1, mem);
 		}
 	}
-}
-
-void change_color(t_color *color, int hex)
-{
-	color->r = hex >> 16;
-	color->g = hex >> 8;
-	color->b = hex;
 }
 
 void draw_minimap(t_mem *mem)
@@ -246,28 +125,24 @@ void draw_minimap(t_mem *mem)
 						tz2 = iz2;
 					}
 				}
-				x1 = -tx1 * 800 / tz1;
-				x2 = -tx2 * 800 / tz2;
-				y1a = -H * 5 / tz1;
-				y2a = -H * 5 / tz2;
-				y1b = H * 5 / tz1;
-				y2b = H * 5 / tz2;
+				x1 = -tx1 * 800 / tz1 + W / 2;
+				x2 = -tx2 * 800 / tz2 + W / 2;
+				y1a = -H * 5 / tz1 + H / 2;
+				y2a = -H * 5 / tz2 + H / 2;
+				y1b = H * 5 / tz1 + H / 2;
+				y2b = H * 5 / tz2 + H / 2;
 			}
+			change_color(&mem->color, mem->level->c[i]);
 
-			change_color(&mem->color, 0xaf2215);
-
-			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1a, H / 2 + y2a, mem);
-			fill_form(W / 2 + x1, W / 2 + x2, H / 2 + y1b, H / 2 + y2b, mem);
-
-			change_color(&mem->color, 0xffff00);
-
-			/*draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
+			fill_form(x1, x2, y1a, y2a, mem);
+			fill_form(x1, x2, y1b, y2b, mem);
+			/*
+			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
 			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
 			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
-			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);*/
-
-			change_color(&mem->color, 0xa81291);
-
+			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
+			*/
+			change_color(&mem->color, 0xff);
 			draw_circle(mem);
 			draw_line(mem);
 			draw_circle(mem);

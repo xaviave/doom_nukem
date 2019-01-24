@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 12:17:02 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/24 16:41:28 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,8 +88,33 @@ void 					refresh_screen(t_mem *mem);
 void					event_loop(t_mem *mem);
 void					change_color(t_color *color, int hex);
 
+/*
+** event.c
+*/
 
+int						mouse_move_hook(int x, int y, t_mem *mem);
+int						mouse_click_hook(int k, int x, int y, t_mem *mem);
+int						add_key(int k, t_mem *mem);
+int						remove_key(int k, t_mem *mem);
+int						cross_close(t_mem *mem);
 
+/*
+** send_info.c
+*/
+
+int						send_vx(t_level *level, int id);
+int						send_vy(t_level *level, int id);
+int						send_l_vx(t_level *level, int id_l, int vertex);
+int						send_l_vy(t_level *level, int id_l, int vertex);
+
+/*
+** math.c
+*/
+
+int						return_min(int x1, int x2);
+void					intersect(float x1, float y1, float x2, float y2, float x3,
+	float y3, float x4, float y4, float *x, float *y);
+int						fn_cross(float x1, float y1, float x2, float y2);
 
 
 #endif

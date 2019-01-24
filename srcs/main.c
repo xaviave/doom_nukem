@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/22 14:33:41 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/24 16:37:57 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,32 +38,13 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->win.height = H;
 	mem->win.win_ptr = mlx_new_window(mem->mlx_ptr, mem->win.width,
 									  mem->win.height, "doomy nukoom");
-	mem->color.r = 255;
-	mem->color.g = 0;
-	mem->color.b = 0;
-	mem->color.a = 100;
-	mem->color.i = 10;
 	mem->z = 100;
 	mem->x = 100 - level->player.x * 10;
 	mem->y = 100 - level->player.y * 10;
 	mem->level = level;
+	mem->level->c[0] = 0xff;
+	mem->level->c[1] = 0xffffff;
 	ft_create_img(mem);
-}
-void print_bits(int n)
-{
-	int i;
-
-	i = 32;
-	while (i--)
-	{
-
-		if (n & (1 << i))
-			ft_putchar('1');
-		else
-			ft_putchar('0');
-		if (!(i % 8))
-			ft_putchar(' ');
-	}
 }
 
 int main(int ac, char **av)

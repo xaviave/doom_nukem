@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   color.c                                          .::    .:/ .      .::   */
+/*   math.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/09 13:23:13 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 16:37:55 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/24 16:41:48 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-t_color				get_color(int a, t_mem *mem)
+int fn_cross(float x1, float y1, float x2, float y2)
 {
-	t_color			color;
-
-	color.r = (a * 5 + 30) + mem->color.i % 255;
-	color.g = (255 - (a * 10 + 150)) + mem->color.i % 255;
-	color.b = (255 - (a * 2 + 45)) + mem->color.i % 255;
-	return (color);
+	return ((x1 * y2) - (y1 * x2));
 }
 
-void				change_color(t_color *color, int hex)
+void intersect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float *x, float *y)
 {
-	color->r = hex >> 16;
-	color->g = hex >> 8;
-	color->b = hex;
+	float det;
+	*x = fn_cross(x1, y1, x2, y2);
+	*y = fn_cross(x3, y3, x4, y4);
+	det = fn_cross(x1 - x2, y1 - y2, x3 - x4, y3 - y4);
+	*x = fn_cross(*x, x1 - x2, *y, x3 - x4) / det;
+	*y = fn_cross(*x, y1 - y2, *y, y3 - y4) / det;
+}
+
+int return_min(int x1, int x2)
+{
+	return ((x1 > x2 ? x2 : x1));
 }
