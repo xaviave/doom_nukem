@@ -38,7 +38,7 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 			line.err += line.dx;
 			y1 += line.sy;
 		}
-		if ((x1 > 0 && x1 < W))
+		if (x1 > 0 && x1 < W)
 		{
 			if (y1 > H / 2)
 				fill_column(x1, y1, (H / 2), mem);

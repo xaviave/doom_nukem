@@ -75,9 +75,7 @@ void fill_column(int x, int y1, int y2, t_mem *mem)
 {
     int i;
 
-    i = 1;
-    if (y1 > y2)
-        i = -1;
+    i = (y1 > y2) ? -1 : 1;
     while (y1 != y2)
     {
         if (y1 > 0 && y1 < H)
