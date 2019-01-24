@@ -137,7 +137,7 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 	line.sy = (y1 < y2) ? 1 : -1;
 	line.err = ((line.dx > line.dy) ? line.dx : -line.dy) / 2;
 	line.e2 = line.err;
-	while (x1 != x2 && y1 != y2)
+	while (x1 != x2 || y1 != y2)
 	{
 		line.e2 = line.err;
 		if (line.e2 > -line.dx)
@@ -150,12 +150,12 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 			line.err += line.dx;
 			y1 += line.sy;
 		}
-		if ((x1 > 0 && x1 < W) && -x1 % 2) // modulo 3 a suprimer pour le saut de colonnes
+		if ((x1 > 0 && x1 < W))
 		{
 			if (y1 > H / 2)
-				draw_to_line(x1, y1, x1, (H / 2), mem);
+				fill_column(x1, y1, (H / 2), mem);
 			else
-				draw_to_line(x1, y1, x1, (H / 2) + 1, mem);
+				fill_column(x1, y1, (H / 2) + 1, mem);
 		}
 	}
 }
@@ -261,7 +261,7 @@ void draw_minimap(t_mem *mem)
 
 			change_color(&mem->color, 0xffff00);
 
-			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
+				draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
 			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
 			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
 			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);

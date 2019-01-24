@@ -72,6 +72,21 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
     }
 }
 
+void fill_column(int x, int y1, int y2, t_mem *mem)
+{
+    int i;
+
+    i = 1;
+    if (y1 > y2)
+        i = -1;
+    while (y1 != y2)
+    {
+        if (y1 > 0 && y1 < H)
+            ft_put_pixel(mem, x, y1, mem->color);
+        y1 += i;
+    }
+}
+
 void draw_camera(t_mem *mem)
 {
     t_color color;
@@ -112,11 +127,11 @@ void draw_circle(t_mem *mem)
 
     //ft_printf("\033[32mx = %d ; y = %d\n\033[0m", mem->coord.x1, mem->coord.y1);
 
-    ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
+ /*   ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
     ft_put_pixel(mem, coord.x1, coord.y1 - radius, color);
     ft_put_pixel(mem, coord.x1 + radius, coord.y1, color);
     ft_put_pixel(mem, coord.x1 - radius, coord.y1, color);
-
+*/
     while (x2 < y2)
     {
         if (f >= 0)

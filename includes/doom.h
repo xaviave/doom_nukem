@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/22 19:41:57 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/24 12:17:02 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,7 @@ t_color					get_color(int a, t_mem *mem);
 void					render_map(t_mem *mem);
 void					draw_line(t_mem *mem);
 void					draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem);
+void					fill_column(int x, int y1, int y2, t_mem *mem);
 void					draw_camera(t_mem *mem);
 void					draw_minimap(t_mem *mem);
 void					draw_square(t_mem *mem);
@@ -86,6 +87,7 @@ void					draw_circle(t_mem *mem);
 void 					refresh_screen(t_mem *mem);
 void					event_loop(t_mem *mem);
 void					change_color(t_color *color, int hex);
+
 
 
 
