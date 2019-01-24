@@ -1,31 +1,48 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   color.c                                          .::    .:/ .      .::   */
+/*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/09 13:23:13 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/23 17:18:47 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/23 17:09:28 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/23 17:11:08 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-t_color				get_color(int a, t_mem *mem)
+int mouse_move_hook(int x, int y, t_mem *mem)
 {
-	t_color			color;
-
-	color.r = (a * 5 + 30) + mem->color.i % 255;
-	color.g = (255 - (a * 10 + 150)) + mem->color.i % 255;
-	color.b = (255 - (a * 2 + 45)) + mem->color.i % 255;
-	return (color);
+	if (x || y || mem)
+		return (0);
+	return (0);
 }
 
-void				change_color(t_color *color, int hex)
+int mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
-	color->r = hex >> 16;
-	color->g = hex >> 8;
-	color->b = hex; 
+	if (k || x || y || mem)
+		return (0);
+	return (0);
+}
+
+int add_key(int k, t_mem *mem)
+{
+	mem->level->player.keyspressed |= mem->level->player.keys_shortcuts[k];
+	return (0);
+}
+
+int remove_key(int k, t_mem *mem)
+{
+	mem->level->player.keyspressed &= ~mem->level->player.keys_shortcuts[k];
+	return (0);
+}
+
+int cross_close(t_mem *mem)
+{
+	if (mem)
+		;
+	exit(1);
+	return (1);
 }

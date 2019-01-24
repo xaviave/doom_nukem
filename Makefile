@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/15 18:45:15 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/23 17:18:17 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -49,6 +49,9 @@ FILES = main.c \
 		render/img.c \
 		render/color.c \
 		render/render_map.c \
+		render/math.c \
+		render/send_info.c \
+		render/event.c \
 
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))
