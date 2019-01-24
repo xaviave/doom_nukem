@@ -70,13 +70,11 @@ void draw_minimap(t_mem *mem)
 	i = -1;
 	mem->z = 10;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
-
 	while (++i < mem->level->nb_sector)
 	{
 		j = -1;
 		while (++j < mem->level->sector[i].nb_linedef)
 		{
-
 			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
 			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
 			mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
@@ -89,12 +87,10 @@ void draw_minimap(t_mem *mem)
 			tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
 			tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
 			tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
-
-			mem->coord.x1 = tx1 + 150; //(mem->z * 0.01 * mem->level->player.x);
-			mem->coord.x2 = tx2 + 150; //(mem->z * 0.01 * mem->level->player.x);
-			mem->coord.y1 = tz1 + 150; //(mem->z * 0.01 * mem->level->player.y);
-			mem->coord.y2 = tz2 + 150; //(mem->z * 0.01 * mem->level->player.y);
-
+			mem->coord.x1 = tx1 + 150;
+			mem->coord.x2 = tx2 + 150;
+			mem->coord.y1 = tz1 + 150;
+			mem->coord.y2 = tz2 + 150;
 			if (tz1 > 0 || tz2 > 0)
 			{
 				intersect(tx1, tz1, tx2, tz2, -0.0001, 0.0001, -30, 5, &ix1, &iz1);
@@ -142,20 +138,47 @@ void draw_minimap(t_mem *mem)
 			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
 			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
 			*/
-			change_color(&mem->color, 0xff);
+		}
+	}
+
+	/* player position */
+	
+	change_color(&mem->color, 0xff);
+	i = -1;
+	while (++i < mem->level->nb_sector)
+	{
+		j = -1;
+		while (++j < mem->level->sector[i].nb_linedef)
+		{
+			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
+			mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
+			tx1 = mem->coord.x1 - mem->level->player.x;
+			tx2 = mem->coord.x2 - mem->level->player.x;
+			ty1 = mem->coord.y1 - mem->level->player.y;
+			ty2 = mem->coord.y2 - mem->level->player.y;
+			tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
+			tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
+			tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
+			tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
+			mem->coord.x1 = tx1 + 150;
+			mem->coord.x2 = tx2 + 150;
+			mem->coord.y1 = tz1 + 150;
+			mem->coord.y2 = tz2 + 150;
+			
 			draw_circle(mem);
 			draw_line(mem);
 			draw_circle(mem);
 		}
 	}
-	//player position
 	mem->coord.x1 = 150;
 	mem->coord.y1 = 150;
-	draw_circle(mem);
 	mem->coord.x2 = 150;
 	mem->coord.y2 = 150 + 30;
-
+	draw_circle(mem);
 	draw_line(mem);
+	
 }
 
 int update_keys(t_mem *mem)
