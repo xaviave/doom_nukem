@@ -93,8 +93,8 @@ void draw_minimap(t_mem *mem)
 			mem->coord.y2 = tz2 + 150;
 			if (tz1 > 0 || tz2 > 0)
 			{
-				intersect(tx1, tz1, tx2, tz2, -0.0001, 0.0001, -70, 5, &ix1, &iz1);
-				intersect(tx1, tz1, tx2, tz2, 0.0001, 0.0001, 70, 5, &ix2, &iz2);
+				intersect(tx1, tz1, tx2, tz2, -0.0001, 0.0001, -70, 5, &ix1, &iz1);  // 7eme argument definit la precision
+				intersect(tx1, tz1, tx2, tz2, 0.0001, 0.0001, 70, 5, &ix2, &iz2); // 7eme argument definit la precision
 				if (tz1 <= 0)
 				{
 					if (iz1 > 0)
