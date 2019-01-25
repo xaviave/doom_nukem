@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 16:41:28 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/25 13:47:24 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,11 @@ typedef struct			s_mem
 	int					z;
 	int					x;
 	int					y;
+	int					mouse_x;
+	int					mouse_y;
+	int					camera_x;
+	int					camera_y;
+
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
@@ -97,6 +102,7 @@ int						mouse_click_hook(int k, int x, int y, t_mem *mem);
 int						add_key(int k, t_mem *mem);
 int						remove_key(int k, t_mem *mem);
 int						cross_close(t_mem *mem);
+int						camera_move(t_mem *mem);
 
 /*
 ** send_info.c
@@ -115,6 +121,7 @@ int						return_min(int x1, int x2);
 void					intersect(float x1, float y1, float x2, float y2, float x3,
 	float y3, float x4, float y4, float *x, float *y);
 int						fn_cross(float x1, float y1, float x2, float y2);
+
 
 
 #endif

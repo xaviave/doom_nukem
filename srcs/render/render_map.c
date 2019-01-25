@@ -39,9 +39,9 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 		if ((x1 > 0 && x1 < W))
 		{
 			if (y1 > H / 2)
-				fill_column(x1, y1, (H / 2), mem);
+				fill_column(x1, y1 - mem->camera_y, (H / 2) - mem->camera_y, mem);
 			else
-				fill_column(x1, y1, (H / 2) + 1, mem);
+				fill_column(x1, y1 - mem->camera_y, (H / 2) + 1 - mem->camera_y, mem);
 		}
 	}
 }
@@ -183,7 +183,7 @@ void draw_minimap(t_mem *mem)
 
 int update_keys(t_mem *mem)
 {
-
+	camera_move(mem);
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
 		mem->level->player.x = mem->level->player.x + 3 * sin(mem->level->player.angle);

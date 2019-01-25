@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 17:04:32 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/25 13:50:19 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,8 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->mlx_ptr = mlx_init();
 	mem->win.width = W;
 	mem->win.height = H;
+	mem->camera_y = H / 2;
+	mem->camera_x = W / 2;
 	mem->win.win_ptr = mlx_new_window(mem->mlx_ptr, mem->win.width,
 									  mem->win.height, "doomy nukoom");
 	mem->z = 100;
