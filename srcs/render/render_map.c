@@ -93,8 +93,8 @@ void draw_minimap(t_mem *mem)
 			mem->coord.y2 = tz2 + 150;
 			if (tz1 > 0 || tz2 > 0)
 			{
-				intersect(tx1, tz1, tx2, tz2, -0.0001, 0.0001, -70, 5, &ix1, &iz1);  // 7eme argument definit la precision
-				intersect(tx1, tz1, tx2, tz2, 0.0001, 0.0001, 70, 5, &ix2, &iz2); // 7eme argument definit la precision
+				intersect(tx1, tz1, tx2, tz2, -5, 5, -20, 5, &ix1, &iz1);  // 7eme argument definit la precision
+				intersect(tx1, tz1, tx2, tz2, 5, 5, 20, 5, &ix2, &iz2); // 7eme argument definit la precision
 				if (tz1 <= 0)
 				{
 					if (iz1 > 0)
@@ -130,8 +130,8 @@ void draw_minimap(t_mem *mem)
 			}
 			change_color(&mem->color, mem->level->c[j]);
 
-			fill_form(x1, x2, y1a, y2a, mem);
-			fill_form(x1, x2, y1b, y2b, mem);
+			fill_form(x1, x2, y1a + i, y2a + i, mem);
+			fill_form(x1, x2, y1b + i, y2b + i, mem);
 			/*
 			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
 			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
@@ -206,11 +206,9 @@ int update_keys(t_mem *mem)
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
 	{
-
 	}
 	if (mem->level->player.keyspressed & ROTATE_RIGHT)
 	{
-
 	}
 	if (mem->level->player.keyspressed & ZOOM_OUT)
 		mem->z -= 2;
