@@ -6,12 +6,53 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/25 14:18:17 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/25 16:41:02 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
+
+int update_keys(t_mem *mem)
+{
+	camera_move(mem);
+	if (mem->level->player.keyspressed & MOVE_LEFT)
+	{
+		mem->level->player.x = mem->level->player.x + 2 * sin(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y + 2 * cos(mem->level->player.angle);
+	}
+	if (mem->level->player.keyspressed & MOVE_RIGHT)
+	{
+		mem->level->player.x = mem->level->player.x - 2 * sin(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y - 2 * cos(mem->level->player.angle);
+	}
+	if (mem->level->player.keyspressed & MOVE_UP)
+	{
+		mem->level->player.x = mem->level->player.x + 2 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y + 2 * sin(mem->level->player.angle);
+	}
+	if (mem->level->player.keyspressed & MOVE_DOWN)
+	{
+		mem->level->player.x = mem->level->player.x - 2 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y - 2 * sin(mem->level->player.angle);
+	}
+	if (mem->level->player.keyspressed & ROTATE_LEFT)
+	{
+	}
+	if (mem->level->player.keyspressed & ROTATE_RIGHT)
+	{
+	}
+	if (mem->level->player.keyspressed & ZOOM_OUT)
+		mem->z -= 2;
+	if (mem->level->player.keyspressed & ZOOM_IN)
+		mem->z += 2;
+	if (mem->level->player.keyspressed & EXIT_GAME)
+	{
+		exit(1);
+	}
+	refresh_screen(mem);
+	return (1);
+}
 
 int mouse_move_hook(int x, int y, t_mem *mem)
 {

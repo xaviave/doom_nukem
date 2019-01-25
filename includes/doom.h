@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/25 13:47:24 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/25 16:19:36 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,6 +103,7 @@ int						add_key(int k, t_mem *mem);
 int						remove_key(int k, t_mem *mem);
 int						cross_close(t_mem *mem);
 int						camera_move(t_mem *mem);
+int						update_keys(t_mem *mem);
 
 /*
 ** send_info.c

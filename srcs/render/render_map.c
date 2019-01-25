@@ -181,46 +181,7 @@ void draw_minimap(t_mem *mem)
 	
 }
 
-int update_keys(t_mem *mem)
-{
-	camera_move(mem);
-	if (mem->level->player.keyspressed & MOVE_LEFT)
-	{
-		mem->level->player.x = mem->level->player.x + 3 * sin(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y + 3 * cos(mem->level->player.angle);
-	}
-	if (mem->level->player.keyspressed & MOVE_RIGHT)
-	{
-		mem->level->player.x = mem->level->player.x - 3 * sin(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y - 3 * cos(mem->level->player.angle);
-	}
-	if (mem->level->player.keyspressed & MOVE_UP)
-	{
-		mem->level->player.x = mem->level->player.x + 3 * cos(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y + 3 * sin(mem->level->player.angle);
-	}
-	if (mem->level->player.keyspressed & MOVE_DOWN)
-	{
-		mem->level->player.x = mem->level->player.x - 3 * cos(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y - 3 * sin(mem->level->player.angle);
-	}
-	if (mem->level->player.keyspressed & ROTATE_LEFT)
-	{
-	}
-	if (mem->level->player.keyspressed & ROTATE_RIGHT)
-	{
-	}
-	if (mem->level->player.keyspressed & ZOOM_OUT)
-		mem->z -= 2;
-	if (mem->level->player.keyspressed & ZOOM_IN)
-		mem->z += 2;
-	if (mem->level->player.keyspressed & EXIT_GAME)
-	{
-		exit(1);
-	}
-	refresh_screen(mem);
-	return (1);
-}
+
 
 void refresh_screen(t_mem *mem)
 {
