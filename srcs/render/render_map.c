@@ -206,11 +206,11 @@ int update_keys(t_mem *mem)
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
 	{
-		mem->level->player.angle -= 0.05;
+
 	}
 	if (mem->level->player.keyspressed & ROTATE_RIGHT)
 	{
-		mem->level->player.angle += 0.05;
+
 	}
 	if (mem->level->player.keyspressed & ZOOM_OUT)
 		mem->z -= 2;
