@@ -79,7 +79,7 @@ void fill_column(int x, int y1, int y2, t_mem *mem)
     i = 1;
     if (y1 > y2)
         i = -1;
-        change_color(&mem->color, abs(y1 - y2) / 3 + 0xFFF000);
+        change_color(&mem->color, abs(y1 - y2) / 3 + 0x0F0F00);
     while (y1 != y2)
     {
         if (y1 > 0 && y1 < H)
