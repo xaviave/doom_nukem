@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 19:18:59 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 20:59:26 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -135,9 +135,11 @@ void draw_minimap(t_mem *mem)
 					change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
 				}
 			}
-			fill_form(x1, x2, y1a + i, y2a + i, mem);
-			fill_form(x1, x2, y1b + i, y2b + i, mem);
-		
+			if (!mem->color.a)
+			{
+				fill_form(x1, x2, y1a + i, y2a + i, mem);
+				fill_form(x1, x2, y1b + i, y2b + i, mem);
+			}
 		}
 	}
 
