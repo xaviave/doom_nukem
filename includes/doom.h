@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 13:58:14 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 14:15:49 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,8 @@
 # include "../minilibx_macos/mlx.h"
 
 /*
-** Test graphique
-*/ 
+ ** Test graphique
+ */ 
 
 # define W 1280
 # define H 800
@@ -60,6 +60,28 @@ typedef struct			s_img
 	int					endian;
 }						t_img;
 
+typedef struct          s_map
+{
+	int					i;
+	int 				j;
+	float 				tx1;
+	float 				tx2;
+	float 				ty1;
+	float 				ty2;
+	float 				tz1;
+	float 				tz2;
+	float 				x1;
+	float 				x2;
+	float 				y1a;
+	float				y1b;
+	float 				y2a;
+	float 				y2b;
+	float 				ix1;
+	float 				ix2;
+	float 				iz1;
+	float 				iz2;
+}                       t_map;
+
 typedef struct			s_mem
 {
 	t_win				win;
@@ -68,6 +90,7 @@ typedef struct			s_mem
 	void				*mlx_ptr;
 	t_coord				coord;
 	t_level				*level;
+	t_map				b;
 	int					z;
 	int					x;
 	int					y;
@@ -94,8 +117,8 @@ void					event_loop(t_mem *mem);
 void					change_color(t_color *color, int hex);
 
 /*
-** event.c
-*/
+ ** event.c
+ */
 
 int						mouse_move_hook(int x, int y, t_mem *mem);
 int						mouse_click_hook(int k, int x, int y, t_mem *mem);
@@ -106,8 +129,8 @@ int						camera_move(t_mem *mem);
 int						update_keys(t_mem *mem);
 
 /*
-** send_info.c
-*/
+ ** send_info.c
+ */
 
 int						send_vx(t_level *level, int id);
 int						send_vy(t_level *level, int id);
@@ -117,14 +140,22 @@ int						send_l_id(t_mem *mem, int id);
 
 
 /*
-** math.c
-*/
+ ** math.c
+ */
 
 int						return_min(int x1, int x2);
 void					intersect(float x1, float y1, float x2, float y2, float x3,
-	float y3, float x4, float y4, float *x, float *y);
+		float y3, float x4, float y4, float *x, float *y);
 int						fn_cross(float x1, float y1, float x2, float y2);
 
+/*
+ ** mini_map.c // fucknorme.c
+ */
 
+void                    draw_minimap(t_mem *mem);
+void                    fill_form(int x1, int x2, int y1i, int y2, t_mem *mem);
+void                    fuck1(t_mem *mem);
+void                    fuck2(t_mem *mem);
+void                    fuck3(t_mem *mem);
 
 #endif

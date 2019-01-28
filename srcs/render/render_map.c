@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 13:58:25 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 14:11:46 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,133 +44,6 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 				fill_column(x1, y1 - mem->camera_y, (H / 2) + 1 - mem->camera_y, mem);
 		}
 	}
-}
-
-void draw_minimap(t_mem *mem)
-{
-	int i;
-	int j;
-	float tx1;
-	float tx2;
-	float ty1;
-	float ty2;
-	float tz1;
-	float tz2;
-	float x1;
-	float x2;
-	float y1a;
-	float y1b;
-	float y2a;
-	float y2b;
-	float ix1;
-	float ix2;
-	float iz1;
-	float iz2;
-
-	i = -1;
-	mem->z = 10;
-	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
-	while (++i < mem->level->nb_sector)
-	{
-		j = -1;
-		while (++j < mem->level->sector[i].nb_linedef)
-		{
-			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
-			mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
-			tx1 = mem->coord.x1 - mem->level->player.x;
-			tx2 = mem->coord.x2 - mem->level->player.x;
-			ty1 = mem->coord.y1 - mem->level->player.y;
-			ty2 = mem->coord.y2 - mem->level->player.y;
-			tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
-			tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
-			tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
-			tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
-			mem->coord.x1 = tx1 + 150;
-			mem->coord.x2 = tx2 + 150;
-			mem->coord.y1 = tz1 + 150;
-			mem->coord.y2 = tz2 + 150;
-			if (tz1 > 0 || tz2 > 0)
-			{
-				intersect(tx1, tz1, tx2, tz2, -5, 5, -20, 5, &ix1, &iz1);  // 7eme argument definit la precision
-				intersect(tx1, tz1, tx2, tz2, 5, 5, 20, 5, &ix2, &iz2); // 7eme argument definit la precision
-				if (tz1 <= 0)
-				{
-					if (iz1 > 0)
-					{
-						tx1 = ix1;
-						tz1 = iz1;
-					}
-					else
-					{
-						tx1 = ix2;
-						tz1 = iz2;
-					}
-				}
-				if (tz2 <= 0)
-				{
-					if (iz1 > 0)
-					{
-						tx2 = ix1;
-						tz2 = iz1;
-					}
-					else
-					{
-						tx2 = ix2;
-						tz2 = iz2;
-					}
-				}
-				x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
-				x2 = -tx2 * 800 / tz2 + W / 2;
-				y1a = -H * 5 / tz1 + H / 2;
-				y2a = -H * 5 / tz2 + H / 2;
-				y1b = H * 5 / tz1 + H / 2;
-				y2b = H * 5 / tz2 + H / 2;
-			}
-			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
-			fill_form(x1, x2, y1a + i, y2a + i, mem);
-			fill_form(x1, x2, y1b + i, y2b + i, mem);
-		
-		}
-	}
-
-	/* player position */
-	change_color(&mem->color, 0xff);
-	i = -1;
-	while (++i < mem->level->nb_sector)
-	{
-		j = -1;
-		while (++j < mem->level->sector[i].nb_linedef)
-		{
-			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
-			mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
-			mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2) * mem->z;
-			tx1 = mem->coord.x1 - mem->level->player.x;
-			tx2 = mem->coord.x2 - mem->level->player.x;
-			ty1 = mem->coord.y1 - mem->level->player.y;
-			ty2 = mem->coord.y2 - mem->level->player.y;
-			tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
-			tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
-			tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
-			tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
-			mem->coord.x1 = tx1 + 150;
-			mem->coord.x2 = tx2 + 150;
-			mem->coord.y1 = tz1 + 150;
-			mem->coord.y2 = tz2 + 150;
-			
-			draw_circle(mem);
-			draw_line(mem);
-			draw_circle(mem);
-		}
-	}
-	mem->coord.x1 = 150;
-	mem->coord.y1 = 150;
-	mem->coord.x2 = 150;
-	mem->coord.y2 = 150 + 30;
-	draw_circle(mem);
-	draw_line(mem);
 }
 
 void refresh_screen(t_mem *mem)
