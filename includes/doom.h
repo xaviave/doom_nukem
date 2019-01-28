@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/25 16:19:36 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 13:58:14 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,6 +113,8 @@ int						send_vx(t_level *level, int id);
 int						send_vy(t_level *level, int id);
 int						send_l_vx(t_level *level, int id_l, int vertex);
 int						send_l_vy(t_level *level, int id_l, int vertex);
+int						send_l_id(t_mem *mem, int id);
+
 
 /*
 ** math.c

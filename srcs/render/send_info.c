@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:38:22 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 16:39:09 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 13:58:15 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,4 +69,17 @@ int send_l_vy(t_level *level, int id_l, int vertex)
 		return (send_vy(level, level->linedef[i].id_v1));
 	else
 		return (send_vy(level, level->linedef[i].id_v2));
+}
+
+int	send_l_id(t_mem *mem, int id)
+{
+	int	i;
+
+	i = -1;
+	while (++i < mem->level->nb_linedef)
+	{
+		if (mem->level->linedef[i].id == id)
+			return (i);
+	}
+	return (0);
 }

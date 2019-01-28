@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 17:27:02 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 13:52:13 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ typedef struct			s_level
 	int					nb_sector;
 	t_sector			*sector;
 	t_player			player;
-	int					c[4];
+	int					c[5];
 	struct s_level		*next; 
 }						t_level;
 

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   draw.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/09 16:09:57 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/mem->z 16:00:01 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/28 13:14:37 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,7 @@ void fill_column(int x, int y1, int y2, t_mem *mem)
     i = 1;
     if (y1 > y2)
         i = -1;
-        change_color(&mem->color, abs(y1 - y2) / 3 + 0x0F0F00);
+    //change_color(&mem->color, abs(y1 - y2) / 2 + 0x0F0F00);
     while (y1 != y2)
     {
         if (y1 > 0 && y1 < H)
@@ -118,7 +118,7 @@ void draw_square(t_mem *mem)
 void draw_circle(t_mem *mem)
 {
     t_coord coord = {mem->coord.x1, mem->coord.y1, 0, 0};
-    t_color color = {0, 255, 0, 0, 0};
+    t_color color = {255, 0, 0, 0, 0};
     int radius = 2;
     int f = 1 - radius;
     int ddF_x = 0;

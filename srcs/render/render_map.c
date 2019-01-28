@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: mem->z19/01/10 14:14:48 by mel-akio     #+#   ##    ##    #+#       */
-/*   Updated: mem->z19/01/10 15:58:17 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/28 13:58:25 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,21 +128,14 @@ void draw_minimap(t_mem *mem)
 				y1b = H * 5 / tz1 + H / 2;
 				y2b = H * 5 / tz2 + H / 2;
 			}
-			change_color(&mem->color, mem->level->c[j]);
-
+			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
 			fill_form(x1, x2, y1a + i, y2a + i, mem);
 			fill_form(x1, x2, y1b + i, y2b + i, mem);
-			/*
-			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x2), (H / 2 + y2a), mem);
-			draw_to_line((W / 2 + x1), (H / 2 + y1b), (W / 2 + x2), (H / 2 + y2b), mem);
-			draw_to_line((W / 2 + x1), (H / 2 + y1a), (W / 2 + x1), (H / 2 + y1b), mem);
-			draw_to_line((W / 2 + x2), (H / 2 + y2a), (W / 2 + x2), (H / 2 + y2b), mem);
-			*/
+		
 		}
 	}
 
 	/* player position */
-	
 	change_color(&mem->color, 0xff);
 	i = -1;
 	while (++i < mem->level->nb_sector)
@@ -178,10 +171,7 @@ void draw_minimap(t_mem *mem)
 	mem->coord.y2 = 150 + 30;
 	draw_circle(mem);
 	draw_line(mem);
-	
 }
-
-
 
 void refresh_screen(t_mem *mem)
 {
