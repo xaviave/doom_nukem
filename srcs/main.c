@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 13:47:22 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 19:15:55 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,7 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->c[2] = 0x943ad8;
 	mem->level->c[3] = 0x1a78a1;
 	mem->level->c[4] = 0x63ffe5;
+	mem->level->c[5] = 0xffffff;
 	ft_create_img(mem);
 }
 

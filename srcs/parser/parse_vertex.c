@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:31:40 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 15:09:33 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 17:55:59 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,7 @@ void			parse_vertex(t_parse *parse, char *str)
 		recup_nu(parse, &str[1], &error);
 	if (double_coord(parse, error))
 	{
+		ft_printf("%s\n", str);
 		free(str);
 		return_error(3, parse);
 	}

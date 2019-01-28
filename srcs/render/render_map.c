@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 14:41:50 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/28 19:18:59 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -127,8 +127,14 @@ void draw_minimap(t_mem *mem)
 				y2a = -H * 5 / tz2 + H / 2;
 				y1b = H * 5 / tz1 + H / 2;
 				y2b = H * 5 / tz2 + H / 2;
+				if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
+					mem->color.a = 255;
+				else
+				{
+					mem->color.a = 0;
+					change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
+				}
 			}
-			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
 			fill_form(x1, x2, y1a + i, y2a + i, mem);
 			fill_form(x1, x2, y1b + i, y2b + i, mem);
 		
@@ -136,7 +142,8 @@ void draw_minimap(t_mem *mem)
 	}
 
 	/* player position */
-	change_color(&mem->color, 0xff);
+	mem->color.a = 0;
+	change_color(&mem->color, 0xffffff);
 	i = -1;
 	while (++i < mem->level->nb_sector)
 	{
