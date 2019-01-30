@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/30 13:01:10 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/30 16:38:06 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ void draw_minimap(t_mem *mem)
 	float iz2;
 
 	i = -1;
-	mem->z = 1;
+	mem->z = 10;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 	while (++i < mem->level->nb_sector)
 	{
@@ -129,13 +129,23 @@ void draw_minimap(t_mem *mem)
 
 				y1b = H * (5 - mem->level->sector[i].h_floor) / tz1 + H / 2;
 				y2b = H * (5 - mem->level->sector[i].h_floor) / tz2 + H / 2;
-				if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
-					mem->color.a = 255;
-				else
+				//		if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
+				//			mem->color.a = 255;
+				//		else
+				//		{
+				//			mem->color.a = 0;
+
+				if (mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]] == 0xfc522f)
 				{
-					mem->color.a = 0;
-					change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
+					// afficher juste la partie basse
+					y1a = H / 2;
+					y2a = H / 2;
+
+			//		y1b = H * (5 - mem->level->sector[i].h_floor) / tz1 + H / 2;
+			//		y2b = H * (5 - mem->level->sector[i].h_floor) / tz2 + H / 2;
 				}
+				change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
+				//		}
 			}
 			if (!mem->color.a)
 			{

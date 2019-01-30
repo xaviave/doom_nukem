@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/30 11:48:38 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/30 15:09:31 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,8 +43,8 @@ typedef struct			s_coord
 
 typedef struct			s_player
 {
-	int					x;
-	int					y;
+	float					x;
+	float					y;
 	int					vx;
 	int					vy;
 	float				angle;
