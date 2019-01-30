@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 20:59:26 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/30 13:01:10 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ void draw_minimap(t_mem *mem)
 	float iz2;
 
 	i = -1;
-	mem->z = 10;
+	mem->z = 1;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 	while (++i < mem->level->nb_sector)
 	{
@@ -93,8 +93,8 @@ void draw_minimap(t_mem *mem)
 			mem->coord.y2 = tz2 + 150;
 			if (tz1 > 0 || tz2 > 0)
 			{
-				intersect(tx1, tz1, tx2, tz2, -5, 5, -20, 5, &ix1, &iz1);  // 7eme argument definit la precision
-				intersect(tx1, tz1, tx2, tz2, 5, 5, 20, 5, &ix2, &iz2); // 7eme argument definit la precision
+				intersect(tx1, tz1, tx2, tz2, -5, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
+				intersect(tx1, tz1, tx2, tz2, 5, 5, 20, 5, &ix2, &iz2);   // 7eme argument definit la precision
 				if (tz1 <= 0)
 				{
 					if (iz1 > 0)
@@ -123,10 +123,12 @@ void draw_minimap(t_mem *mem)
 				}
 				x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
 				x2 = -tx2 * 800 / tz2 + W / 2;
-				y1a = -H * 5 / tz1 + H / 2;
-				y2a = -H * 5 / tz2 + H / 2;
-				y1b = H * 5 / tz1 + H / 2;
-				y2b = H * 5 / tz2 + H / 2;
+
+				y1a = -H * mem->level->sector[i].h_ceil / tz1 + H / 2;
+				y2a = -H * mem->level->sector[i].h_ceil / tz2 + H / 2;
+
+				y1b = H * (5 - mem->level->sector[i].h_floor) / tz1 + H / 2;
+				y2b = H * (5 - mem->level->sector[i].h_floor) / tz2 + H / 2;
 				if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
 					mem->color.a = 255;
 				else
@@ -168,7 +170,7 @@ void draw_minimap(t_mem *mem)
 			mem->coord.x2 = tx2 + 150;
 			mem->coord.y1 = tz1 + 150;
 			mem->coord.y2 = tz2 + 150;
-			
+
 			draw_circle(mem);
 			draw_line(mem);
 			draw_circle(mem);

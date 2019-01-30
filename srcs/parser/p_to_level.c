@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   p_to_level.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 17:13:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 15:37:28 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/30 13:04:52 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,8 +26,8 @@ void			p_to_vertex(t_level *level, t_parse *parse)
 	tmp = parse->vertex;
 	while (tmp)
 	{
-		level->vertex[i].x = tmp->x;
-		level->vertex[i].y = tmp->y;
+		level->vertex[i].x = tmp->x * 10;
+		level->vertex[i].y = tmp->y * 10;
 		level->vertex[i].id = tmp->id;
 		i++;
 		tmp = tmp->next;

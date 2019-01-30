@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 11:07:22 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/30 13:04:28 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,23 +18,23 @@ int update_keys(t_mem *mem)
 	camera_move(mem);
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
-		mem->level->player.x = mem->level->player.x + 2 * sin(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y + 2 * cos(mem->level->player.angle);
+		mem->level->player.x = mem->level->player.x + 5 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y + 5 * sin(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_RIGHT)
 	{
-		mem->level->player.x = mem->level->player.x - 2 * sin(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y - 2 * cos(mem->level->player.angle);
+		mem->level->player.x = mem->level->player.x - 5 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y - 5 * sin(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
-		mem->level->player.x = mem->level->player.x + 2 * cos(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y + 2 * sin(mem->level->player.angle);
+		mem->level->player.x = mem->level->player.x + 5 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y + 5 * sin(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_DOWN)
 	{
-		mem->level->player.x = mem->level->player.x - 2 * cos(mem->level->player.angle);
-		mem->level->player.y = mem->level->player.y - 2 * sin(mem->level->player.angle);
+		mem->level->player.x = mem->level->player.x - 5 * cos(mem->level->player.angle);
+		mem->level->player.y = mem->level->player.y - 5 * sin(mem->level->player.angle);
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
 	{
