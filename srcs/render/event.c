@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/30 15:13:21 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 15:01:29 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,9 +44,9 @@ int update_keys(t_mem *mem)
 	{
 	}
 	if (mem->level->player.keyspressed & ZOOM_OUT)
-		mem->z -= 2;
+		mem->level->player.z--;
 	if (mem->level->player.keyspressed & ZOOM_IN)
-		mem->z += 2;
+		mem->level->player.z++;
 	if (mem->level->player.keyspressed & EXIT_GAME)
 	{
 		exit(1);

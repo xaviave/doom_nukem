@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/31 16:42:45 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 14:23:22 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,6 +81,7 @@ typedef struct s_mem
 void ft_create_img(t_mem *mem);
 void ft_put_pixel(t_mem *mem, int x, int y, t_color color);
 t_color get_color(int a, t_mem *mem);
+t_color add_rgb(t_color color, unsigned char r, unsigned char g, unsigned char b);
 void render_map(t_mem *mem);
 void draw_line(t_mem *mem);
 void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem);
@@ -92,7 +93,6 @@ void draw_circle(t_mem *mem);
 void refresh_screen(t_mem *mem);
 void event_loop(t_mem *mem);
 void change_color(t_color *color, int hex);
-
 
 /*
 ** event.c

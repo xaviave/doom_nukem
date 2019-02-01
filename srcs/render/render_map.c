@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 11:31:23 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 17:02:19 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 	t_line line;
 	t_color colorCeil;
 	t_color colorFloor;
+	int light;
 
 	line.dx = abs(x2 - x1);
 	line.sx = (x1 < x2) ? 1 : -1;
@@ -44,14 +45,73 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 		if ((x1 > 0 && x1 < W))
 		{
 			if (y1 < (H / 2))
+			{
 				fill_column(x1, 0, y1 - mem->camera_y, colorCeil, mem); // plafond
+			}
 			else if (y1 > (H / 2))
+			{
 				fill_column(x1, H, y1 - mem->camera_y, colorFloor, mem); // sol
-			fill_column(x1, y1 - mem->camera_y, (H / 2) - mem->camera_y, mem->color, mem); // murs
-			
-
+			}
+			light = abs(y1 - (H / 2)) * 0.20;
+			fill_column(x1, y1 - mem->camera_y, (H / 2) - mem->camera_y, add_rgb(mem->color, light, light, light), mem); // murs
 		}
 	}
+}
+
+int	*send_vertex(t_mem *mem, int *linedef)
+{
+	int	i;
+	int	j;
+	int	k;
+	int ok;
+	int	*test;
+
+	i = -1;
+	j = 0;
+	if (linedef)
+	;
+	test = malloc(sizeof(int) * mem->level->sector[mem->level->player.sector].nb_vertex);
+	ft_bzero(&test, mem->level->sector[mem->level->player.sector].nb_vertex);
+	while (++i < mem->level->nb_linedef)
+	{
+		ok = 0;
+		k = -1;
+		while (j && ++k < mem->level->sector[mem->level->player.sector].nb_vertex)
+		{
+			if (test[k] && mem->level->sector[i].linedef[j] == test[k])
+			
+				ok = 1;
+		}
+		if (ok && !test[j])
+		{
+			 test[j] = mem->level->sector[i].linedef[j];
+			 j++;
+		}
+	}
+	return (test);
+}
+
+void MovePlayer(float dx, float dy, t_mem *mem)
+{
+	/* dx = player.x + 1.2f * cos(player.angle) */
+	/* dy = player.y + 1.2f * sin(player.angle) */
+    float px = mem->level->player.x, py = mem->level->player.y;
+    /* Check if this movement crosses one of this sector's edges
+     * that have a neighboring sector on the other side.
+     * Because the edge vertices of each sector are defined in
+     * clockwise order, PointSide will always return -1 for a point
+     * that is outside the sector and 0 or 1 for a point that is inside.
+     */
+    t_sector *sect = &mem->level->sector[send_s_id(mem, mem->level->player.sector)];
+    int *vert = send_vertex(mem, sect->linedef); // mettre tout les vertex des linedefs dedans
+    for(int s = 0; s < sect->nb_linedef; ++s)
+        if(sect->nb_neighbors >= 0
+        && IntersectBox(px,py, px+dx,py+dy, send_vx(mem->level, vert[s+0]), send_vy(mem->level, vert[s+0]), send_vx(mem->level, vert[s+1]), send_vy(mem->level, vert[s+1]))
+        && PointSide(px+dx, py+dy, send_vx(mem->level, vert[s+0]), send_vy(mem->level, vert[s+0]), send_vx(mem->level, vert[s+1]), send_vy(mem->level, vert[s+1])) < 0)
+        {
+            mem->level->player.sector = sect->neighbors[s];
+            break;
+        }
 }
 
 void draw_minimap(t_mem *mem)
