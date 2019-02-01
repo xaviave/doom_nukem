@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   draw.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 13:14:37 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/31 16:21:12 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,19 +72,21 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
     }
 }
 
-void fill_column(int x, int y1, int y2, t_mem *mem)
+void fill_column(int x, int y1, int y2, t_color color, t_mem *mem)
 {
-    int i;
+    int swap;
 
-    i = 1;
     if (y1 > y2)
-        i = -1;
-    //change_color(&mem->color, abs(y1 - y2) / 2 + 0x0F0F00);
+    {
+        swap = y1;
+        y1 = y2;
+        y2 = swap;
+    }
     while (y1 != y2)
     {
         if (y1 > 0 && y1 < H)
-            ft_put_pixel(mem, x, y1, mem->color);
-        y1 += i;
+            ft_put_pixel(mem, x, y1, color);
+        y1++;
     }
 }
 
@@ -128,7 +130,7 @@ void draw_circle(t_mem *mem)
 
     //ft_printf("\033[32mx = %d ; y = %d\n\033[0m", mem->coord.x1, mem->coord.y1);
 
- /*   ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
+    /*   ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
     ft_put_pixel(mem, coord.x1, coord.y1 - radius, color);
     ft_put_pixel(mem, coord.x1 + radius, coord.y1, color);
     ft_put_pixel(mem, coord.x1 - radius, coord.y1, color);

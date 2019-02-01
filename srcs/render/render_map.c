@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/30 16:38:06 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 11:31:23 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,8 @@
 void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 {
 	t_line line;
+	t_color colorCeil;
+	t_color colorFloor;
 
 	line.dx = abs(x2 - x1);
 	line.sx = (x1 < x2) ? 1 : -1;
@@ -23,6 +25,9 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 	line.sy = (y1 < y2) ? 1 : -1;
 	line.err = ((line.dx > line.dy) ? line.dx : -line.dy) / 2;
 	line.e2 = line.err;
+
+	change_color(&colorCeil, 0x666666);
+	change_color(&colorFloor, 0x0022FF);
 	while (x1 != x2 || y1 != y2)
 	{
 		line.e2 = line.err;
@@ -38,10 +43,13 @@ void fill_form(int x1, int x2, int y1, int y2, t_mem *mem)
 		}
 		if ((x1 > 0 && x1 < W))
 		{
-			if (y1 > H / 2)
-				fill_column(x1, y1 - mem->camera_y, (H / 2) - mem->camera_y, mem);
-			else
-				fill_column(x1, y1 - mem->camera_y, (H / 2) + 1 - mem->camera_y, mem);
+			if (y1 < (H / 2))
+				fill_column(x1, 0, y1 - mem->camera_y, colorCeil, mem); // plafond
+			else if (y1 > (H / 2))
+				fill_column(x1, H, y1 - mem->camera_y, colorFloor, mem); // sol
+			fill_column(x1, y1 - mem->camera_y, (H / 2) - mem->camera_y, mem->color, mem); // murs
+			
+
 		}
 	}
 }
@@ -70,9 +78,10 @@ void draw_minimap(t_mem *mem)
 	i = -1;
 	mem->z = 10;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
-	while (++i < mem->level->nb_sector)
+	while (++i < 1) //mem->level->nb_sector
 	{
 		j = -1;
+
 		while (++j < mem->level->sector[i].nb_linedef)
 		{
 			mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1) * mem->z;
@@ -129,24 +138,25 @@ void draw_minimap(t_mem *mem)
 
 				y1b = H * (5 - mem->level->sector[i].h_floor) / tz1 + H / 2;
 				y2b = H * (5 - mem->level->sector[i].h_floor) / tz2 + H / 2;
-				//		if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
-				//			mem->color.a = 255;
-				//		else
-				//		{
-				//			mem->color.a = 0;
 
-				if (mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]] == 0xfc522f)
-				{
-					// afficher juste la partie basse
-					y1a = H / 2;
-					y2a = H / 2;
+				//	if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
+				//		mem->color.a = 255;
+				//	else
+				//	{
+				//		mem->color.a = 0;
 
-			//		y1b = H * (5 - mem->level->sector[i].h_floor) / tz1 + H / 2;
-			//		y2b = H * (5 - mem->level->sector[i].h_floor) / tz2 + H / 2;
-				}
+				//	if (mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]] == 0xfc522f)
+				//	{
+				// afficher juste la partie basse
+				//	y1a = H / 2;
+				//	y2a = H / 2;
+
+				//	y1b = H * (5 - mem->level->sector[i].h_floor) / tz1 + H / 2;
+				//	y2b = H * (5 - mem->level->sector[i].h_floor) / tz2 + H / 2;
+				//	}
 				change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
-				//		}
 			}
+			//	}
 			if (!mem->color.a)
 			{
 				fill_form(x1, x2, y1a + i, y2a + i, mem);
