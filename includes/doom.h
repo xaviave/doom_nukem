@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 14:23:22 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/04 14:30:06 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,8 +121,7 @@ int send_l_id(t_mem *mem, int id);
 */
 
 int return_min(int x1, int x2);
-void intersect(float x1, float y1, float x2, float y2, float x3,
-			   float y3, float x4, float y4, float *x, float *y);
+void intersect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float *x, float *y);
 int fn_cross(float x1, float y1, float x2, float y2);
 
 float dot_product(t_vertex a, t_vertex b, t_player p);
