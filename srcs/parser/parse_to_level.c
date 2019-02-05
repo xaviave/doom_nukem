@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/30 16:21:07 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 13:45:09 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,7 @@ static void		sector_neighbors(t_level *level)
 			{
 				if (count_same_linedef(level->sector[i].linedef,
 					level->sector[j].linedef, level->sector[i].nb_linedef,
-					level->sector[j].nb_linedef) > 1)
+					level->sector[j].nb_linedef) > 0)
 					add_sector_n(&level->sector[i], level->sector[j].id);
 			}
 	}
@@ -91,14 +91,11 @@ void			keys_shortcuts(t_level *level)
 void			parse_to_level(t_parse *parse, t_level *level)
 {
 	level->player = parse->player;
-	level->player.angle = 212;
-
 	keys_shortcuts(level);
 	p_to_vertex(level, parse);
 	p_to_linedef(level, parse);
-	p_to_sector(level, parse);	
+	p_to_sector(level, parse);
 	free_parse(parse);
 	sector_neighbors(level);
 	//aff_debug(level);
-	
 }
