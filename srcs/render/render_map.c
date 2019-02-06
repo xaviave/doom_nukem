@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 11:53:46 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 11:57:05 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -293,7 +293,7 @@ void render(t_mem *mem, int i)
 	float ix2;
 	float iz1;
 	float iz2;
-	dprintf(1, "i sector = %d | id sector = %d | sol =  %d\n", i, mem->level->n_sector[0], mem->level->sector[i].h_floor);
+	dprintf(1, "i sector = %d | id sector = %d \n sol =  %d | plafond = %d\n", i, mem->level->n_sector[0], mem->level->sector[i].h_floor, mem->level->sector[i].h_ceil);
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 
 	j = -1;
@@ -348,8 +348,8 @@ void render(t_mem *mem, int i)
 			x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
 			x2 = -tx2 * 800 / tz2 + W / 2;
 
-			y1a = -H * (5 + mem->level->sector[i].h_ceil) / tz1 + H / 2;
-			y2a = -H * (5 + mem->level->sector[i].h_ceil) / tz2 + H / 2;
+			y1a = -H * (mem->level->sector[i].h_ceil) / tz1 + H / 2;
+			y2a = -H * (mem->level->sector[i].h_ceil) / tz2 + H / 2;
 
 
 			y1b = H * (5 - mem->level->sector[i].h_floor) / tz1 + H / 2;
