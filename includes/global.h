@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 13:54:12 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 18:07:08 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,8 +28,8 @@
 
 typedef struct			s_vertex
 {
-	int					x;
-	int					y;
+	float				x;
+	float				y;
 	int					id;
 }						t_vertex;
 
