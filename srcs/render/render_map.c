@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 15:57:06 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 16:52:52 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -146,10 +146,8 @@ int player_sector(t_mem *mem)
 	int i;
 	int j;
 	int save;
-	int sector;
 
 	i = -1;
-	sector = -1;
 	while (++i < mem->level->nb_sector)
 	{
 		save = mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[0])].id_v1;
@@ -158,12 +156,12 @@ int player_sector(t_mem *mem)
 			j = 0;
 			while (++j < mem->level->sector[i].nb_linedef)
 				if (check_in_sector(mem, mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].id_v1, mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].id_v2, save))
-					sector = mem->level->sector[i].id;
+					mem->level->player.sector = mem->level->sector[i].id;
 		}
 	}
 	mem->level->n = 1;
-	mem->level->n_sector[0] = sector;
-	return (sector);
+	mem->level->n_sector[0] = mem->level->player.sector;
+	return (mem->level->player.sector);
 }
 
 void search_sector(t_mem *mem, int id, int ok)
@@ -418,9 +416,11 @@ void refresh_screen(t_mem *mem)
 	i = -1;
 	while (++i < mem->level->nb_sector)
 		render(mem, i);
-	render(mem, send_v_id(mem, mem->level->n_sector[0]));
+	render(mem, send_v_id(mem, mem->level->player.sector));
 	draw_minimap(mem);
-
+	printf("new %d  old %d\n",mem->level->player.sector, mem->level->n_sector[0]);
+	
+	//mem->level->player->sector
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 }
 
@@ -428,7 +428,7 @@ void event_loop(t_mem *mem)
 {
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-			 mouse_move_hook, mem);
+			mouse_move_hook, mem);
 	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
 	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);

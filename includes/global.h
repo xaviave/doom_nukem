@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 15:22:46 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 16:40:30 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,7 @@ typedef struct			s_player
 	float				angle;
 	int					keys_shortcuts[256];
 	int					keyspressed;
+	int 				sector;
 }						t_player;
 
 typedef struct			s_sidedef
