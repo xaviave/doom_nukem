@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 18:15:12 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 15:27:35 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,19 +72,33 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
     }
 }
 
-void fill_column(int x, int y1, int y2, t_mem *mem)
+void fill_column(int x, t_coord p1, t_mem *mem)
 {
     int i;
 
-    i = 1;
-    if (y1 > y2)
-        i = -1;
-    //change_color(&mem->color, abs(y1 - y2) / 2 + 0x0F0F00);
-    while (y1 != y2)
+    i = 0;
+
+    while (p1.y1 < p1.y2)
     {
-        if (y1 > 0 && y1 < H)
-            ft_put_pixel(mem, x, y1, mem->color);
-        y1 += i;
+        if (p1.y1 > 0 && p1.y1 < H)
+            ft_put_pixel(mem, x, p1.y1, mem->color);
+        p1.y1++;
+    }
+}
+
+void fill_row(int y, t_coord p1, t_mem *mem)
+{
+    int i;
+    t_color ceil;
+
+    i = 0;
+
+    change_color(&ceil, 0x666666);
+    while (p1.x1 < p1.x2)
+    {
+        if (p1.x1 > 0 && p1.x1 < W)
+            ft_put_pixel(mem, p1.x1, y, ceil);
+        p1.x1++;
     }
 }
 
@@ -128,7 +142,7 @@ void draw_circle(t_mem *mem)
 
     //ft_printf("\033[32mx = %d ; y = %d\n\033[0m", mem->coord.x1, mem->coord.y1);
 
- /*   ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
+    /*   ft_put_pixel(mem, coord.x1, coord.y1 + radius, color);
     ft_put_pixel(mem, coord.x1, coord.y1 - radius, color);
     ft_put_pixel(mem, coord.x1 + radius, coord.y1, color);
     ft_put_pixel(mem, coord.x1 - radius, coord.y1, color);

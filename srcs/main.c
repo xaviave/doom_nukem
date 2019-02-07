@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 13:52:42 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 15:39:30 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->camera_y = H / 2;
 	mem->camera_x = W / 2;
 	mem->win.win_ptr = mlx_new_window(mem->mlx_ptr, mem->win.width,
-									  mem->win.height, "doomy nukoom");
+									mem->win.height, "doomy nukoom");
 	mem->z = 100;
 	mem->x = 100 - level->player.x * 10;
 	mem->y = 100 - level->player.y * 10;
@@ -68,6 +68,7 @@ int main(int ac, char **av)
 	init_level(&level);
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
+	mem.level->player.height = 5;
 	event_loop(&mem);
 	free_level(&level);
 	return (0);

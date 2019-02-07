@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 18:07:08 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 15:22:46 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,12 +41,19 @@ typedef struct			s_coord
 	int					y2;
 }						t_coord;
 
+typedef struct			s_fcoord
+{
+	float					x1;
+	float					y1;
+	float					x2;
+	float					y2;
+}						t_fcoord;
+
 typedef struct			s_player
 {
 	float				x;
 	float				y;
-	int					vx;
-	int					vy;
+	float					height;
 	float				angle;
 	int					keys_shortcuts[256];
 	int					keyspressed;

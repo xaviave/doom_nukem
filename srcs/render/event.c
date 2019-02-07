@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/04 18:41:46 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 17:13:02 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,9 +43,9 @@ int update_keys(t_mem *mem)
 	{
 	}
 	if (mem->level->player.keyspressed & ZOOM_OUT)
-		;
+		mem->level->player.height -= 0.10;
 	if (mem->level->player.keyspressed & ZOOM_IN)
-		;
+		mem->level->player.height += 0.10;
 	if (mem->level->player.keyspressed & EXIT_GAME)
 	{
 		exit(1);
