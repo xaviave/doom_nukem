@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 16:34:19 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 11:56:06 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,30 +75,33 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
 void fill_column(int x, t_coord p1, t_mem *mem)
 {
     int i;
+    t_color c;
+
+    c.r = 66;
+    c.g = 66;
+    c.b = 66;
+
 
     i = 0;
+    
 
+    while (i < p1.y1)
+    {
+        if (i > 0 && i < H)
+            ft_put_pixel(mem, x, i, set_color(0xe0e0e0));
+        i++;
+    }
     while (p1.y1 < p1.y2)
     {
         if (p1.y1 > 0 && p1.y1 < H)
             ft_put_pixel(mem, x, p1.y1, mem->color);
         p1.y1++;
     }
-}
-
-void fill_row(int y, t_coord p1, t_mem *mem)
-{
-    int i;
-    t_color ceil;
-
-    i = 0;
-
-    change_color(&ceil, 0x666666);
-    while (p1.x1 < p1.x2)
+    while (p1.y1 < H)
     {
-        if (p1.x1 > 0 && p1.x1 < W)
-            ft_put_pixel(mem, p1.x1, y, ceil);
-        p1.x1++;
+        if (p1.y1 > 0 && p1.y1 < H)
+            ft_put_pixel(mem, x, p1.y1, set_color(0x804000));
+        p1.y1++;
     }
 }
 

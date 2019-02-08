@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 16:52:52 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 12:52:36 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,35 +97,35 @@ int in_box(t_mem *mem, int nb)
 
 int is_inside(t_vertex v1, t_vertex v2, t_vertex v3, t_vertex player)
 {
-    double s1;
-    double s2;
-    double s3;
-    double s4;
-    double w1;
-    double w2;
+	double s1;
+	double s2;
+	double s3;
+	double s4;
+	double w1;
+	double w2;
 
-    s1 = v3.y - v1.y;
-    s2 = v3.x - v1.x;
-    s3 = v2.y - v1.y;
-    s4 = player.y - v1.y;
-    w1 = (v1.x * s1 + s4 * s2 - player.x * s1) / (s3 * s2 - (v2.x - v1.x) * s1);
-    w2 = (s4- w1 * s3) / s1;
-    return (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1);
+	s1 = v3.y - v1.y;
+	s2 = v3.x - v1.x;
+	s3 = v2.y - v1.y;
+	s4 = player.y - v1.y;
+	w1 = (v1.x * s1 + s4 * s2 - player.x * s1) / (s3 * s2 - (v2.x - v1.x) * s1);
+	w2 = (s4 - w1 * s3) / s1;
+	return (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1);
 }
 
 int check_in_sector(t_mem *mem, int l1, int l2, int save)
 {
-    t_vertex vertex;
+	t_vertex vertex;
 
-    if (send_v_id(mem, save) == send_v_id(mem, l1) || send_v_id(mem, save) == send_v_id(mem, l2))
-        return (0);
-    vertex.x = mem->level->player.x;
-    vertex.y = mem->level->player.y;
-    if (is_inside(mem->level->vertex[send_v_id(mem, save)],
-        mem->level->vertex[send_v_id(mem, l1)],
-        mem->level->vertex[send_v_id(mem, l2)], vertex))
-        return (1);
-    return (0);
+	if (send_v_id(mem, save) == send_v_id(mem, l1) || send_v_id(mem, save) == send_v_id(mem, l2))
+		return (0);
+	vertex.x = mem->level->player.x;
+	vertex.y = mem->level->player.y;
+	if (is_inside(mem->level->vertex[send_v_id(mem, save)],
+				  mem->level->vertex[send_v_id(mem, l1)],
+				  mem->level->vertex[send_v_id(mem, l2)], vertex))
+		return (1);
+	return (0);
 }
 
 int double_int(int *tab, int nu, int nb)
@@ -245,7 +245,9 @@ void paint_sector(t_fcoord pf1, t_fcoord pf2, t_mem *mem)
 	t_coord p1;
 	t_coord p2;
 	t_coord p3;
+	int i;
 
+	i = 0;
 	p1.x1 = pf1.x1;
 	p1.x2 = pf1.x2;
 	p1.y1 = pf1.y1;
@@ -274,29 +276,31 @@ void paint_sector(t_fcoord pf1, t_fcoord pf2, t_mem *mem)
 	{
 		line.e2 = line.err;
 		line2.e2 = line2.err;
-		if (line.e2 > -line.dx && line2.e2 > -line2.dx)
-		{
-			line.err -= line.dy;
-			p1.x1 += line.sx;
-			line2.err -= line2.dy;
-			p2.x1 += line2.sx;
-		}
-		if (line.e2 < line.dy)
-		{
-			line.err += line.dx;
-			p1.y1 += line.sy;
-		}
-		//--------
 
-		if (line2.e2 < line2.dy)
+		if (i++)
 		{
-			line2.err += line2.dx;
-			p2.y1 += line2.sy;
+			if (line.e2 > -line.dx && line2.e2 > -line2.dx)
+			{
+				line.err -= line.dy;
+				p1.x1 += line.sx;
+				line2.err -= line2.dy;
+				p2.x1 += line2.sx;
+			}
+			if (line.e2 < line.dy)
+			{
+				line.err += line.dx;
+				p1.y1 += line.sy;
+			}
+			//--------
+
+			if (line2.e2 < line2.dy)
+			{
+				line2.err += line2.dx;
+				p2.y1 += line2.sy;
+			}
 		}
 		if ((p1.x1 > 0 && p1.x1 < W))
 		{
-			//	dprintf(1, "%d %d \n",p1.x1, p2.x1);
-
 			p3.y1 = p1.y1 - mem->camera_y;
 			p3.y2 = p2.y1 - mem->camera_y;
 			fill_column(p1.x1, p3, mem);
@@ -380,13 +384,13 @@ void render(t_mem *mem, int i)
 			p2.y1 = H * (mem->level->player.height - mem->level->sector[i].h_floor) / tz1 + H / 2;
 			p2.y2 = H * (mem->level->player.height - mem->level->sector[i].h_floor) / tz2 + H / 2;
 
-//			if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
-//				mem->color.a = 255;
-//			else
-//			{
-				mem->color.a = 0;
-				change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
-//			}
+			//			if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
+			//				mem->color.a = 255;
+			//			else
+			//			{
+			mem->color.a = 0;
+			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
+			//			}
 		}
 		if (!mem->color.a)
 		{
@@ -412,14 +416,11 @@ void refresh_screen(t_mem *mem)
 		(mem->level->nb_sector > 1 && mem->level->n_sector[0] > 0) ? search_sector(mem, mem->level->n_sector[0], 0) : 0;
 
 	ft_create_img(mem);
-	//render(mem, send_v_id(mem, mem->level->n_sector[0]));
 	i = -1;
-	while (++i < mem->level->nb_sector)
-		render(mem, i);
+	//	while (++i < mem->level->nb_sector)
+	//		render(mem, i);
 	render(mem, send_v_id(mem, mem->level->player.sector));
 	draw_minimap(mem);
-	printf("new %d  old %d\n",mem->level->player.sector, mem->level->n_sector[0]);
-	
 	//mem->level->player->sector
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 }
@@ -428,7 +429,7 @@ void event_loop(t_mem *mem)
 {
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-			mouse_move_hook, mem);
+			 mouse_move_hook, mem);
 	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
 	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   color.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 13:23:13 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 13:57:43 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 11:52:48 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,4 +28,14 @@ void				change_color(t_color *color, int hex)
 	color->r = hex >> 16;
 	color->g = hex >> 8;
 	color->b = hex;
+}
+
+t_color				set_color(int a)
+{
+	t_color			color;
+
+	color.r = a >> 16;
+	color.g = a >> 8;
+	color.b = a;
+	return (color);
 }

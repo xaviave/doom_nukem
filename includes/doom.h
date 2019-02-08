@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 16:01:28 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 11:49:15 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,6 +92,7 @@ void					draw_circle(t_mem *mem);
 void 					refresh_screen(t_mem *mem);
 void					event_loop(t_mem *mem);
 void					change_color(t_color *color, int hex);
+t_color					set_color(int a);
 
 /*
 ** event.c
