@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   send_info.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:38:22 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 13:58:15 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 16:15:54 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,4 +82,21 @@ int	send_l_id(t_mem *mem, int id)
 			return (i);
 	}
 	return (0);
+}
+
+void    fill_n_sector(t_mem *mem, int i)
+{
+    int    j;
+
+    j = -1;
+    while (++j < mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].nb_neighbors)
+    {
+        if (double_int(mem->level->n_sector, mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].neighbors[j], mem->level->n))
+        {
+            mem->level->n_sector[mem->level->n] = mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].neighbors[j];
+            mem->level->n++;
+        }
+    }
+    if (mem->level->n < mem->level->nb_sector)
+        fill_n_sector(mem, ++i);
 }

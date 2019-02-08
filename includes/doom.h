@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 11:49:15 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 17:01:48 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,7 +84,7 @@ t_color					get_color(int a, t_mem *mem);
 void					render_map(t_mem *mem);
 void					draw_line(t_mem *mem);
 void					draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem);
-void					fill_column(int x, t_coord p1, t_mem *mem);
+void 					fill_column(int x, t_coord p1, int sect, t_mem *mem);
 void					draw_camera(t_mem *mem);
 void					draw_minimap(t_mem *mem);
 void					draw_square(t_mem *mem);
@@ -115,6 +115,9 @@ int						send_vy(t_level *level, int id);
 int						send_l_vx(t_level *level, int id_l, int vertex);
 int						send_l_vy(t_level *level, int id_l, int vertex);
 int						send_l_id(t_mem *mem, int id);
+int						send_s_id(t_mem *mem, int id);
+void					fill_n_sector(t_mem *mem, int i);
+int						double_int(int *tab, int nu, int nb);
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 15:36:06 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 16:59:00 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -161,6 +161,7 @@ int player_sector(t_mem *mem)
 	}
 	mem->level->n = 1;
 	mem->level->n_sector[0] = mem->level->player.sector;
+	fill_n_sector(mem, 0);
 	return (mem->level->player.sector);
 }
 
@@ -238,7 +239,7 @@ void draw_minimap(t_mem *mem)
 	draw_line(mem);
 }
 
-void paint_sector(t_fcoord pf1, t_fcoord pf2, t_mem *mem)
+void paint_sector(t_fcoord pf1, t_fcoord pf2, int sect, t_mem *mem)
 {
 	t_line line;
 	t_line line2;
@@ -303,7 +304,7 @@ void paint_sector(t_fcoord pf1, t_fcoord pf2, t_mem *mem)
 		{
 			p3.y1 = p1.y1 - mem->camera_y;
 			p3.y2 = p2.y1 - mem->camera_y;
-			fill_column(p1.x1, p3, mem);
+			fill_column(p1.x1, p3, sect, mem);
 		}
 	}
 }
@@ -394,7 +395,7 @@ void render(t_mem *mem, int i)
 		}
 		if (!mem->color.a)
 		{
-			paint_sector(p1, p2, mem);
+			paint_sector(p1, p2, i, mem);
 		}
 	}
 }
@@ -406,20 +407,21 @@ void refresh_screen(t_mem *mem)
 	if (mem->img.ptr)
 		mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
 	player_sector(mem);
-	if (mem->level->n_sector[0] == -1)
-	{
-		i = -1;
-		while (++i < mem->level->nb_sector)
-			mem->level->n_sector[i] = mem->level->sector[i].id;
-	}
-	else
-		(mem->level->nb_sector > 1 && mem->level->n_sector[0] > 0) ? search_sector(mem, mem->level->n_sector[0], 0) : 0;
 
 	ft_create_img(mem);
+	i = mem->level->nb_sector - 1;
+	while (i != -1)
+	{
+		render(mem, send_s_id(mem, mem->level->n_sector[i]));
+		i--;
+	}
+	/*
+
 	i = -1;
-		while (++i < mem->level->nb_sector)
-			render(mem, i);
+	while(++i < mem->level->nb_sector)
+		render(mem, i);
 	render(mem, send_v_id(mem, mem->level->player.sector));
+	*/
 	draw_minimap(mem);
 	//mem->level->player->sector
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
@@ -429,7 +431,7 @@ void event_loop(t_mem *mem)
 {
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-			 mouse_move_hook, mem);
+			mouse_move_hook, mem);
 	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
 	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);
