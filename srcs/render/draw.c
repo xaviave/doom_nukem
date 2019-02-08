@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 11:56:06 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 14:12:05 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,7 +93,7 @@ void fill_column(int x, t_coord p1, t_mem *mem)
     }
     while (p1.y1 < p1.y2)
     {
-        if (p1.y1 > 0 && p1.y1 < H)
+        if (p1.y1 > 0 && p1.y1 < H && mem->color.r != 255)
             ft_put_pixel(mem, x, p1.y1, mem->color);
         p1.y1++;
     }
@@ -101,7 +101,7 @@ void fill_column(int x, t_coord p1, t_mem *mem)
     {
         if (p1.y1 > 0 && p1.y1 < H)
             ft_put_pixel(mem, x, p1.y1, set_color(0x804000));
-        p1.y1++;
+        p1.y1+ = 2;
     }
 }
 
