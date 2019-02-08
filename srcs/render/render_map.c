@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 13:04:25 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 13:07:28 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -388,7 +388,7 @@ void render(t_mem *mem, int i)
 						//	mem->color.a = 255;
 						//else
 					//	{
-			mem->color.a = 0;
+			//mem->color.a = 0;
 			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
 			//			}
 		}
