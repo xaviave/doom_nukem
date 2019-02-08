@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 17:11:52 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 17:17:30 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,22 +75,23 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
 void fill_column(int x, t_coord p1, int sect, t_mem *mem)
 {
     int i;
-    t_color c;
-    t_color color;
-
-    c.r = 66;
-    c.g = 66;
-    c.b = 66;
+    t_color floor;
+    t_color ceil;
 
     i = 0;
-    color.r = 0;
-    color.g = sect * 50;
-    color.b = sect * 50;
+
+    sect += 1;
+    ceil.g = sect * 50;
+    ceil.b = sect * 50;
+
+    floor.r = sect * 50;
+    floor.g = sect * 50;
+
 
     while (i < p1.y1)
     {
         if (i > 0 && i < H)
-            ft_put_pixel(mem, x, i, color);
+            ft_put_pixel(mem, x, i, ceil);
         i++;
     }
     while (p1.y1 < p1.y2)
@@ -102,7 +103,7 @@ void fill_column(int x, t_coord p1, int sect, t_mem *mem)
     while (p1.y1 < H)
     {
         if (p1.y1 > 0 && p1.y1 < H)
-            ft_put_pixel(mem, x, p1.y1, color);
+            ft_put_pixel(mem, x, p1.y1, floor);
         p1.y1++;
     }
 }
