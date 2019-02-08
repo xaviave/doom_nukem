@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 12:52:36 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 13:04:25 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -384,10 +384,10 @@ void render(t_mem *mem, int i)
 			p2.y1 = H * (mem->level->player.height - mem->level->sector[i].h_floor) / tz1 + H / 2;
 			p2.y2 = H * (mem->level->player.height - mem->level->sector[i].h_floor) / tz2 + H / 2;
 
-			//			if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
-			//				mem->color.a = 255;
-			//			else
-			//			{
+					//	if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
+						//	mem->color.a = 255;
+						//else
+					//	{
 			mem->color.a = 0;
 			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
 			//			}
@@ -417,8 +417,8 @@ void refresh_screen(t_mem *mem)
 
 	ft_create_img(mem);
 	i = -1;
-	//	while (++i < mem->level->nb_sector)
-	//		render(mem, i);
+		while (++i < mem->level->nb_sector)
+			render(mem, i);
 	render(mem, send_v_id(mem, mem->level->player.sector));
 	draw_minimap(mem);
 	//mem->level->player->sector
