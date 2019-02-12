@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 17:17:30 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 18:23:49 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,21 +72,27 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
     }
 }
 
-void fill_column(int x, t_coord p1, int sect, t_mem *mem)
+void fill_column(int x, t_coord p1, t_coord step_bot, int sect, t_mem *mem)
 {
     int i;
     t_color floor;
     t_color ceil;
+    t_color step;
 
     i = 0;
 
     sect += 1;
-    ceil.g = sect * 50;
-    ceil.b = sect * 50;
+    ceil.g = sect * 10;
+    ceil.b = sect * 10;
 
-    floor.r = sect * 50;
-    floor.g = sect * 50;
+    floor.r = sect * 10;
+    floor.g = sect * 10;
+    step.r = 150;
+    step.b = 150;
+    step.g = 0;
 
+    if (step_bot.x1)
+    ;
 
     while (i < p1.y1)
     {
@@ -96,16 +102,23 @@ void fill_column(int x, t_coord p1, int sect, t_mem *mem)
     }
     while (p1.y1 < p1.y2)
     {
-        if (p1.y1 > 0 && p1.y1 < H && mem->color.r != 255)
+        if (p1.y1 > 0 && p1.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
             ft_put_pixel(mem, x, p1.y1, mem->color);
         p1.y1++;
     }
-    while (p1.y1 < H)
+  /*   while (p1.y1 < step_bot.y2)
+    {
+       if (p1.y1 > 0 && p1.y1 < H && mem->color.r == 255 && mem->color.g == 0 && mem->color.b == 0)
+            ft_put_pixel(mem, x, p1.y1, step);
+        p1.y1++;
+    }*/
+   while (p1.y1 < H)
     {
         if (p1.y1 > 0 && p1.y1 < H)
             ft_put_pixel(mem, x, p1.y1, floor);
         p1.y1++;
     }
+   
 }
 
 void draw_camera(t_mem *mem)

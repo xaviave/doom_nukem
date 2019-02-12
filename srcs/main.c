@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 13:20:05 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 15:05:20 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ int main(int ac, char **av)
 	init_level(&level);
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
-	mem.level->player.height = 5;
+	mem.level->player.z = 5;
 	event_loop(&mem);
 	free_level(&level);
 	return (0);
