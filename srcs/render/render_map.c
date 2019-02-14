@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 14:30:56 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 18:36:55 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -398,7 +398,8 @@ void render(t_mem *mem, int i)
 			p2.y2 = H * (mem->level->player.z - mem->level->sector[i].h_floor) / tz2 + H / 2;
 
 			neighbour = next_sector(mem, mem->level->sector[i].linedef[j], i);
-			if (neighbour > -1)
+
+			if (neighbour > -1 && mem->level->sector[i].h_floor > mem->level->player.z - 5)
 			{
 				step.y1 = H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + H / 2;
 				step.y2 = H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + H / 2;
@@ -408,7 +409,6 @@ void render(t_mem *mem, int i)
 				step.y1 = p2.y1 + 1;
 				step.y2 = p2.y2 + 1;
 			}
-
 
 			//send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor)
 
@@ -443,8 +443,8 @@ void refresh_screen(t_mem *mem)
 		render(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
-	
-/*
+	//render(mem, send_s_id(mem, mem->level->n_sector[0]));
+	/*
 	i = -1;
 	while(++i < mem->level->nb_sector)
 		render(mem, i);

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 14:25:53 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 18:36:03 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,8 +87,8 @@ void fill_column(int x, t_coord p1, t_coord step_bot, int sect, t_mem *mem)
 
     floor.r = sect * 10;
     floor.g = sect * 10;
-    step.r = 35 * sect;
-    step.b = 15 * sect;
+    step.r = 10 * sect;
+    step.b = 10 * sect;
     step.g = 0;
 
     if (step_bot.x1)
@@ -112,12 +112,14 @@ void fill_column(int x, t_coord p1, t_coord step_bot, int sect, t_mem *mem)
             ft_put_pixel(mem, x, p1.y1, floor);
         p1.y1++;
     }
-   /* while (step_bot.y1 < step_bot.y2)
+    while (step_bot.y1 < step_bot.y2)
     {
         if (step_bot.y1 > 0 && step_bot.y1 < H)
             ft_put_pixel(mem, x, step_bot.y1, step);
         step_bot.y1++;
-    }*/
+    }
+    
+   
 }
 
 void draw_camera(t_mem *mem)
