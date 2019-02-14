@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 18:16:59 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 18:34:33 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -400,7 +400,7 @@ void render(t_mem *mem, int i, int iter)
 				step.y1 = H * (mem->level->player.z - mem->level->sector[send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor) / tz1 + H / 2;
 				step.y2 = H * (mem->level->player.z - mem->level->sector[send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor) / tz2 + H / 2;
 
-				printf("%f sol actuel , %f sol voisin\n", p1.y1, step.y1);
+//				printf("%f sol actuel , %f sol voisin\n", p1.y1, step.y1);
 			}
 			else
 			{
