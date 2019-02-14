@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 14:52:59 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 17:23:09 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -117,6 +117,7 @@ int						send_l_vx(t_level *level, int id_l, int vertex);
 int						send_l_vy(t_level *level, int id_l, int vertex);
 int						send_l_id(t_mem *mem, int id);
 int						send_s_id(t_mem *mem, int id);
+int						next_sector(t_mem *mem, int linedef_id, int actual_sector);
 void					fill_n_sector(t_mem *mem, int i);
 int						double_int(int *tab, int nu, int nb);
 

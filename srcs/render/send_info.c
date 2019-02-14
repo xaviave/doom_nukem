@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:38:22 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 16:15:54 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 13:02:36 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,9 +71,9 @@ int send_l_vy(t_level *level, int id_l, int vertex)
 		return (send_vy(level, level->linedef[i].id_v2));
 }
 
-int	send_l_id(t_mem *mem, int id)
+int send_l_id(t_mem *mem, int id)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < mem->level->nb_linedef)
@@ -84,19 +84,48 @@ int	send_l_id(t_mem *mem, int id)
 	return (0);
 }
 
-void    fill_n_sector(t_mem *mem, int i)
+void fill_n_sector(t_mem *mem, int i)
 {
-    int    j;
+	int j;
 
-    j = -1;
-    while (++j < mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].nb_neighbors)
-    {
-        if (double_int(mem->level->n_sector, mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].neighbors[j], mem->level->n))
-        {
-            mem->level->n_sector[mem->level->n] = mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].neighbors[j];
-            mem->level->n++;
-        }
-    }
-    if (mem->level->n < mem->level->nb_sector)
-        fill_n_sector(mem, ++i);
+	j = -1;
+	while (++j < mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].nb_neighbors)
+	{
+		if (double_int(mem->level->n_sector, mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].neighbors[j], mem->level->n))
+		{
+			mem->level->n_sector[mem->level->n] = mem->level->sector[send_s_id(mem, mem->level->n_sector[i])].neighbors[j];
+			mem->level->n++;
+		}
+	}
+	if (mem->level->n < mem->level->nb_sector)
+		fill_n_sector(mem, ++i);
+}
+
+int next_sector(t_mem *mem, int linedef_id, int actual_sector)
+{
+	int i;
+	int j;
+	int	this_sector;
+	int	next_sector;
+
+	this_sector = -1;
+	next_sector = -1;
+	i = -1;
+	while (++i < mem->level->nb_sector)
+	{
+		j = -1;
+		while (++j < mem->level->sector[i].nb_linedef)
+		{
+			if (linedef_id == mem->level->sector[i].linedef[j])
+			{
+				if (actual_sector == i)
+					this_sector = i;
+				else
+					next_sector = i;
+				if (this_sector != -1 && next_sector != -1)
+					return (next_sector);
+			}
+		}
+	}
+	return (-1);
 }

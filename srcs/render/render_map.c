@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 18:34:33 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 14:30:56 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -253,7 +253,7 @@ t_line line_init(t_fcoord p)
 	return (line);
 }
 
-void paint_sector(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *mem)
+void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *mem)
 {
 	t_line line;
 	t_line line2;
@@ -268,13 +268,11 @@ void paint_sector(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *me
 	line = line_init(pf1);
 	line2 = line_init(pf2);
 	line3 = line_init(step);
-
 	while ((int)pf1.x1 != (int)pf1.x2)
 	{
 		line.e2 = line.err;
 		line2.e2 = line2.err;
 		line3.e2 = line3.err;
-
 		if (i++)
 		{
 			if (line.e2 > -line.dx)
@@ -318,7 +316,7 @@ void paint_sector(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *me
 	}
 }
 
-void render(t_mem *mem, int i, int iter)
+void render(t_mem *mem, int i)
 {
 	int j;
 	t_fcoord p1;
@@ -334,11 +332,16 @@ void render(t_mem *mem, int i, int iter)
 	float ix2;
 	float iz1;
 	float iz2;
+
+	int neighbour;
+
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 
 	j = -1;
+
 	while (++j < mem->level->sector[i].nb_linedef)
 	{
+		neighbour = 0;
 		mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1);
 		mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1);
 		mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2);
@@ -394,23 +397,19 @@ void render(t_mem *mem, int i, int iter)
 			p2.y1 = H * (mem->level->player.z - mem->level->sector[i].h_floor) / tz1 + H / 2;
 			p2.y2 = H * (mem->level->player.z - mem->level->sector[i].h_floor) / tz2 + H / 2;
 
-			// step sont les coordones qui partente du haut du sol suivant au haut de notre sol
-			if (iter - 1 > 0)
+			neighbour = next_sector(mem, mem->level->sector[i].linedef[j], i);
+			if (neighbour > -1)
 			{
-				step.y1 = H * (mem->level->player.z - mem->level->sector[send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor) / tz1 + H / 2;
-				step.y2 = H * (mem->level->player.z - mem->level->sector[send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor) / tz2 + H / 2;
-
-//				printf("%f sol actuel , %f sol voisin\n", p1.y1, step.y1);
+				step.y1 = H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + H / 2;
+				step.y2 = H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + H / 2;
 			}
 			else
 			{
 				step.y1 = p2.y1 + 1;
 				step.y2 = p2.y2 + 1;
 			}
-			
 
-			//step.y1 = H * (mem->level->player.z - mem->level->sector[send_s_id(mem, mem->level->n_sector[iter + 1])].h_floor) / tz1 + H / 2;
-			//step.y2 = H * (mem->level->player.z - mem->level->sector[send_s_id(mem, mem->level->n_sector[iter + 1])].h_floor) / tz2 + H / 2;
+
 			//send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor)
 
 			//	if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
@@ -423,7 +422,7 @@ void render(t_mem *mem, int i, int iter)
 		}
 		if (!mem->color.a)
 		{
-			paint_sector(p1, p2, step, i, mem);
+			paint_linedef(p1, p2, step, i, mem);
 		}
 	}
 }
@@ -435,15 +434,17 @@ void refresh_screen(t_mem *mem)
 	if (mem->img.ptr)
 		mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
 
+	//printf("secteur voisin %d\n",next_sector(mem, 38 , 11));
+	//printf("secteur actuel %d\n", send_s_id(mem, mem->level->n_sector[0]));
 	ft_create_img(mem);
 	i = mem->level->nb_sector - 1;
-	while (i != -1)
+	while (i > -1)
 	{
-		render(mem, send_s_id(mem, mem->level->n_sector[i]), i);
+		render(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
-	/*
-
+	
+/*
 	i = -1;
 	while(++i < mem->level->nb_sector)
 		render(mem, i);
@@ -456,6 +457,7 @@ void refresh_screen(t_mem *mem)
 
 void event_loop(t_mem *mem)
 {
+
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
 			 mouse_move_hook, mem);
