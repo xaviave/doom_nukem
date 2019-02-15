@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 18:36:03 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 16:37:08 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,7 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
     }
 }
 
-void fill_column(int x, t_coord p1, t_coord step_bot, int sect, t_mem *mem)
+void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect, t_mem *mem)
 {
     int i;
     t_color floor;
@@ -87,11 +87,11 @@ void fill_column(int x, t_coord p1, t_coord step_bot, int sect, t_mem *mem)
 
     floor.r = sect * 10;
     floor.g = sect * 10;
-    step.r = 10 * sect;
-    step.b = 10 * sect;
+    step.r = 35 * sect;
+    step.b = 15 * sect;
     step.g = 0;
 
-    if (step_bot.x1)
+    if (step_bot.x1 || step_top.x1)
         ;
 
     while (i < p1.y1)
@@ -100,16 +100,16 @@ void fill_column(int x, t_coord p1, t_coord step_bot, int sect, t_mem *mem)
             ft_put_pixel(mem, x, i, ceil);
         i++;
     }
+    while (step_top.y1 < step_top.y2)
+    {
+        if (step_top.y1 > 0 && step_top.y1 < H)
+            ft_put_pixel(mem, x, step_top.y1, step);
+        step_top.y1++;
+    }
     while (p1.y1 < p1.y2)
     {
         if (p1.y1 > 0 && p1.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
             ft_put_pixel(mem, x, p1.y1, step);
-        p1.y1++;
-    }
-    while (p1.y1 < H)
-    {
-        if (p1.y1 > 0 && p1.y1 < H)
-            ft_put_pixel(mem, x, p1.y1, floor);
         p1.y1++;
     }
     while (step_bot.y1 < step_bot.y2)
@@ -118,8 +118,13 @@ void fill_column(int x, t_coord p1, t_coord step_bot, int sect, t_mem *mem)
             ft_put_pixel(mem, x, step_bot.y1, step);
         step_bot.y1++;
     }
-    
-   
+    p1.y1 = step_bot.y1;
+    while (p1.y1 < H)
+    {
+        if (p1.y1 > 0 && p1.y1 < H)
+            ft_put_pixel(mem, x, p1.y1, floor);
+        p1.y1++;
+    }
 }
 
 void draw_camera(t_mem *mem)

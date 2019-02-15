@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 18:36:55 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 16:35:40 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -253,14 +253,16 @@ t_line line_init(t_fcoord p)
 	return (line);
 }
 
-void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *mem)
+void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int sect, t_mem *mem)
 {
 	t_line line;
 	t_line line2;
 	t_line line3;
+	t_line line4;
 
 	t_coord p3;
 	t_coord p4;
+	t_coord p5;
 	int i;
 
 	i = 0;
@@ -268,11 +270,13 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *m
 	line = line_init(pf1);
 	line2 = line_init(pf2);
 	line3 = line_init(step);
+	line4 = line_init(top);
 	while ((int)pf1.x1 != (int)pf1.x2)
 	{
 		line.e2 = line.err;
 		line2.e2 = line2.err;
 		line3.e2 = line3.err;
+		line4.e2 = line4.err;
 		if (i++)
 		{
 			if (line.e2 > -line.dx)
@@ -281,9 +285,12 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *m
 				pf1.x1 += line.sx;
 				line2.err -= line2.dy;
 				pf2.x1 += line2.sx;
-
+	// bas
 				line3.err -= line3.dy;
 				step.x1 += line3.sx;
+	// haut
+				line4.err -= line4.dy;
+				top.x1 += line4.sx;
 			}
 			if (line.e2 < line.dy)
 			{
@@ -302,26 +309,36 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, int sect, t_mem *m
 				line3.err += line3.dx;
 				step.y1 += line3.sy;
 			}
+			if (line4.e2 < line4.dy)
+			{
+				line4.err += line4.dx;
+				top.y1 += line4.sy;
+			}
+			
 		}
 		if (((int)pf1.x1 > 0 && (int)pf1.x1 < W))
 		{
 			p3.y1 = (int)pf1.y1 - mem->camera_y;
-			p3.y2 = (int)pf2.y1 - mem->camera_y;
+			p3.y2 = (int)pf2.y1 - mem->camera_y; // murs
 
 			p4.y1 = p3.y2;
-			p4.y2 = (int)step.y1 - mem->camera_y;
+			p4.y2 = (int)step.y1 - mem->camera_y; //contre marche
 
-			fill_column((int)pf1.x1, p3, p4, sect, mem);
+			p5.y1 = (int)top.y1 - mem->camera_y;
+			p5.y2 = p3.y1; // contre plafond
+
+			fill_column((int)pf1.x1, p3, p4, p5, sect, mem);
 		}
 	}
 }
 
-void render(t_mem *mem, int i)
+void render(t_mem *mem, int sect, int i)
 {
 	int j;
 	t_fcoord p1;
 	t_fcoord p2;
 	t_fcoord step;
+	t_fcoord top;
 	float tx1;
 	float tx2;
 	float ty1;
@@ -335,17 +352,20 @@ void render(t_mem *mem, int i)
 
 	int neighbour;
 
+	if (i)
+		;
+
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 
 	j = -1;
 
-	while (++j < mem->level->sector[i].nb_linedef)
+	while (++j < mem->level->sector[sect].nb_linedef)
 	{
 		neighbour = 0;
-		mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1);
-		mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1);
-		mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 2);
-		mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 2);
+		mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 1);
+		mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[sect].linedef[j], 1);
+		mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 2);
+		mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[sect].linedef[j], 2);
 		tx1 = mem->coord.x1 - mem->level->player.x;
 		tx2 = mem->coord.x2 - mem->level->player.x;
 		ty1 = mem->coord.y1 - mem->level->player.y;
@@ -390,40 +410,63 @@ void render(t_mem *mem, int i)
 			p2.x2 = p1.x2;
 			step.x1 = p1.x1;
 			step.x2 = p1.x2;
+			top.x1 = p1.x1;
+			top.x2 = p1.x2;
 
-			p1.y1 = -H * (mem->level->sector[i].h_ceil - mem->level->player.z) / tz1 + H / 2;
-			p1.y2 = -H * (mem->level->sector[i].h_ceil - mem->level->player.z) / tz2 + H / 2;
+			p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2;
+			p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2;
 
-			p2.y1 = H * (mem->level->player.z - mem->level->sector[i].h_floor) / tz1 + H / 2;
-			p2.y2 = H * (mem->level->player.z - mem->level->sector[i].h_floor) / tz2 + H / 2;
+			p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2;
+			p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2;
 
-			neighbour = next_sector(mem, mem->level->sector[i].linedef[j], i);
-
-			if (neighbour > -1 && mem->level->sector[i].h_floor > mem->level->player.z - 5)
+			neighbour = next_sector(mem, mem->level->sector[sect].linedef[j], sect);
+			if (neighbour > -1)
 			{
-				step.y1 = H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + H / 2;
-				step.y2 = H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + H / 2;
+				if (mem->level->sector[neighbour].h_floor <= mem->level->sector[sect].h_floor)
+				{
+					step.y1 = p2.y1;
+					step.y2 = p2.y2;
+				}
+				else
+				{
+					step.y1 = p2.y1;
+					step.y2 = p2.y2;
+					p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + H / 2 - p2.y1);
+					p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + H / 2 - p2.y2);
+				}
+				if (mem->level->sector[neighbour].h_ceil <= mem->level->sector[sect].h_ceil)
+				{
+					top.y1 = p1.y1;
+					top.y2 = p1.y2;
+					p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz1 + H / 2 - p1.y1);
+					p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz2 + H / 2 - p1.y2);			
+				}
+				else
+				{
+					top.y1 = p1.y1;
+					top.y2 = p1.y2;
+				}
 			}
 			else
 			{
-				step.y1 = p2.y1 + 1;
-				step.y2 = p2.y2 + 1;
+				step.y1 = p2.y1;
+				step.y2 = p2.y2;
+				top.y1 = p2.y1;
+				top.y2 = p2.y2;
 			}
 
 			//send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor)
 
 			//	if (mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0] == 0)
-			//	mem->color.a = 255;
+			//	mem->color.a = 255;Î
 			//else
 			//	{
 			mem->color.a = 0;
-			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].side.text[0]]);
+			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
 			//			}
 		}
-		if (!mem->color.a)
-		{
-			paint_linedef(p1, p2, step, i, mem);
-		}
+
+		paint_linedef(p1, p2, step, top, sect, mem);
 	}
 }
 
@@ -440,10 +483,10 @@ void refresh_screen(t_mem *mem)
 	i = mem->level->nb_sector - 1;
 	while (i > -1)
 	{
-		render(mem, send_s_id(mem, mem->level->n_sector[i]));
+		render(mem, send_s_id(mem, mem->level->n_sector[i]), i);
 		i--;
 	}
-	//render(mem, send_s_id(mem, mem->level->n_sector[0]));
+
 	/*
 	i = -1;
 	while(++i < mem->level->nb_sector)
