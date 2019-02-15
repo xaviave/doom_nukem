@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 18:54:27 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 19:10:49 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,11 @@ int main(int ac, char **av)
 	t_level level;
 	t_mem mem;
 
+	int i;
+
+	i = 0;
+
+	mem.fill_screen = malloc(sizeof(char) * W);
 	init_parse(&parse);
 	parse_map(ac, av, &parse);
 	init_level(&level);

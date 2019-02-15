@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 13:22:12 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 19:23:07 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,8 +16,7 @@
 int update_keys(t_mem *mem)
 {
 	camera_move(mem);
-
-	mem->level->player.z = 5 + (mem->level->sector[mem->level->player.sector - 1].h_floor);
+	physics(mem);
 	//printf("sector %d |  hauteur sol %d\n", mem->level->player.sector, mem->level->sector[mem->level->player.sector - 1].h_floor);
 
 	if (mem->level->player.keyspressed & MOVE_LEFT)
@@ -51,9 +50,17 @@ int update_keys(t_mem *mem)
 	{
 	}
 	if (mem->level->player.keyspressed & ZOOM_OUT)
-		mem->level->player.z -= 0.10;
+	{
+
+	}
 	if (mem->level->player.keyspressed & ZOOM_IN)
-		mem->level->player.z += 0.10;
+	{
+		
+	}
+	if (mem->level->player.keyspressed & JUMP)
+	{
+		jump(mem);
+	}
 	if (mem->level->player.keyspressed & EXIT_GAME)
 	{
 		exit(1);

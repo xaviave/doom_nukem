@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 13:45:09 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 17:05:35 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,7 +84,9 @@ void			keys_shortcuts(t_level *level)
 	level->player.keys_shortcuts[TOUCH_RIGHT] = ROTATE_RIGHT;
 	level->player.keys_shortcuts[TOUCH_NUMPAD_LESS] = ZOOM_OUT;
 	level->player.keys_shortcuts[TOUCH_NUMPAD_PLUS] = ZOOM_IN;
+	level->player.keys_shortcuts[TOUCH_BACKSPACE] = JUMP;
 	level->player.keys_shortcuts[TOUCH_ECHAP] = EXIT_GAME;
+
 
 }
 

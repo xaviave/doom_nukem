@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   math.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 16:41:48 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 19:22:51 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,4 +31,36 @@ void intersect(float x1, float y1, float x2, float y2, float x3, float y3, float
 int return_min(int x1, int x2)
 {
 	return ((x1 > x2 ? x2 : x1));
+}
+
+void physics(t_mem *mem)
+{
+	if (mem->level->player.on_jump == FALSE)
+	{
+		if (mem->level->player.z - 5 > mem->level->sector[mem->level->player.sector - 1].h_floor)
+		{
+			mem->level->player.z -= mem->level->player.inertia;
+				mem->level->player.inertia += 0.07;
+		}
+		else if (mem->level->player.z - 5 < mem->level->sector[mem->level->player.sector - 1].h_floor)
+			mem->level->player.z = mem->level->sector[mem->level->player.sector - 1].h_floor + 5;
+	}
+	else
+	{
+		if (mem->level->player.z > mem->level->sector[mem->level->player.sector - 1].h_floor + 10)
+			mem->level->player.on_jump = FALSE;
+		mem->level->player.z += mem->level->player.inertia;
+		if (mem->level->player.inertia - 0.07 > 0)
+			mem->level->player.inertia -= 0.07;
+	}
+}
+
+void jump(t_mem *mem)
+{
+	if (mem->level->player.z - 5 == mem->level->sector[mem->level->player.sector - 1].h_floor)
+	{
+		mem->level->player.on_jump = TRUE;
+		mem->level->player.inertia = 1;
+		mem->level->player.last_hitting_floor = mem->level->sector[mem->level->player.sector - 1].h_floor;
+	}
 }

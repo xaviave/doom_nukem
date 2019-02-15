@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 15:04:53 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 18:14:55 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,9 @@ typedef struct			s_player
 	float				y;
 	float				z;
 	float				angle;
+	int					on_jump;
+	float				inertia;
+	int					last_hitting_floor;
 	int					keys_shortcuts[256];
 	int					keyspressed;
 	int 				sector;
@@ -108,6 +111,8 @@ typedef struct			s_level
 /*
 ** keyboard touch value
 */
+# define TRUE 1
+# define FALSE 0
 
 # define MOUSE_ZOOM_IN 5
 # define MOUSE_ZOOM_OUT 4
@@ -168,6 +173,7 @@ typedef struct			s_level
 # define TOUCH_NUMPAD_HOME 115
 # define PTR_MOTION_MASK (1L<<6)
 # define MOTION_NOTIFY 6
+# define TOUCH_BACKSPACE 49
 
 // Define of actions
 
@@ -180,6 +186,7 @@ typedef struct			s_level
 # define EXIT_GAME (1 << 6)
 # define ZOOM_IN (1 << 7)
 # define ZOOM_OUT (1 << 8)
+# define JUMP (1 << 8)
 
 // Other Ddefine
 

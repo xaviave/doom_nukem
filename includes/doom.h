@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 16:13:34 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 19:22:58 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,7 @@ typedef struct			s_mem
 	int					z;
 	int					x;
 	int					y;
+	char				*fill_screen;
 	int					mouse_x;
 	int					mouse_y;
 	int					camera_x;
@@ -107,6 +108,7 @@ int						cross_close(t_mem *mem);
 int						camera_move(t_mem *mem);
 int						update_keys(t_mem *mem);
 
+
 /*
 ** send_info.c
 */
@@ -131,6 +133,8 @@ void					intersect(float x1, float y1, float x2, float y2, float x3,
 	float y3, float x4, float y4, float *x, float *y);
 int						fn_cross(float x1, float y1, float x2, float y2);
 int						player_sector(t_mem *mem);
+void					physics(t_mem *mem);
+void 					jump(t_mem *mem);
 
 
 

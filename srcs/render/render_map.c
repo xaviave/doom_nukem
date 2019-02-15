@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 16:35:40 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 19:23:15 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -285,10 +285,10 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 				pf1.x1 += line.sx;
 				line2.err -= line2.dy;
 				pf2.x1 += line2.sx;
-	// bas
+				// bas
 				line3.err -= line3.dy;
 				step.x1 += line3.sx;
-	// haut
+				// haut
 				line4.err -= line4.dy;
 				top.x1 += line4.sx;
 			}
@@ -314,7 +314,6 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 				line4.err += line4.dx;
 				top.y1 += line4.sy;
 			}
-			
 		}
 		if (((int)pf1.x1 > 0 && (int)pf1.x1 < W))
 		{
@@ -332,7 +331,7 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 	}
 }
 
-void render(t_mem *mem, int sect, int i)
+void render(t_mem *mem, int sect)
 {
 	int j;
 	t_fcoord p1;
@@ -351,9 +350,6 @@ void render(t_mem *mem, int sect, int i)
 	float iz2;
 
 	int neighbour;
-
-	if (i)
-		;
 
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 
@@ -439,7 +435,7 @@ void render(t_mem *mem, int sect, int i)
 					top.y1 = p1.y1;
 					top.y2 = p1.y2;
 					p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz1 + H / 2 - p1.y1);
-					p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz2 + H / 2 - p1.y2);			
+					p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz2 + H / 2 - p1.y2);
 				}
 				else
 				{
@@ -477,24 +473,15 @@ void refresh_screen(t_mem *mem)
 	if (mem->img.ptr)
 		mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
 
-	//printf("secteur voisin %d\n",next_sector(mem, 38 , 11));
-	//printf("secteur actuel %d\n", send_s_id(mem, mem->level->n_sector[0]));
 	ft_create_img(mem);
 	i = mem->level->nb_sector - 1;
 	while (i > -1)
 	{
-		render(mem, send_s_id(mem, mem->level->n_sector[i]), i);
+		render(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
+	//draw_minimap(mem);
 
-	/*
-	i = -1;
-	while(++i < mem->level->nb_sector)
-		render(mem, i);
-	render(mem, send_v_id(mem, mem->level->player.sector));
-	*/
-	draw_minimap(mem);
-	//mem->level->player->sector
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 }
 

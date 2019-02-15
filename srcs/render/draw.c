@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 16:37:08 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/15 19:23:18 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,8 +91,8 @@ void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect
     step.b = 15 * sect;
     step.g = 0;
 
-    if (step_bot.x1 || step_top.x1)
-        ;
+    if (p1.x1 > 0 && p1.x1 < W)
+        mem->fill_screen[p1.x1] = 1;
 
     while (i < p1.y1)
     {
