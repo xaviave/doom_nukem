@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 19:10:49 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 11:53:26 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->c[2] = 0x943ad8;
 	mem->level->c[3] = 0x1a78a1;
 	mem->level->c[4] = 0x63ffe5;
-	mem->level->c[5] = 0xffffff;
+	mem->level->c[5] = 0x00ffff;
 	//dprintf(1, "%f %f\n", mem->level->player.x, mem->level->player.y);
 	if (level->nb_sector > 1) //sizeof(int) = 4 in gcc *64 macOSX
 		if (!(mem->level->n_sector = (int *)malloc(4 * level->nb_sector)))

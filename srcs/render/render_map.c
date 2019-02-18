@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 19:23:15 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 18:45:54 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -315,8 +315,9 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 				top.y1 += line4.sy;
 			}
 		}
-		if (((int)pf1.x1 > 0 && (int)pf1.x1 < W))
+		if (((int)pf1.x1 >= 0 && (int)pf1.x1 < W))
 		{
+
 			p3.y1 = (int)pf1.y1 - mem->camera_y;
 			p3.y2 = (int)pf2.y1 - mem->camera_y; // murs
 
@@ -329,6 +330,91 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 			fill_column((int)pf1.x1, p3, p4, p5, sect, mem);
 		}
 	}
+}
+
+void calc_linedef(t_fcoord pf1, t_mem *mem)
+{
+
+	int i;
+	int j;
+
+	i = 0;
+	if ((int)pf1.x1 < (int)pf1.x2)
+		j = 1;
+	else
+		j = -1;
+	while ((int)pf1.x1 != (int)pf1.x2)
+	{
+		pf1.x1 += j;
+		if (((int)pf1.x1 >= 0 && (int)pf1.x1 < W))
+		{
+			mem->fill_screen[(int)pf1.x1] = 1;
+		}
+	}
+}
+
+int pre_render(t_mem *mem, int sect, int i)
+{
+	int j;
+	t_fcoord p1;
+
+
+	float tx1;
+	float tx2;
+	float ty1;
+	float ty2;
+	float tz1;
+	float tz2;
+	float ix1;
+	float iz1;
+
+	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
+	j = -1;
+	while (++j < mem->level->sector[sect].nb_linedef)
+	{
+
+		mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 1);
+		mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[sect].linedef[j], 1);
+		mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 2);
+		mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[sect].linedef[j], 2);
+		tx1 = mem->coord.x1 - mem->level->player.x;
+		tx2 = mem->coord.x2 - mem->level->player.x;
+		ty1 = mem->coord.y1 - mem->level->player.y;
+		ty2 = mem->coord.y2 - mem->level->player.y;
+		tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
+		tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
+		tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
+		tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
+		if (tz1 > 0 || tz2 > 0)
+		{
+			intersect(tx1, tz1, tx2, tz2, -2, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
+			if (tz1 <= 0)
+			{
+				if (iz1 > 0)
+				{
+					tx1 = ix1;
+					tz1 = iz1;
+				}
+			}
+			if (tz2 <= 0)
+			{
+				if (iz1 > 0)
+				{
+					tx2 = ix1;
+					tz2 = iz1;
+				}
+			}
+			p1.x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
+			p1.x2 = -tx2 * 800 / tz2 + W / 2;
+			mem->color.a = 0;
+			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
+		}
+		if (!(mem->color.r == 255 && mem->color.g == 0 && mem->color.b == 0))
+			calc_linedef(p1, mem);
+		if (further_sector(mem, sect) != -1)
+			return (i);
+	}
+	return (-1);
 }
 
 void render(t_mem *mem, int sect)
@@ -351,6 +437,7 @@ void render(t_mem *mem, int sect)
 
 	int neighbour;
 
+	neighbour = -1;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 
 	j = -1;
@@ -415,7 +502,8 @@ void render(t_mem *mem, int sect)
 			p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2;
 			p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2;
 
-			neighbour = next_sector(mem, mem->level->sector[sect].linedef[j], sect);
+			if (!(mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]))
+				neighbour = next_sector(mem, mem->level->sector[sect].linedef[j], sect);
 			if (neighbour > -1)
 			{
 				if (mem->level->sector[neighbour].h_floor <= mem->level->sector[sect].h_floor)
@@ -461,20 +549,29 @@ void render(t_mem *mem, int sect)
 			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
 			//			}
 		}
-
 		paint_linedef(p1, p2, step, top, sect, mem);
+		further_sector(mem, sect);
 	}
 }
 
 void refresh_screen(t_mem *mem)
 {
 	int i;
+	int j;
 
+	j = -1;
+	bzero(mem->fill_screen, (sizeof(char) * W));
 	if (mem->img.ptr)
 		mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
 
 	ft_create_img(mem);
-	i = mem->level->nb_sector - 1;
+	i = -1;
+	while (++i < mem->level->nb_sector)
+	{
+		j = pre_render(mem, send_s_id(mem, mem->level->n_sector[i]), i);
+		if (j != -1)
+			break;
+	}
 	while (i > -1)
 	{
 		render(mem, send_s_id(mem, mem->level->n_sector[i]));
@@ -496,4 +593,23 @@ void event_loop(t_mem *mem)
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);
 	mlx_loop_hook(mem->mlx_ptr, update_keys, mem);
 	mlx_loop(mem->mlx_ptr);
+}
+
+int further_sector(t_mem *mem, int sector)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = -1;
+
+	while (++i <= W)
+	{
+		if (mem->fill_screen[i])
+			j++;
+	}
+	if (j >= W)
+		return (sector);
+	else
+		return (-1);
 }

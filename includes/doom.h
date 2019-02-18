@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 19:22:58 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 12:54:45 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,6 +136,10 @@ int						player_sector(t_mem *mem);
 void					physics(t_mem *mem);
 void 					jump(t_mem *mem);
 
+/*
+** get infos
+*/
 
+int						further_sector(t_mem *mem, int sector);
 
 #endif

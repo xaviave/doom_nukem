@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 19:23:18 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 18:46:22 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,37 +91,36 @@ void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect
     step.b = 15 * sect;
     step.g = 0;
 
-    if (p1.x1 > 0 && p1.x1 < W)
-        mem->fill_screen[p1.x1] = 1;
-
+    if (x >= 0 && x < W)
+        mem->fill_screen[x] = 1;
     while (i < p1.y1)
     {
-        if (i > 0 && i < H)
+        if (i >= 0 && i < H)
             ft_put_pixel(mem, x, i, ceil);
         i++;
     }
     while (step_top.y1 < step_top.y2)
     {
-        if (step_top.y1 > 0 && step_top.y1 < H)
+        if (step_top.y1 >= 0 && step_top.y1 < H)
             ft_put_pixel(mem, x, step_top.y1, step);
         step_top.y1++;
     }
     while (p1.y1 < p1.y2)
     {
-        if (p1.y1 > 0 && p1.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
+        if (p1.y1 >= 0 && p1.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
             ft_put_pixel(mem, x, p1.y1, step);
         p1.y1++;
     }
     while (step_bot.y1 < step_bot.y2)
     {
-        if (step_bot.y1 > 0 && step_bot.y1 < H)
+        if (step_bot.y1 >= 0 && step_bot.y1 < H)
             ft_put_pixel(mem, x, step_bot.y1, step);
         step_bot.y1++;
     }
     p1.y1 = step_bot.y1;
     while (p1.y1 < H)
     {
-        if (p1.y1 > 0 && p1.y1 < H)
+        if (p1.y1 >= 0 && p1.y1 < H)
             ft_put_pixel(mem, x, p1.y1, floor);
         p1.y1++;
     }

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 19:23:07 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 17:30:59 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,26 +21,26 @@ int update_keys(t_mem *mem)
 
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
-		mem->level->player.x += (1.2f * sin(mem->level->player.angle));
-		mem->level->player.y -= (1.2f * cos(mem->level->player.angle));
+		mem->level->player.x += (2.2f * sin(mem->level->player.angle));
+		mem->level->player.y -= (2.2f * cos(mem->level->player.angle));
 		player_sector(mem);
 	}
 	if (mem->level->player.keyspressed & MOVE_RIGHT)
 	{
-		mem->level->player.x -= (1.2f * sin(mem->level->player.angle));
-		mem->level->player.y += (1.2f * cos(mem->level->player.angle));
+		mem->level->player.x -= (2.2f * sin(mem->level->player.angle));
+		mem->level->player.y += (2.2f * cos(mem->level->player.angle));
 		player_sector(mem);
 	}
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
-		mem->level->player.x += (1.2f * cos(mem->level->player.angle));
-		mem->level->player.y += (1.2f * sin(mem->level->player.angle));
+		mem->level->player.x += (2.2f * cos(mem->level->player.angle));
+		mem->level->player.y += (2.2f * sin(mem->level->player.angle));
 		player_sector(mem);
 	}
 	if (mem->level->player.keyspressed & MOVE_DOWN)
 	{
-		mem->level->player.x -= (1.2f * cos(mem->level->player.angle));
-		mem->level->player.y -= (1.2f * sin(mem->level->player.angle));
+		mem->level->player.x -= (2.2f * cos(mem->level->player.angle));
+		mem->level->player.y -= (2.2f * sin(mem->level->player.angle));
 		player_sector(mem);
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
