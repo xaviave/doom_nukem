@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 11:53:26 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 16:10:00 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,11 @@ int main(int ac, char **av)
 	t_level level;
 	t_mem mem;
 
+	t_size gun;
+
+	gun.width = 390;
+	gun.lenght = 260;
+
 	int i;
 
 	i = 0;
@@ -74,6 +79,8 @@ int main(int ac, char **av)
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
 	mem.level->player.z = 5;
+	mem.level->player.motion_state = 0.40;
+	make_mask(&mem, &mem.gun, "backgrounds/gun2.xpm", gun);
 	event_loop(&mem);
 	free_level(&level);
 	return (0);

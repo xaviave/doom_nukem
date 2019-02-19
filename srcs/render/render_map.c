@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 18:45:54 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 16:05:14 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -122,8 +122,8 @@ int check_in_sector(t_mem *mem, int l1, int l2, int save)
 	vertex.x = mem->level->player.x;
 	vertex.y = mem->level->player.y;
 	if (is_inside(mem->level->vertex[send_v_id(mem, save)],
-				  mem->level->vertex[send_v_id(mem, l1)],
-				  mem->level->vertex[send_v_id(mem, l2)], vertex))
+				mem->level->vertex[send_v_id(mem, l1)],
+				mem->level->vertex[send_v_id(mem, l2)], vertex))
 		return (1);
 	return (0);
 }
@@ -357,8 +357,6 @@ int pre_render(t_mem *mem, int sect, int i)
 {
 	int j;
 	t_fcoord p1;
-
-
 	float tx1;
 	float tx2;
 	float ty1;
@@ -372,7 +370,6 @@ int pre_render(t_mem *mem, int sect, int i)
 	j = -1;
 	while (++j < mem->level->sector[sect].nb_linedef)
 	{
-
 		mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 1);
 		mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[sect].linedef[j], 1);
 		mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 2);
@@ -388,21 +385,15 @@ int pre_render(t_mem *mem, int sect, int i)
 		if (tz1 > 0 || tz2 > 0)
 		{
 			intersect(tx1, tz1, tx2, tz2, -2, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
-			if (tz1 <= 0)
+			if (tz1 <= 0 && iz1 > 0)
 			{
-				if (iz1 > 0)
-				{
-					tx1 = ix1;
-					tz1 = iz1;
-				}
+				tx1 = ix1;
+				tz1 = iz1;
 			}
-			if (tz2 <= 0)
+			if (tz2 <= 0 && iz1 > 0)
 			{
-				if (iz1 > 0)
-				{
-					tx2 = ix1;
-					tz2 = iz1;
-				}
+				tx2 = ix1;
+				tz2 = iz1;
 			}
 			p1.x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
 			p1.x2 = -tx2 * 800 / tz2 + W / 2;
@@ -434,7 +425,6 @@ void render(t_mem *mem, int sect)
 	float ix2;
 	float iz1;
 	float iz2;
-
 	int neighbour;
 
 	neighbour = -1;
@@ -580,6 +570,8 @@ void refresh_screen(t_mem *mem)
 	//draw_minimap(mem);
 
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W /
+2.5) + 200 + (int)mem->level->player.motion, (H / 2) + (int)mem->level->player.motion);
 }
 
 void event_loop(t_mem *mem)
@@ -587,7 +579,7 @@ void event_loop(t_mem *mem)
 
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-			 mouse_move_hook, mem);
+			mouse_move_hook, mem);
 	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
 	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);

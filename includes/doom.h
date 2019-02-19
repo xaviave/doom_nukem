@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 12:54:45 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 16:03:50 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,7 @@ typedef struct			s_mem
 	int					camera_x;
 	int					camera_y;
 	t_coord				step_bot;
-
+	t_img				gun;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
@@ -95,6 +95,8 @@ void 					refresh_screen(t_mem *mem);
 void					event_loop(t_mem *mem);
 void					change_color(t_color *color, int hex);
 t_color					set_color(int a);
+void					make_mask(t_mem *mem, t_img *img, char xpm[255],
+t_size size);
 
 /*
 ** event.c
@@ -135,6 +137,7 @@ int						fn_cross(float x1, float y1, float x2, float y2);
 int						player_sector(t_mem *mem);
 void					physics(t_mem *mem);
 void 					jump(t_mem *mem);
+void					player_animation(t_mem *mem);
 
 /*
 ** get infos

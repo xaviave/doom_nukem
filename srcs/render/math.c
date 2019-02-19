@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 19:22:51 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 16:13:46 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,7 @@ void physics(t_mem *mem)
 		if (mem->level->player.z - 5 > mem->level->sector[mem->level->player.sector - 1].h_floor)
 		{
 			mem->level->player.z -= mem->level->player.inertia;
-				mem->level->player.inertia += 0.07;
+			mem->level->player.inertia += 0.07;
 		}
 		else if (mem->level->player.z - 5 < mem->level->sector[mem->level->player.sector - 1].h_floor)
 			mem->level->player.z = mem->level->sector[mem->level->player.sector - 1].h_floor + 5;
@@ -63,4 +63,13 @@ void jump(t_mem *mem)
 		mem->level->player.inertia = 1;
 		mem->level->player.last_hitting_floor = mem->level->sector[mem->level->player.sector - 1].h_floor;
 	}
+}
+
+void player_animation(t_mem *mem)
+{
+	if (mem->level->player.motion > 30)
+		mem->level->player.motion_state = -1;
+	else if (mem->level->player.motion < 0)
+		mem->level->player.motion_state = 1;
+	mem->level->player.motion += mem->level->player.motion_state;
 }
