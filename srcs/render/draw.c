@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 14:42:23 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/19 16:23:39 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,30 +92,36 @@ void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect
 
     if (x >= 0 && x < W)
         mem->fill_screen[x] = 1;
+
+    // cette partie dessine les plafond (hauteur murs  sur haut de l'ecran)
     while (i < p1.y1)
     {
         if (i >= 0 && i < H)
             ft_put_pixel(mem, x, i, ceil);
         i++;
     }
+    // cette partie dessine les "contres plafonds"
     while (step_top.y1 < step_top.y2)
     {
         if (step_top.y1 >= 0 && step_top.y1 < H)
             ft_put_pixel(mem, x, step_top.y1, step);
         step_top.y1++;
     }
+    // cette partie dessine les murs
     while (p1.y1 < p1.y2)
     {
         if (p1.y1 >= 0 && p1.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
             ft_put_pixel(mem, x, p1.y1, step);
         p1.y1++;
     }
+    // cette partie dessine les contres marches
     while (step_bot.y1 < step_bot.y2)
     {
         if (step_bot.y1 >= 0 && step_bot.y1 < H)
             ft_put_pixel(mem, x, step_bot.y1, step);
         step_bot.y1++;
     }
+    // cette partie dessine le sol
     p1.y1 = step_bot.y1;
     while (p1.y1 < H)
     {
