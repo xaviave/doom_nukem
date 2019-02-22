@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 13:03:53 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 16:00:30 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -122,8 +122,8 @@ int check_in_sector(t_mem *mem, int l1, int l2, int save)
 	vertex.x = mem->level->player.x;
 	vertex.y = mem->level->player.y;
 	if (is_inside(mem->level->vertex[send_v_id(mem, save)],
-				mem->level->vertex[send_v_id(mem, l1)],
-				mem->level->vertex[send_v_id(mem, l2)], vertex))
+				  mem->level->vertex[send_v_id(mem, l1)],
+				  mem->level->vertex[send_v_id(mem, l2)], vertex))
 		return (1);
 	return (0);
 }
@@ -427,6 +427,12 @@ void render(t_mem *mem, int sect)
 	float iz2;
 	int neighbour;
 
+	float mx;
+	float my;
+	float mz1;
+	float mx1;
+	//float miz1;
+
 	neighbour = -1;
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 
@@ -443,10 +449,22 @@ void render(t_mem *mem, int sect)
 		tx2 = mem->coord.x2 - mem->level->player.x;
 		ty1 = mem->coord.y1 - mem->level->player.y;
 		ty2 = mem->coord.y2 - mem->level->player.y;
+
+		mx = mem->level->monster1.x - mem->level->player.x;
+		my = mem->level->monster1.y - mem->level->player.y;
+		mz1 = mx * cos(mem->level->player.angle) + my * sin(mem->level->player.angle);
+		mx1 = mx * sin(mem->level->player.angle) - my * cos(mem->level->player.angle);
+		t_size monster_size;
+
+		monster_size.width = 285;
+		monster_size.lenght = 365;
+
 		tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
 		tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
 		tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
 		tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
+
+		//printf("%f x, %f y\n", mem->level->player.x, mem->level->player.y);
 		if (tz1 > 0 || tz2 > 0)
 		{
 			intersect(tx1, tz1, tx2, tz2, -2, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
@@ -477,6 +495,8 @@ void render(t_mem *mem, int sect)
 					tz2 = iz2;
 				}
 			}
+			mx = -mx1 * 800 / mz1 + W / 2;
+
 			p1.x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
 			p1.x2 = -tx2 * 800 / tz2 + W / 2;
 			p2.x1 = p1.x1;
@@ -540,6 +560,13 @@ void render(t_mem *mem, int sect)
 			//  }
 		}
 		paint_linedef(p1, p2, step, top, sect, mem);
+		
+		if (mem->level->monster1.sector == sect && mx > 0)
+		{
+			put_img_to_img(mem, mem->monster.ptr, monster_size, mx, H * 0.5 - mem->camera_y ,(H * 0.05) / distance(mem->level->monster1.x, mem->level->monster1.y, mem->level->player.x, mem->level->player.y));
+		//	printf("%f\n", H / distance(mem->level->monster1.x, mem->level->monster1.y, mem->level->player.x, mem->level->player.y));
+		}
+
 		further_sector(mem, sect);
 	}
 }
@@ -548,10 +575,6 @@ void refresh_screen(t_mem *mem)
 {
 	int i;
 	int j;
-	t_size monster_size;
-
-	monster_size.width = 285;
-	monster_size.lenght = 365;
 
 	j = -1;
 	bzero(mem->fill_screen, (sizeof(char) * W));
@@ -571,12 +594,11 @@ void refresh_screen(t_mem *mem)
 		render(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
-	
-	put_img_to_img(mem, mem->monster.ptr, monster_size, W * 0.5, H * 0.5, mem->z);
+
+	//put_img_to_img(mem, mem->monster.ptr, monster_size, W * 0.5, H * 0.5, mem->z);
 	//draw_minimap(mem);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W /
-2.5) + 200 + (int)mem->level->player.motion, (H / 2) + (int)mem->level->player.motion);
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W / 2.5) + 200 + (int)mem->level->player.motion, (H / 2) + (int)mem->level->player.motion);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, W / 2 - 16, H / 2 - 16);
 }
 
@@ -585,7 +607,7 @@ void event_loop(t_mem *mem)
 
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-			mouse_move_hook, mem);
+			 mouse_move_hook, mem);
 	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
 	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);

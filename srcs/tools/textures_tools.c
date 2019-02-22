@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 12:15:43 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 15:35:53 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,8 +31,7 @@ void textures_init(t_mem *mem)
 	make_mask(mem, &mem->monster, "backgrounds/monster.xpm", monster_size);
 }
 
-void make_mask(t_mem *mem, t_img *img, char xpm[255],
-	t_size size)
+void make_mask(t_mem *mem, t_img *img, char xpm[255], t_size size)
 {
 	int i[3];
 
@@ -76,7 +75,7 @@ void put_img_to_img(t_mem *mem, t_img *img, t_size size, int x, int y, float zoo
 			{
 				while (pos.x1 < k * zoom)
 				{
-					if (color != 0x00000000)
+					if (color != 0x00000000 && pos.x1 > 0 && pos.x1 < W && pos.y1 > 0 && pos.y1 < H)
 						ft_put_pixel(mem, pos.x1 + x, pos.y1 + pos.y2 + y, set_color(color));
 					pos.x1++;
 				}

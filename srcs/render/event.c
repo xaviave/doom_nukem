@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 13:05:12 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 13:24:35 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,7 +69,6 @@ int update_keys(t_mem *mem)
 	{
 		exit(1);
 	}
-	printf("%f x %f y %d sector\n",mem->level->player.x, mem->level->player.y, mem->level->player.sector - 1);
 	refresh_screen(mem);
 	return (1);
 }

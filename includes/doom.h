@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 12:20:36 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 15:07:14 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -140,6 +140,7 @@ int						player_sector(t_mem *mem);
 void					physics(t_mem *mem);
 void 					jump(t_mem *mem);
 void					player_animation(t_mem *mem);
+float					distance(float x1, float y1, float x2, float y2);
 
 /*
 ** get infos

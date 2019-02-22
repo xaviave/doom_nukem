@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 16:13:46 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 15:06:43 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,4 +72,14 @@ void player_animation(t_mem *mem)
 	else if (mem->level->player.motion < 0)
 		mem->level->player.motion_state = 1;
 	mem->level->player.motion += mem->level->player.motion_state;
+}
+
+float		distance(float x1, float y1, float x2, float y2)
+{
+	float	a;
+	float	b;
+
+	a = x1 - x2;
+	b = y1 - y2;
+	return (sqrt(a * a + b * b));
 }
