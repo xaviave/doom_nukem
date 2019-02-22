@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 16:10:00 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 13:09:45 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->z = 100;
 	mem->x = 100 - level->player.x * 10;
 	mem->y = 100 - level->player.y * 10;
+	mem->z = 1;
 	mem->level = level;
 	mem->level->c[0] = 0xFF0000;
 	mem->level->c[1] = 0x71e045;
@@ -50,6 +51,11 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->c[3] = 0x1a78a1;
 	mem->level->c[4] = 0x63ffe5;
 	mem->level->c[5] = 0x00ffff;
+	
+	mem->level->monster1.sector = 1;
+	mem->level->monster1.x = 420;
+	mem->level->monster1.y = 144;
+
 	//dprintf(1, "%f %f\n", mem->level->player.x, mem->level->player.y);
 	if (level->nb_sector > 1) //sizeof(int) = 4 in gcc *64 macOSX
 		if (!(mem->level->n_sector = (int *)malloc(4 * level->nb_sector)))
@@ -63,10 +69,7 @@ int main(int ac, char **av)
 	t_level level;
 	t_mem mem;
 
-	t_size gun;
-
-	gun.width = 390;
-	gun.lenght = 260;
+	
 
 	int i;
 
@@ -80,7 +83,7 @@ int main(int ac, char **av)
 	init_mem(&mem, &level);
 	mem.level->player.z = 5;
 	mem.level->player.motion_state = 0.40;
-	make_mask(&mem, &mem.gun, "backgrounds/gun2.xpm", gun);
+	textures_init(&mem);
 	event_loop(&mem);
 	free_level(&level);
 	return (0);

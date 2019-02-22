@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 16:05:14 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 13:03:53 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -487,10 +487,10 @@ void render(t_mem *mem, int sect)
 			top.x2 = p1.x2;
 
 			p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2;
-			p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2;
+			p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2; // transformer cette valeur pour plafond penché
 
 			p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2;
-			p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2;
+			p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2; // // transformer cette valeur pour sol penché
 
 			if (!(mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]))
 				neighbour = next_sector(mem, mem->level->sector[sect].linedef[j], sect);
@@ -537,7 +537,7 @@ void render(t_mem *mem, int sect)
 			//	{
 			mem->color.a = 0;
 			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
-			//			}
+			//  }
 		}
 		paint_linedef(p1, p2, step, top, sect, mem);
 		further_sector(mem, sect);
@@ -548,6 +548,10 @@ void refresh_screen(t_mem *mem)
 {
 	int i;
 	int j;
+	t_size monster_size;
+
+	monster_size.width = 285;
+	monster_size.lenght = 365;
 
 	j = -1;
 	bzero(mem->fill_screen, (sizeof(char) * W));
@@ -567,11 +571,13 @@ void refresh_screen(t_mem *mem)
 		render(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
+	
+	put_img_to_img(mem, mem->monster.ptr, monster_size, W * 0.5, H * 0.5, mem->z);
 	//draw_minimap(mem);
-
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W /
 2.5) + 200 + (int)mem->level->player.motion, (H / 2) + (int)mem->level->player.motion);
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, W / 2 - 16, H / 2 - 16);
 }
 
 void event_loop(t_mem *mem)

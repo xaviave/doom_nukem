@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/24 16:39:06 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/19 17:03:19 by mel-akio    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -44,6 +44,7 @@ FILES = main.c \
 		tools/create_vertex.c \
 		tools/list_line.c \
 		tools/list_len.c \
+		tools/textures_tools.c \
 		render/error_graph.c \
 		render/draw.c \
 		render/img.c \
@@ -52,6 +53,7 @@ FILES = main.c \
 		render/event.c \
 		render/send_info.c \
 		render/math.c \
+		
 
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))

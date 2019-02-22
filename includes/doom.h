@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 16:03:50 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/22 12:20:36 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ typedef struct			s_mem
 	void				*mlx_ptr;
 	t_coord				coord;
 	t_level				*level;
-	int					z;
+	float				z;
 	int					x;
 	int					y;
 	char				*fill_screen;
@@ -78,6 +78,8 @@ typedef struct			s_mem
 	int					camera_y;
 	t_coord				step_bot;
 	t_img				gun;
+	t_img				crosshair;
+	t_img				monster;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
@@ -144,5 +146,12 @@ void					player_animation(t_mem *mem);
 */
 
 int						further_sector(t_mem *mem, int sector);
+
+/*
+** textures process
+*/
+
+void					textures_init(t_mem *mem);
+void					put_img_to_img(t_mem *mem, t_img *img, t_size size, int x, int y, float dist);
 
 #endif
