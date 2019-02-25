@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 15:07:14 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 15:34:19 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,8 @@ typedef struct			s_img
 	int					sizeline;
 	int					bpp;
 	int					endian;
+	int					w;
+	int					h;
 }						t_img;
 
 typedef struct			s_mem
@@ -85,7 +87,8 @@ typedef struct			s_mem
 void					ft_create_img(t_mem *mem);
 void					ft_put_pixel(t_mem *mem, int x, int y, t_color color);
 t_color					get_color(int a, t_mem *mem);
-void					render_map(t_mem *mem);
+void					render_map(t_mem *mem, int sect);
+void 					render_sprites(t_mem *mem, int sect);
 void					draw_line(t_mem *mem);
 void					draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem);
 void					fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect, t_mem *mem);
@@ -97,8 +100,7 @@ void 					refresh_screen(t_mem *mem);
 void					event_loop(t_mem *mem);
 void					change_color(t_color *color, int hex);
 t_color					set_color(int a);
-void					make_mask(t_mem *mem, t_img *img, char xpm[255],
-t_size size);
+void					make_mask(t_mem *mem, t_img *img, char xpm[255]);
 
 /*
 ** event.c
@@ -153,6 +155,6 @@ int						further_sector(t_mem *mem, int sector);
 */
 
 void					textures_init(t_mem *mem);
-void					put_img_to_img(t_mem *mem, t_img *img, t_size size, int x, int y, float dist);
+void					put_img_to_img(t_mem *mem, t_img *img, int x, int y, float dist);
 
 #endif

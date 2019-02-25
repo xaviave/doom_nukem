@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 14:45:09 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 17:40:55 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,9 +52,17 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->c[4] = 0x63ffe5;
 	mem->level->c[5] = 0x00ffff;
 	
-	mem->level->monster1.sector = 3;
-	mem->level->monster1.x = 440;
-	mem->level->monster1.y = 292;
+	mem->level->nb_monsters = 2;
+	mem->level->monsters = malloc(sizeof(t_monster) * 3);
+
+	mem->level->monsters[0].sector = 3;
+	mem->level->monsters[0].x = 483;
+	mem->level->monsters[0].y = 299;
+
+	mem->level->monsters[1].sector = 3;
+	mem->level->monsters[1].x = 460;
+	mem->level->monsters[1].y = 280;
+
 
 	//dprintf(1, "%f %f\n", mem->level->player.x, mem->level->player.y);
 	if (level->nb_sector > 1) //sizeof(int) = 4 in gcc *64 macOSX

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 16:00:30 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 11:26:31 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -427,10 +427,6 @@ void render(t_mem *mem, int sect)
 	float iz2;
 	int neighbour;
 
-	float mx;
-	float my;
-	float mz1;
-	float mx1;
 	//float miz1;
 
 	neighbour = -1;
@@ -450,21 +446,13 @@ void render(t_mem *mem, int sect)
 		ty1 = mem->coord.y1 - mem->level->player.y;
 		ty2 = mem->coord.y2 - mem->level->player.y;
 
-		mx = mem->level->monster1.x - mem->level->player.x;
-		my = mem->level->monster1.y - mem->level->player.y;
-		mz1 = mx * cos(mem->level->player.angle) + my * sin(mem->level->player.angle);
-		mx1 = mx * sin(mem->level->player.angle) - my * cos(mem->level->player.angle);
-		t_size monster_size;
-
-		monster_size.width = 285;
-		monster_size.lenght = 365;
 
 		tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
 		tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
 		tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
 		tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
 
-		//printf("%f x, %f y\n", mem->level->player.x, mem->level->player.y);
+
 		if (tz1 > 0 || tz2 > 0)
 		{
 			intersect(tx1, tz1, tx2, tz2, -2, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
@@ -495,7 +483,6 @@ void render(t_mem *mem, int sect)
 					tz2 = iz2;
 				}
 			}
-			mx = -mx1 * 800 / mz1 + W / 2;
 
 			p1.x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
 			p1.x2 = -tx2 * 800 / tz2 + W / 2;
@@ -560,13 +547,6 @@ void render(t_mem *mem, int sect)
 			//  }
 		}
 		paint_linedef(p1, p2, step, top, sect, mem);
-		
-		if (mem->level->monster1.sector == sect && mx > 0)
-		{
-			put_img_to_img(mem, mem->monster.ptr, monster_size, mx, H * 0.5 - mem->camera_y ,(H * 0.05) / distance(mem->level->monster1.x, mem->level->monster1.y, mem->level->player.x, mem->level->player.y));
-		//	printf("%f\n", H / distance(mem->level->monster1.x, mem->level->monster1.y, mem->level->player.x, mem->level->player.y));
-		}
-
 		further_sector(mem, sect);
 	}
 }
@@ -592,6 +572,7 @@ void refresh_screen(t_mem *mem)
 	while (i > -1)
 	{
 		render(mem, send_s_id(mem, mem->level->n_sector[i]));
+		render_sprites(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
 

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 12:26:28 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/25 17:37:45 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,11 +75,7 @@ typedef struct			s_monster
 {
 	float				x;
 	float				y;
-	float				z;
-	float				angle;
-	char				sprite;
-	int					on_jump;
-	float				inertia;
+	int					distance;
 	int 				sector;
 }						t_monster;
 
@@ -120,9 +116,12 @@ typedef struct			s_level
 	int					nb_linedef;
 	t_linedef			*linedef;
 	int					nb_sector;
+	int					nb_monsters;
 	t_sector			*sector;
 	t_player			player;
+	t_monster			*monsters;
 	t_monster			monster1;
+	t_monster			monster2;
 	int					*n_sector;
 	int					n;
 	int					c[6];
