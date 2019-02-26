@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 13:24:35 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 13:47:04 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,8 +17,8 @@ int update_keys(t_mem *mem)
 {
 	camera_move(mem);
 	physics(mem);
-	//printf("sector %d |  hauteur sol %d\n", mem->level->player.sector, mem->level->sector[mem->level->player.sector - 1].h_floor);
-
+	if (mem->level->player.recoil > 0)
+		mem->level->player.recoil -= 2;
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
 		mem->level->player.x += (2.2f * sin(mem->level->player.angle));
@@ -55,11 +55,11 @@ int update_keys(t_mem *mem)
 	}
 	if (mem->level->player.keyspressed & ZOOM_OUT)
 	{
-		mem->z -= 0.05;
+		//	mem->z -= 0.05;
 	}
 	if (mem->level->player.keyspressed & ZOOM_IN)
 	{
-		mem->z += 0.05;
+		//	mem->z += 0.05;
 	}
 	if (mem->level->player.keyspressed & JUMP)
 	{
@@ -70,7 +70,7 @@ int update_keys(t_mem *mem)
 		exit(1);
 	}
 	refresh_screen(mem);
-	return (1);
+	return (0);
 }
 
 int mouse_move_hook(int x, int y, t_mem *mem)
@@ -94,6 +94,8 @@ int mouse_move_hook(int x, int y, t_mem *mem)
 
 int mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
+	if (k == 1)
+		mem->level->player.recoil += 14;
 	if (k || x || y || mem)
 		return (0);
 	return (0);

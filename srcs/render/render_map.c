@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 11:26:31 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 13:43:57 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -122,8 +122,8 @@ int check_in_sector(t_mem *mem, int l1, int l2, int save)
 	vertex.x = mem->level->player.x;
 	vertex.y = mem->level->player.y;
 	if (is_inside(mem->level->vertex[send_v_id(mem, save)],
-				  mem->level->vertex[send_v_id(mem, l1)],
-				  mem->level->vertex[send_v_id(mem, l2)], vertex))
+				mem->level->vertex[send_v_id(mem, l1)],
+				mem->level->vertex[send_v_id(mem, l2)], vertex))
 		return (1);
 	return (0);
 }
@@ -318,13 +318,13 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 		if (((int)pf1.x1 >= 0 && (int)pf1.x1 < W))
 		{
 
-			p3.y1 = (int)pf1.y1 - mem->camera_y;
-			p3.y2 = (int)pf2.y1 - mem->camera_y; // murs
+			p3.y1 = (int)pf1.y1 - mem->camera_y + mem->level->player.recoil;
+			p3.y2 = (int)pf2.y1 - mem->camera_y + mem->level->player.recoil;; // murs
 
 			p4.y1 = p3.y2;
-			p4.y2 = (int)step.y1 - mem->camera_y; //contre marche
+			p4.y2 = (int)step.y1 - mem->camera_y + mem->level->player.recoil;; //contre marche
 
-			p5.y1 = (int)top.y1 - mem->camera_y;
+			p5.y1 = (int)top.y1 - mem->camera_y + mem->level->player.recoil;;
 			p5.y2 = p3.y1; // contre plafond
 
 			fill_column((int)pf1.x1, p3, p4, p5, sect, mem);
@@ -579,7 +579,7 @@ void refresh_screen(t_mem *mem)
 	//put_img_to_img(mem, mem->monster.ptr, monster_size, W * 0.5, H * 0.5, mem->z);
 	//draw_minimap(mem);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W / 2.5) + 200 + (int)mem->level->player.motion, (H / 2) + (int)mem->level->player.motion);
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W / 2.5) + 200 + (int)mem->level->player.motion + mem->level->player.recoil, (H / 2) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, W / 2 - 16, H / 2 - 16);
 }
 

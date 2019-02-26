@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 17:37:45 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 13:31:52 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,7 @@ typedef struct			s_player
 	float				inertia;
 	float				motion;
 	float				motion_state;
+	int					recoil;
 	int					last_hitting_floor;
 	int					keys_shortcuts[256];
 	int					keyspressed;

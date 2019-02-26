@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 17:43:33 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 13:48:52 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,10 +24,7 @@ void render_sprites(t_mem *mem, int sect)
     float mz1;
     float mx1;
 
-    
-
     j = -1;
-
     while (++j < mem->level->sector[sect].nb_linedef)
     {
         i = 0;
@@ -43,7 +40,7 @@ void render_sprites(t_mem *mem, int sect)
                 if (mz1 >= 0)
                 {
                     mx = -mx1 * 800 / mz1 + W / 2;
-                    my = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / mz1 + H / 2;
+                    my = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / mz1 + H / 2 + mem->level->player.recoil;
                     if (mx > 0 && mx < W)
                         put_img_to_img(mem, &mem->monster, mx, my, (H * 0.03) / distance(mem->level->monsters[i].x, mem->level->monsters[i].y, mem->level->player.x, mem->level->player.y));
                 }
