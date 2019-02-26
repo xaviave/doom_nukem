@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 15:34:19 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 16:47:54 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,6 +128,7 @@ int						send_s_id(t_mem *mem, int id);
 int						next_sector(t_mem *mem, int linedef_id, int actual_sector);
 void					fill_n_sector(t_mem *mem, int i);
 int						double_int(int *tab, int nu, int nb);
+void					sort_dist_monsters(t_mem *mem);
 
 
 /*
@@ -156,5 +157,10 @@ int						further_sector(t_mem *mem, int sector);
 
 void					textures_init(t_mem *mem);
 void					put_img_to_img(t_mem *mem, t_img *img, int x, int y, float dist);
+
+/*
+** animation
+*/
+void					shoot(t_mem *mem);
 
 #endif

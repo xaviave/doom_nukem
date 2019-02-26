@@ -6,188 +6,12 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 13:43:57 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/26 16:43:32 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
-
-int send_s_id(t_mem *mem, int id)
-{
-	int i;
-
-	i = -1;
-	while (++i < mem->level->nb_sector)
-	{
-		if (mem->level->sector[i].id == id)
-			return (i);
-	}
-	return (0);
-}
-
-int send_v_id(t_mem *mem, int id)
-{
-	int i;
-
-	i = -1;
-	while (++i < mem->level->nb_vertex)
-	{
-		if (mem->level->vertex[i].id == id)
-			return (i);
-	}
-	return (0);
-}
-
-void send_x(t_coord *coord, t_mem *mem, int l)
-{
-	int x1;
-	int x2;
-
-	x1 = send_l_vx(mem->level, l, 1);
-	x2 = send_l_vx(mem->level, l, 2);
-	if (x1 < x2)
-	{
-		coord->x1 = (coord->x1 == -1 || coord->x1 > x1) ? x1 : coord->x1;
-		coord->x2 = (coord->x2 == -1 || coord->x2 < x2) ? x2 : coord->x2;
-		return;
-	}
-	coord->x1 = (coord->x1 == -1 || coord->x1 > x2) ? x2 : coord->x1;
-	coord->x2 = (coord->x2 == -1 || coord->x2 < x1) ? x1 : coord->x2;
-}
-
-void send_y(t_coord *coord, t_mem *mem, int l)
-{
-	int y1;
-	int y2;
-
-	y1 = send_l_vy(mem->level, l, 1);
-	y2 = send_l_vy(mem->level, l, 2);
-	if (y1 < y2)
-	{
-		coord->y1 = (coord->y1 == -1 || coord->y1 > y1) ? y1 : coord->y1;
-		coord->y2 = (coord->y2 == -1 || coord->y2 < y2) ? y2 : coord->y2;
-		return;
-	}
-	coord->y1 = (coord->y1 == -1 || coord->y1 > y2) ? y2 : coord->y1;
-	coord->y2 = (coord->y2 == -1 || coord->y2 < y1) ? y1 : coord->y2;
-}
-
-int in_box(t_mem *mem, int nb)
-{
-	int i;
-
-	i = -1;
-	mem->coord.x1 = -1;
-	mem->coord.x2 = -1;
-	mem->coord.y1 = -1;
-	mem->coord.y2 = -1;
-	while (++i < mem->level->sector[nb].nb_linedef)
-	{
-		send_x(&mem->coord, mem, mem->level->sector[nb].linedef[i]);
-		send_y(&mem->coord, mem, mem->level->sector[nb].linedef[i]);
-	}
-	i = 0;
-	if ((mem->level->player.x > mem->coord.x1 && mem->level->player.x < mem->coord.x2) || (mem->level->player.x == mem->coord.x1 || mem->level->player.x == mem->coord.x2))
-		i++;
-	if ((mem->level->player.y > mem->coord.y1 && mem->level->player.y < mem->coord.y2) || (mem->level->player.y == mem->coord.y1 || mem->level->player.y == mem->coord.y2))
-		i++;
-	return (i);
-}
-
-int is_inside(t_vertex v1, t_vertex v2, t_vertex v3, t_vertex player)
-{
-	double s1;
-	double s2;
-	double s3;
-	double s4;
-	double w1;
-	double w2;
-
-	s1 = v3.y - v1.y;
-	s2 = v3.x - v1.x;
-	s3 = v2.y - v1.y;
-	s4 = player.y - v1.y;
-	w1 = (v1.x * s1 + s4 * s2 - player.x * s1) / (s3 * s2 - (v2.x - v1.x) * s1);
-	w2 = (s4 - w1 * s3) / s1;
-	return (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1);
-}
-
-int check_in_sector(t_mem *mem, int l1, int l2, int save)
-{
-	t_vertex vertex;
-
-	if (send_v_id(mem, save) == send_v_id(mem, l1) || send_v_id(mem, save) == send_v_id(mem, l2))
-		return (0);
-	vertex.x = mem->level->player.x;
-	vertex.y = mem->level->player.y;
-	if (is_inside(mem->level->vertex[send_v_id(mem, save)],
-				mem->level->vertex[send_v_id(mem, l1)],
-				mem->level->vertex[send_v_id(mem, l2)], vertex))
-		return (1);
-	return (0);
-}
-
-int double_int(int *tab, int nu, int nb)
-{
-	int i;
-
-	i = -1;
-	while (++i < nb)
-	{
-		if (tab[i] == nu)
-			return (0);
-	}
-	return (1);
-}
-
-int player_sector(t_mem *mem)
-{
-	int i;
-	int j;
-	int save;
-
-	i = -1;
-	while (++i < mem->level->nb_sector)
-	{
-		save = mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[0])].id_v1;
-		if (in_box(mem, i) == 2)
-		{
-			j = 0;
-			while (++j < mem->level->sector[i].nb_linedef)
-				if (check_in_sector(mem, mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].id_v1, mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].id_v2, save))
-					mem->level->player.sector = mem->level->sector[i].id;
-		}
-	}
-	mem->level->n = 1;
-	mem->level->n_sector[0] = mem->level->player.sector;
-	fill_n_sector(mem, 0);
-	return (mem->level->player.sector);
-}
-
-void search_sector(t_mem *mem, int id, int ok)
-{
-	int i;
-	int j;
-
-	i = -1;
-	j = -1;
-	while (++i < mem->level->nb_sector)
-	{
-		if (mem->level->sector[i].id == id)
-			break;
-	}
-	while (++j < mem->level->sector[i].nb_neighbors)
-	{
-		if (double_int(mem->level->n_sector, mem->level->sector[i].neighbors[j], mem->level->n))
-		{
-			mem->level->n_sector[mem->level->n] = mem->level->sector[i].neighbors[j];
-			mem->level->n++;
-		}
-	}
-	if (mem->level->n < mem->level->nb_sector)
-		search_sector(mem, mem->level->n_sector[ok], ok + 1);
-}
 
 void draw_minimap(t_mem *mem)
 {
@@ -199,8 +23,6 @@ void draw_minimap(t_mem *mem)
 	float ty2;
 	float tz1;
 	float tz2;
-
-	/* player position */
 
 	change_color(&mem->color, 0xffffff);
 	i = -1;
@@ -225,7 +47,6 @@ void draw_minimap(t_mem *mem)
 			mem->coord.x2 = tx2 + 150;
 			mem->coord.y1 = tz1 + 150;
 			mem->coord.y2 = tz2 + 150;
-
 			draw_circle(mem);
 			draw_line(mem);
 			draw_circle(mem);
@@ -249,7 +70,6 @@ t_line line_init(t_fcoord p)
 	line.sy = ((int)p.y1 < (int)p.y2) ? 1 : -1;
 	line.err = ((line.dx > line.dy) ? line.dx : -line.dy) / 2;
 	line.e2 = line.err;
-
 	return (line);
 }
 
@@ -259,14 +79,12 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 	t_line line2;
 	t_line line3;
 	t_line line4;
-
 	t_coord p3;
 	t_coord p4;
 	t_coord p5;
 	int i;
 
 	i = 0;
-
 	line = line_init(pf1);
 	line2 = line_init(pf2);
 	line3 = line_init(step);
@@ -298,7 +116,6 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 				pf1.y1 += line.sy;
 			}
 			//--------
-
 			if (line2.e2 < line2.dy)
 			{
 				line2.err += line2.dx;
@@ -334,7 +151,6 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 
 void calc_linedef(t_fcoord pf1, t_mem *mem)
 {
-
 	int i;
 	int j;
 
@@ -575,9 +391,10 @@ void refresh_screen(t_mem *mem)
 		render_sprites(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
-
 	//put_img_to_img(mem, mem->monster.ptr, monster_size, W * 0.5, H * 0.5, mem->z);
 	//draw_minimap(mem);
+	if (mem->level->player.shoot == TRUE)
+		shoot(mem);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W / 2.5) + 200 + (int)mem->level->player.motion + mem->level->player.recoil, (H / 2) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, W / 2 - 16, H / 2 - 16);
@@ -588,7 +405,7 @@ void event_loop(t_mem *mem)
 
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-			 mouse_move_hook, mem);
+			mouse_move_hook, mem);
 	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
 	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);
@@ -613,4 +430,13 @@ int further_sector(t_mem *mem, int sector)
 		return (sector);
 	else
 		return (-1);
+}
+
+void	shoot(t_mem *mem)
+{
+	int x2 = (W / 2.5) + 350 + (int)mem->level->player.motion + mem->level->player.recoil;
+	int y2 = (H / 2) + (int)mem->level->player.motion + mem->level->player.recoil + 180;
+	change_color(&mem->color, 0xBBBBBB);
+	draw_to_line(W / 2, H / 2, x2, y2, mem);
+	draw_to_line(W / 2, H / 2, x2, y2 + 2, mem);
 }
