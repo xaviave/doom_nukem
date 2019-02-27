@@ -6,7 +6,7 @@
 #    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/25 11:11:03 by mel-akio    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/27 11:30:35 by cmerel      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,10 +20,13 @@ RM = rm -f
 NAME = doom_nukem
 LIBFT = libft/
 INC = includes/doom.h
-CFLAGS = -Wall -Wextra -Werror -I includes -O2
+CFLAGS = -Wall -Wextra -Werror -I includes -F ./Frameworks -O2
 MINILIBX = minilibx_macos/libmlx.a
 LIB_FLAG = -framework OpenGl -framework AppKit
-
+SDL_FLAG = -rpath ./Frameworks -F ./Frameworks  -framework SDL2 \
+		   -framework SDL2_image \
+		   -framework SDL2_mixer \
+		   -framework SDL2_ttf
 
 #PATH
 
@@ -54,7 +57,8 @@ FILES = main.c \
 		render/event.c \
 		render/send_info.c \
 		render/math.c \
-		
+		render/music.c \
+
 
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))
@@ -68,7 +72,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	make -C $(LIBFT)
 	make -C minilibx_macos
-	$(CC) $(CFLAGS) $(LIB_FLAG) -o $@ $(OBJS) $(MINILIBX)  $(CFLAGS) -L $(LIBFT) -lft
+	$(CC) $(CFLAGS) $(LIB_FLAG) -o $@ $(OBJS) $(MINILIBX) $(SDL_FLAG) $(CFLAGS) -L $(LIBFT) -lft
 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INC)

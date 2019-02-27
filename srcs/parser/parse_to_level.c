@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/15 17:05:35 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:16:45 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,6 +86,7 @@ void			keys_shortcuts(t_level *level)
 	level->player.keys_shortcuts[TOUCH_NUMPAD_PLUS] = ZOOM_IN;
 	level->player.keys_shortcuts[TOUCH_BACKSPACE] = JUMP;
 	level->player.keys_shortcuts[TOUCH_ECHAP] = EXIT_GAME;
+	level->player.keys_shortcuts[TOUCH_R] = RELOAD;
 
 
 }

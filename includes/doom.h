@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 15:14:30 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:36:15 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 # define DOOM_H
 
 # include "tools.h"
-
+# include <SDL2_mixer/SDL_mixer.h>
 # include "../minilibx_macos/mlx.h"
 
 /*
@@ -61,6 +61,12 @@ typedef struct			s_img
 	int					w;
 	int					h;
 }						t_img;
+
+typedef struct			s_audio
+{
+	Mix_Chunk			*sound;
+	Mix_Music			*music;
+}						t_audio;
 
 typedef struct			s_mem
 {
@@ -163,4 +169,10 @@ void					put_img_to_img(t_mem *mem, t_img *img, int x, int y, float dist);
 */
 void					shoot(t_mem *mem, char frame);
 
+/*
+** music // free
+*/
+void					audio(char *path);
+void					free_audio(void);
+void					music(char *path);
 #endif

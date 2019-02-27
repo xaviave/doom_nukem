@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 16:23:45 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:39:58 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,10 @@ int update_keys(t_mem *mem)
 	{
 		jump(mem);
 	}
+	if (mem->level->player.keyspressed & RELOAD)
+	{
+		audio("sound/m3_pump5.wav");
+	}
 	if (mem->level->player.keyspressed & EXIT_GAME)
 	{
 		exit(1);
@@ -81,15 +85,15 @@ int mouse_move_hook(int x, int y, t_mem *mem)
 		;
 	/*	if (mem->mouse_x > x)
 		mem->level->player.angle -= 0.10;
-	else if (mem->mouse_x + 2 < x)
+		else if (mem->mouse_x + 2 < x)
 		mem->level->player.angle += 0.10;
 
 
-	mlx_mouse_get_pos(mem->win.win_ptr, &x, &y);
-	*/
+		mlx_mouse_get_pos(mem->win.win_ptr, &x, &y);
+		*/
 	/*	mem->mouse_x = x;
-	mem->mouse_y = y;
-	if (x == W / 2 && y == H / 2)
+		mem->mouse_y = y;
+		if (x == W / 2 && y == H / 2)
 		mlx_mouse_move(mem->win.win_ptr, W / 2, H / 2);*/
 	return (0);
 }
@@ -98,6 +102,7 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
 	if (k == 1)
 	{
+		audio("sound/sg552-2.wav");
 		if (mem->level->player.recoil < 50)
 			mem->level->player.recoil += 14;
 		else

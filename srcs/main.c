@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 16:09:46 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:40:07 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,7 @@ int main(int ac, char **av)
 	int i;
 
 	i = 0;
-
+	music("sound/doom-song.mp3");
 	mem.fill_screen = malloc(sizeof(char) * W);
 	init_parse(&parse);
 	parse_map(ac, av, &parse);
@@ -94,6 +94,7 @@ int main(int ac, char **av)
 	textures_init(&mem);
 	event_loop(&mem);
 	free_level(&level);
+	free_audio();
 	return (0);
 }
 
