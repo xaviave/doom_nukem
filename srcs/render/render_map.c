@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 14:47:32 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:51:45 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -203,7 +203,7 @@ int pre_render(t_mem *mem, int sect, int i)
 		tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
 		if (tz1 > 0 || tz2 > 0)
 		{
-			intersect(tx1, tz1, tx2, tz2, -2, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
+			intersect(tx1, tz1, tx2, tz2, -5, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
 			if (tz1 <= 0 && iz1 > 0)
 			{
 				tx1 = ix1;
@@ -272,8 +272,8 @@ void render(t_mem *mem, int sect)
 
 		if (tz1 > 0 || tz2 > 0)
 		{
-			intersect(tx1, tz1, tx2, tz2, -2, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
-			intersect(tx1, tz1, tx2, tz2, 2, 5, 20, 5, &ix2, &iz2);   // 7eme argument definit la precision
+			intersect(tx1, tz1, tx2, tz2, -5, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
+			intersect(tx1, tz1, tx2, tz2, 5, 5, 20, 5, &ix2, &iz2);   // 7eme argument definit la precision
 			if (tz1 <= 0)
 			{
 				if (iz1 > 0)

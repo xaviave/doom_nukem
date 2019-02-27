@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:39:58 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 17:56:27 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ int update_keys(t_mem *mem)
 	physics(mem);
 
 	if (mem->level->player.recoil > 0)
-		mem->level->player.recoil -= 2;
+		mem->level->player.recoil -= 1.3;
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
 		mem->level->player.x += (1 * sin(mem->level->player.angle));
