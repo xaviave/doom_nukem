@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 15:54:00 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 15:46:57 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ void make_mask(t_mem *mem, t_img *img, char xpm[255])
 								&i[2]);
 }
 
-unsigned int rgb(unsigned char r, unsigned char g, unsigned char b)
+unsigned int rgb(unsigned char o,unsigned char r, unsigned char g, unsigned char b)
 {
 	if (r > 255)
 		r = 255;
@@ -45,7 +45,9 @@ unsigned int rgb(unsigned char r, unsigned char g, unsigned char b)
 		g = 255;
 	if (r > 255)
 		b = 255;
-	return ((r * 65536) + (g * 256) + b);
+	if (o > 255)
+		o = 255;
+	return (((unsigned int)o * 16777216) + ((unsigned int)r * 65536) + ((unsigned int)g * 256) + (unsigned int)b);
 }
 
 void put_img_to_img(t_mem *mem, t_img *img, int x, int y, float zoom)
@@ -53,7 +55,7 @@ void put_img_to_img(t_mem *mem, t_img *img, int x, int y, float zoom)
 	int i;
 	int j;
 	int k;
-	int color;
+	unsigned int color;
 	t_coord pos;
 
 	x -= img->w * zoom * 0.5;
@@ -65,13 +67,13 @@ void put_img_to_img(t_mem *mem, t_img *img, int x, int y, float zoom)
 		k = -1;
 		while (++k < img->w)
 		{
-			color = rgb(img->data[i + 2], img->data[i + 1], img->data[i]);
+			color = rgb(img->data[i + 3], img->data[i + 2], img->data[i + 1], img->data[i]);
 			pos.y2 = 0;
 			while (pos.y2 < zoom)
 			{
 				while (pos.x1 < k * zoom)
 				{
-					if (color != 0x00000000 && pos.x1 + x > 0 && pos.x1 + x < W && pos.y1 + pos.y2 + y > 0 && pos.y1 + pos.y2 + y < H)
+					if (color < 4278190080 && pos.x1 + x > 0 && pos.x1 + x < W && pos.y1 + pos.y2 + y > 0 && pos.y1 + pos.y2 + y < H)
 						ft_put_pixel(mem, pos.x1 + x, pos.y1 + pos.y2 + y, set_color(color));
 					pos.x1++;
 				}

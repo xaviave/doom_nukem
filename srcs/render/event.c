@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 17:09:36 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 16:23:45 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,23 +22,23 @@ int update_keys(t_mem *mem)
 		mem->level->player.recoil -= 2;
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
-		mem->level->player.x += (2.2f * sin(mem->level->player.angle));
-		mem->level->player.y -= (2.2f * cos(mem->level->player.angle));
+		mem->level->player.x += (1 * sin(mem->level->player.angle));
+		mem->level->player.y -= (1 * cos(mem->level->player.angle));
 	}
 	if (mem->level->player.keyspressed & MOVE_RIGHT)
 	{
-		mem->level->player.x -= (2.2f * sin(mem->level->player.angle));
-		mem->level->player.y += (2.2f * cos(mem->level->player.angle));
+		mem->level->player.x -= (1 * sin(mem->level->player.angle));
+		mem->level->player.y += (1 * cos(mem->level->player.angle));
 	}
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
-		mem->level->player.x += (2.2f * cos(mem->level->player.angle));
-		mem->level->player.y += (2.2f * sin(mem->level->player.angle));
+		mem->level->player.x += (2 * cos(mem->level->player.angle));
+		mem->level->player.y += (2 * sin(mem->level->player.angle));
 	}
 	if (mem->level->player.keyspressed & MOVE_DOWN)
 	{
-		mem->level->player.x -= (2.2f * cos(mem->level->player.angle));
-		mem->level->player.y -= (2.2f * sin(mem->level->player.angle));
+		mem->level->player.x -= (2 * cos(mem->level->player.angle));
+		mem->level->player.y -= (2 * sin(mem->level->player.angle));
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
 	{
@@ -70,7 +70,8 @@ int update_keys(t_mem *mem)
 	}
 	mem->level->player.last_position = mem->level->player.x + mem->level->player.y;
 	refresh_screen(mem);
-	mem->level->player.shoot = FALSE;
+	if (mem->level->player.shoot > 0)
+		mem->level->player.shoot--;
 	return (0);
 }
 
@@ -102,7 +103,7 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 		else
 			mem->level->player.recoil += 3;
 
-		mem->level->player.shoot = TRUE;
+		mem->level->player.shoot = 2;
 	}
 	if (k || x || y || mem)
 		return (0);

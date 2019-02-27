@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 16:47:54 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 15:14:30 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -161,6 +161,6 @@ void					put_img_to_img(t_mem *mem, t_img *img, int x, int y, float dist);
 /*
 ** animation
 */
-void					shoot(t_mem *mem);
+void					shoot(t_mem *mem, char frame);
 
 #endif

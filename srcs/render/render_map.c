@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 16:43:32 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 14:47:32 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,12 +136,15 @@ void paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int 
 		{
 
 			p3.y1 = (int)pf1.y1 - mem->camera_y + mem->level->player.recoil;
-			p3.y2 = (int)pf2.y1 - mem->camera_y + mem->level->player.recoil;; // murs
+			p3.y2 = (int)pf2.y1 - mem->camera_y + mem->level->player.recoil;
+			; // murs
 
 			p4.y1 = p3.y2;
-			p4.y2 = (int)step.y1 - mem->camera_y + mem->level->player.recoil;; //contre marche
+			p4.y2 = (int)step.y1 - mem->camera_y + mem->level->player.recoil;
+			; //contre marche
 
-			p5.y1 = (int)top.y1 - mem->camera_y + mem->level->player.recoil;;
+			p5.y1 = (int)top.y1 - mem->camera_y + mem->level->player.recoil;
+			;
 			p5.y2 = p3.y1; // contre plafond
 
 			fill_column((int)pf1.x1, p3, p4, p5, sect, mem);
@@ -262,12 +265,10 @@ void render(t_mem *mem, int sect)
 		ty1 = mem->coord.y1 - mem->level->player.y;
 		ty2 = mem->coord.y2 - mem->level->player.y;
 
-
 		tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
 		tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
 		tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
 		tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
-
 
 		if (tz1 > 0 || tz2 > 0)
 		{
@@ -393,8 +394,8 @@ void refresh_screen(t_mem *mem)
 	}
 	//put_img_to_img(mem, mem->monster.ptr, monster_size, W * 0.5, H * 0.5, mem->z);
 	//draw_minimap(mem);
-	if (mem->level->player.shoot == TRUE)
-		shoot(mem);
+	if (mem->level->player.shoot > 0)
+		shoot(mem, mem->level->player.shoot);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W / 2.5) + 200 + (int)mem->level->player.motion + mem->level->player.recoil, (H / 2) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, W / 2 - 16, H / 2 - 16);
@@ -405,7 +406,7 @@ void event_loop(t_mem *mem)
 
 	mlx_hook(mem->win.win_ptr, 17, 0L, cross_close, mem);
 	mlx_hook(mem->win.win_ptr, MOTION_NOTIFY, PTR_MOTION_MASK,
-			mouse_move_hook, mem);
+			 mouse_move_hook, mem);
 	mlx_mouse_hook(mem->win.win_ptr, mouse_click_hook, mem);
 	mlx_hook(mem->win.win_ptr, 2, 1L << 0, add_key, mem);
 	mlx_hook(mem->win.win_ptr, 3, 1L << 1, remove_key, mem);
@@ -432,11 +433,18 @@ int further_sector(t_mem *mem, int sector)
 		return (-1);
 }
 
-void	shoot(t_mem *mem)
+void shoot(t_mem *mem, char frame)
 {
-	int x2 = (W / 2.5) + 350 + (int)mem->level->player.motion + mem->level->player.recoil;
-	int y2 = (H / 2) + (int)mem->level->player.motion + mem->level->player.recoil + 180;
-	change_color(&mem->color, 0xBBBBBB);
-	draw_to_line(W / 2, H / 2, x2, y2, mem);
-	draw_to_line(W / 2, H / 2, x2, y2 + 2, mem);
+
+	if (frame == 2)
+	{
+		change_color(&mem->color, 0xFF0000);
+		draw_to_line(W / 2, H / 2, W - 340, H - 150, mem);
+	}
+	else
+	{
+
+		change_color(&mem->color, 0x0000FF);
+		draw_to_line(W / 2, H / 2, W - 340, H - 150, mem);
+	}
 }

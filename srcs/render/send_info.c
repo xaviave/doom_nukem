@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:38:22 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/26 17:00:19 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/27 16:46:05 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -317,16 +317,17 @@ void sort_dist_monsters(t_mem *mem)
 		mem->level->monsters[i].distance = distance(mem->level->monsters[i].x, mem->level->monsters[i].y, mem->level->player.x, mem->level->player.y);
 		i++;
 	}
-	i = 0;
+	i = 1;
 	while (i < mem->level->nb_monsters)
 	{
-		if (mem->level->monsters[i].distance < mem->level->monsters[i + 1].distance)
+		if (mem->level->monsters[i].distance > mem->level->monsters[i - 1].distance)
 		{
 			swap = mem->level->monsters[i];
-			mem->level->monsters[i] = mem->level->monsters[i + 1];
-			mem->level->monsters[i + 1] = swap;
-			i = -1;
+			mem->level->monsters[i] = mem->level->monsters[i - 1];
+			mem->level->monsters[i - 1] = swap;
+			i = 1;
 		}
-		i++;
+		else
+			i++;
 	}
 }
