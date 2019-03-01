@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 16:19:07 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 13:13:54 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,9 +23,8 @@ void render_sprites(t_mem *mem, int sect)
     float mz1;
     float mx1;
 
-    i = 0;
-
-    while (i <= mem->level->nb_monsters)
+    i = -1;
+    while (++i < mem->level->nb_monsters)
     {
         if (mem->level->monsters[i].sector == sect)
         {
@@ -42,6 +41,5 @@ void render_sprites(t_mem *mem, int sect)
                     put_img_to_img(mem, &mem->monster, mx, my, (H * 0.03) / mem->level->monsters[i].distance);
             }
         }
-        i++;
     }
 }
