@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:16:01 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 11:58:08 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,11 +20,18 @@
 # include <math.h>
 # include <time.h>
 # include <sys/time.h>
+# include <SDL2_mixer/SDL_mixer.h>
 # include "../libft/header/libft.h"
 
 /*
 ** Structures & Binary tree
 */
+
+typedef struct			s_audio
+{
+	Mix_Chunk			*sound;
+	Mix_Music			*music;
+}						t_audio;
 
 typedef struct			s_vertex
 {
@@ -112,6 +119,14 @@ typedef struct			s_sector
 	int					*neighbors;
 }						t_sector;
 
+typedef struct			s_sound
+{
+	t_audio				music1;
+	t_audio				shoot1;
+	t_audio				jump;
+	t_audio				reload;
+}						t_sound;
+
 typedef struct			s_level
 {
 	int					nb_vertex;
@@ -123,8 +138,7 @@ typedef struct			s_level
 	t_sector			*sector;
 	t_player			player;
 	t_monster			*monsters;
-	t_monster			monster1;
-	t_monster			monster2;
+	t_sound				sounds;
 	int					*n_sector;
 	int					n;
 	int					c[6];

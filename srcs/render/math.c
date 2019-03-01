@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:39:28 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 12:04:57 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,8 @@ void jump(t_mem *mem)
 {
 	if (mem->level->player.z - 5 == mem->level->sector[mem->level->player.sector - 1].h_floor)
 	{
-		audio("sound/jump2.wav");
+		//audio("sound/jump2.wav");
+		play_audio(mem->level->sounds.jump);
 		mem->level->player.on_jump = TRUE;
 		mem->level->player.inertia = 1;
 		mem->level->player.last_hitting_floor = mem->level->sector[mem->level->player.sector - 1].h_floor;
