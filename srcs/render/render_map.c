@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:51:45 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 13:36:02 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,10 +39,10 @@ void draw_minimap(t_mem *mem)
 			tx2 = mem->coord.x2 - mem->level->player.x;
 			ty1 = mem->coord.y1 - mem->level->player.y;
 			ty2 = mem->coord.y2 - mem->level->player.y;
-			tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
-			tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
-			tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
-			tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
+			tz1 = tx1 * mem->cos_angle + ty1 * mem->sin_angle;
+			tz2 = tx2 * mem->cos_angle + ty2 * mem->sin_angle;
+			tx1 = tx1 * mem->sin_angle - ty1 * mem->cos_angle;
+			tx2 = tx2 * mem->sin_angle - ty2 * mem->cos_angle;
 			mem->coord.x1 = tx1 + 150;
 			mem->coord.x2 = tx2 + 150;
 			mem->coord.y1 = tz1 + 150;
@@ -185,7 +185,6 @@ int pre_render(t_mem *mem, int sect, int i)
 	float ix1;
 	float iz1;
 
-	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 	j = -1;
 	while (++j < mem->level->sector[sect].nb_linedef)
 	{
@@ -197,10 +196,10 @@ int pre_render(t_mem *mem, int sect, int i)
 		tx2 = mem->coord.x2 - mem->level->player.x;
 		ty1 = mem->coord.y1 - mem->level->player.y;
 		ty2 = mem->coord.y2 - mem->level->player.y;
-		tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
-		tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
-		tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
-		tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
+		tz1 = tx1 * mem->cos_angle + ty1 * mem->sin_angle;
+		tz2 = tx2 * mem->cos_angle + ty2 * mem->sin_angle;
+		tx1 = tx1 * mem->sin_angle - ty1 * mem->cos_angle;
+		tx2 = tx2 * mem->sin_angle - ty2 * mem->cos_angle;
 		if (tz1 > 0 || tz2 > 0)
 		{
 			intersect(tx1, tz1, tx2, tz2, -5, 5, -20, 5, &ix1, &iz1); // 7eme argument definit la precision
@@ -265,10 +264,10 @@ void render(t_mem *mem, int sect)
 		ty1 = mem->coord.y1 - mem->level->player.y;
 		ty2 = mem->coord.y2 - mem->level->player.y;
 
-		tz1 = tx1 * cos(mem->level->player.angle) + ty1 * sin(mem->level->player.angle);
-		tz2 = tx2 * cos(mem->level->player.angle) + ty2 * sin(mem->level->player.angle);
-		tx1 = tx1 * sin(mem->level->player.angle) - ty1 * cos(mem->level->player.angle);
-		tx2 = tx2 * sin(mem->level->player.angle) - ty2 * cos(mem->level->player.angle);
+		tz1 = tx1 * mem->cos_angle + ty1 * mem->sin_angle;
+		tz2 = tx2 * mem->cos_angle + ty2 * mem->sin_angle;
+		tx1 = tx1 * mem->sin_angle - ty1 * mem->cos_angle;
+		tx2 = tx2 * mem->sin_angle - ty2 * mem->cos_angle;
 
 		if (tz1 > 0 || tz2 > 0)
 		{

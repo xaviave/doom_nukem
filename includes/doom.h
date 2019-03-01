@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 12:02:05 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 13:26:24 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,6 +81,8 @@ typedef struct			s_mem
 	t_img				gun;
 	t_img				crosshair;
 	t_img				monster;
+	float				cos_angle;
+	float				sin_angle;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
