@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 15:24:59 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 13:59:50 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,23 @@ int update_keys(t_mem *mem)
 		sort_dist_monsters(mem);
 	}
 	mem->level->player.last_position = mem->level->player.x + mem->level->player.y;
+	
+	if (!(mem->tv1.tv_sec))
+		gettimeofday(&mem->tv1, NULL);
 	refresh_screen(mem);
+	mem->FPS += 1;
+	gettimeofday(&mem->tv2, NULL);
+
+	if (mem->tv2.tv_sec - mem->tv1.tv_sec >= 1)
+	{
+		printf("FPS = %d\n", mem->FPS);
+		mem->FPS = 0;
+		mem->tv1.tv_sec = 0;
+		mem->tv2.tv_sec = 0;
+	}
+	/*printf ("Total time = %f seconds\n",
+        (double) (mem->tv2.tv_usec - mem->tv1.tv_usec) / 1000000 +
+        (double) (mem->tv2.tv_sec - mem->tv1.tv_sec));*/
 	if (mem->level->player.shoot > 0)
 		mem->level->player.shoot--;
 	return (0);

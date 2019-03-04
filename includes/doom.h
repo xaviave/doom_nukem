@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 15:26:16 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 13:55:07 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,6 +83,8 @@ typedef struct			s_mem
 	t_img				monster;
 	float				cos_angle;
 	float				sin_angle;
+	int					FPS;
+	struct timeval  	tv1, tv2;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
