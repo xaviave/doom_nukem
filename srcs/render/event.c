@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 13:59:50 by lloyet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 17:02:00 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,7 +83,9 @@ int update_keys(t_mem *mem)
 
 	if (mem->tv2.tv_sec - mem->tv1.tv_sec >= 1)
 	{
-		printf("FPS = %d\n", mem->FPS);
+		ft_putstr("FPS : ");
+		ft_putnbr(mem->FPS);
+		putchar('\n');
 		mem->FPS = 0;
 		mem->tv1.tv_sec = 0;
 		mem->tv2.tv_sec = 0;

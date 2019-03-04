@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 16:23:39 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 17:02:21 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -111,7 +111,7 @@ void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect
     while (p1.y1 < p1.y2)
     {
         if (p1.y1 >= 0 && p1.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
-            ft_put_pixel(mem, x, p1.y1, step);
+           ft_put_pixel(mem, x, p1.y1, step);
         p1.y1++;
     }
     // cette partie dessine les contres marches

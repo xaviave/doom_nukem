@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 13:36:02 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 16:50:07 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -317,39 +317,31 @@ void render(t_mem *mem, int sect)
 
 			if (!(mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]))
 				neighbour = next_sector(mem, mem->level->sector[sect].linedef[j], sect);
-			if (neighbour > -1)
+
+			if (mem->level->sector[neighbour].h_floor >= mem->level->sector[sect].h_floor && neighbour > 0)
 			{
-				if (mem->level->sector[neighbour].h_floor <= mem->level->sector[sect].h_floor)
-				{
-					step.y1 = p2.y1;
-					step.y2 = p2.y2;
-				}
-				else
-				{
-					step.y1 = p2.y1;
-					step.y2 = p2.y2;
-					p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + H / 2 - p2.y1);
-					p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + H / 2 - p2.y2);
-				}
-				if (mem->level->sector[neighbour].h_ceil <= mem->level->sector[sect].h_ceil)
-				{
-					top.y1 = p1.y1;
-					top.y2 = p1.y2;
-					p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz1 + H / 2 - p1.y1);
-					p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz2 + H / 2 - p1.y2);
-				}
-				else
-				{
-					top.y1 = p1.y1;
-					top.y2 = p1.y2;
-				}
+				step.y1 = p2.y1;
+				step.y2 = p2.y2;
+				p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + H / 2 - p2.y1);
+				p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + H / 2 - p2.y2);
 			}
 			else
 			{
 				step.y1 = p2.y1;
 				step.y2 = p2.y2;
-				top.y1 = p2.y1;
-				top.y2 = p2.y2;
+				
+			}
+			if (mem->level->sector[neighbour].h_ceil <= mem->level->sector[sect].h_ceil && neighbour > 0)
+			{
+				top.y1 = p1.y1;
+				top.y2 = p1.y2;
+				p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz1 + H / 2 - p1.y1);
+				p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz2 + H / 2 - p1.y2);
+			}
+			else
+			{
+				top.y1 = p1.y1;
+				top.y2 = p1.y2;
 			}
 
 			//send_s_id(mem, mem->level->n_sector[iter - 1])].h_floor)
