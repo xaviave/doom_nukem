@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 17:46:30 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 17:11:52 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ void		ft_put_pixel(t_mem *mem, int x, int y, t_color color)
 {
 	int		bpp;
 
-	bpp = mem->img.bpp / 8;
+	bpp = mem->img.bpp >> 3;
 	if ((x > 0 && x < mem->win.width) && (y > 0 && y < mem->win.height))
 	{
 		mem->img.data[(x * bpp) + (mem->img.sizeline * y)] = color.b;
