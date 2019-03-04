@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 11:48:38 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 15:26:18 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,7 +95,7 @@ int main(int ac, char **av)
 	play_music(mem.level->sounds.music1);
 	event_loop(&mem);
 	free_level(&level);
-	free_audio();
+	free_audio(&mem);
 	return (0);
 }
 

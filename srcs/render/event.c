@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 13:28:29 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 15:24:59 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ int update_keys(t_mem *mem)
 	}
 	if (mem->level->player.keyspressed & RELOAD)
 	{
-		audio("sound/m3_pump5.wav");
+		play_audio(mem->level->sounds.reload);
 	}
 	if (mem->level->player.keyspressed & EXIT_GAME)
 	{
@@ -103,7 +103,7 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
 	if (k == 1)
 	{
-		audio("sound/sg552-2.wav");
+		play_audio(mem->level->sounds.shoot1);
 		if (mem->level->player.recoil < 50)
 			mem->level->player.recoil += 14;
 		else

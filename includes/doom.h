@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 13:26:24 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/01 15:26:16 by cmerel      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -170,7 +170,5 @@ void					shoot(t_mem *mem, char frame);
 void					init_sound(t_mem *mem);
 void					play_music(t_audio m);
 void					play_audio(t_audio m);
-void					audio(char *path);
-void					free_audio(void);
-void					music(char *path);
+void					free_audio(t_mem *mem);
 #endif
