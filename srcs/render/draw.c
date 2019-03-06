@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 17:02:59 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/06 13:37:57 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ void draw_line(t_mem *mem)
     line.sx = mem->coord.x1 < mem->coord.x2 ? 1 : -1;
     line.dy = abs(mem->coord.y2 - mem->coord.y1);
     line.sy = mem->coord.y1 < mem->coord.y2 ? 1 : -1;
-    line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
+    line.err = (line.dx > line.dy ? line.dx : -line.dy) * 0.5;
     line.e2 = line.err;
 
     while (101)
@@ -51,7 +51,7 @@ void draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem)
     line.sx = x1 < x2 ? 1 : -1;
     line.dy = abs(y2 - y1);
     line.sy = y1 < y2 ? 1 : -1;
-    line.err = (line.dx > line.dy ? line.dx : -line.dy) / 2;
+    line.err = (line.dx > line.dy ? line.dx : -line.dy) >> 1;
     line.e2 = line.err;
 
     while (!(x1 == x2 && y1 == y2))
@@ -94,12 +94,13 @@ void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect
         mem->fill_screen[x] = 1;
 
     // cette partie dessine les plafond (hauteur murs  sur haut de l'ecran)
-    while (i < p1.y1)
-    {
-        if (i >= 0 && i < H)
-            ft_put_pixel(mem, x, i, ceil);
-        i++;
-    }
+    if (mem->level->sector[sect - 1].h_ceil > (int)mem->level->player.z)
+        while (i < p1.y1)
+        {
+            if (i >= 0 && i < H)
+                ft_put_pixel(mem, x, i, ceil);
+            i++;
+        }
     // cette partie dessine les "contres plafonds"
     while (step_top.y1 < step_top.y2)
     {
@@ -108,10 +109,10 @@ void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect
         step_top.y1++;
     }
     // cette partie dessine les murs
-    while (p1.y1 < p1.y2)
+      while (p1.y1 < p1.y2)
     {
         if (p1.y1 >= 0 && p1.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
-           ft_put_pixel(mem, x, p1.y1, step);
+            ft_put_pixel(mem, x, p1.y1, step);
         p1.y1++;
     }
     // cette partie dessine les contres marches
@@ -123,12 +124,14 @@ void fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect
     }
     // cette partie dessine le sol
     p1.y1 = step_bot.y1;
-    while (p1.y1 < H)
-    {
-        if (p1.y1 >= 0 && p1.y1 < H)
-            ft_put_pixel(mem, x, p1.y1, floor);
-        p1.y1++;
-    }
+
+    if (mem->level->sector[sect - 1].h_floor < (int)mem->level->player.z)
+        while (p1.y1 < H)
+        {
+            if (p1.y1 >= 0 && p1.y1 < H)
+                ft_put_pixel(mem, x, p1.y1, floor);
+            p1.y1++;
+        }
 }
 
 void draw_camera(t_mem *mem)

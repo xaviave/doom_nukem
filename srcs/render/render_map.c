@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 16:50:07 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/04 18:03:30 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ t_line line_init(t_fcoord p)
 	line.sx = ((int)p.x1 < (int)p.x2) ? 1 : -1;
 	line.dy = abs((int)p.y2 - (int)p.y1);
 	line.sy = ((int)p.y1 < (int)p.y2) ? 1 : -1;
-	line.err = ((line.dx > line.dy) ? line.dx : -line.dy) / 2;
+	line.err = ((line.dx > line.dy) ? line.dx : -line.dy) * 0.5;
 	line.e2 = line.err;
 	return (line);
 }
@@ -213,8 +213,8 @@ int pre_render(t_mem *mem, int sect, int i)
 				tx2 = ix1;
 				tz2 = iz1;
 			}
-			p1.x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
-			p1.x2 = -tx2 * 800 / tz2 + W / 2;
+			p1.x1 = -tx1 * 800 / tz1 + (W >> 1); // 800 (ratio map)
+			p1.x2 = -tx2 * 800 / tz2 + (W >> 1);
 			mem->color.a = 0;
 			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
 		}
@@ -300,8 +300,8 @@ void render(t_mem *mem, int sect)
 				}
 			}
 
-			p1.x1 = -tx1 * 800 / tz1 + W / 2; // 800 (ratio map)
-			p1.x2 = -tx2 * 800 / tz2 + W / 2;
+			p1.x1 = -tx1 * 800 / tz1 + (W >> 1); // 800 (ratio map)
+			p1.x2 = -tx2 * 800 / tz2 + (W >> 1);
 			p2.x1 = p1.x1;
 			p2.x2 = p1.x2;
 			step.x1 = p1.x1;
@@ -309,11 +309,11 @@ void render(t_mem *mem, int sect)
 			top.x1 = p1.x1;
 			top.x2 = p1.x2;
 
-			p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2;
-			p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2; // transformer cette valeur pour plafond penché
+			p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + (H >> 1);
+			p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + (H >> 1); // transformer cette valeur pour plafond penché
 
-			p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2;
-			p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2; // // transformer cette valeur pour sol penché
+			p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + (H >> 1);
+			p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + (H >> 1); // // transformer cette valeur pour sol penché
 
 			if (!(mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]))
 				neighbour = next_sector(mem, mem->level->sector[sect].linedef[j], sect);
@@ -322,8 +322,8 @@ void render(t_mem *mem, int sect)
 			{
 				step.y1 = p2.y1;
 				step.y2 = p2.y2;
-				p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + H / 2 - p2.y1);
-				p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + H / 2 - fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + H / 2 - p2.y2);
+				p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz1 + (H >> 1) - fabs(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz1 + (H >> 1) - p2.y1);
+				p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor) / tz2 + (H >> 1) - fabs(H * ((mem->level->player.z - mem->level->sector[neighbour].h_floor)) / tz2 + (H >> 1) - p2.y2);
 			}
 			else
 			{
@@ -335,8 +335,8 @@ void render(t_mem *mem, int sect)
 			{
 				top.y1 = p1.y1;
 				top.y2 = p1.y2;
-				p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz1 + H / 2 - p1.y1);
-				p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + H / 2 + fabsf(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz2 + H / 2 - p1.y2);
+				p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz1 + (H >> 1) + fabs(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz1 + (H >> 1) - p1.y1);
+				p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil) / tz2 + (H >> 1) + fabs(H * ((mem->level->player.z - mem->level->sector[neighbour].h_ceil)) / tz2 + (H >> 1) - p1.y2);
 			}
 			else
 			{
@@ -383,13 +383,13 @@ void refresh_screen(t_mem *mem)
 		render_sprites(mem, send_s_id(mem, mem->level->n_sector[i]));
 		i--;
 	}
-	//put_img_to_img(mem, mem->monster.ptr, monster_size, W * 0.5, H * 0.5, mem->z);
+	//put_img_to_img(mem, mem->monster.ptr, monster_size, (W >> 1), (H >> 1), mem->z);
 	//draw_minimap(mem);
 	if (mem->level->player.shoot > 0)
 		shoot(mem, mem->level->player.shoot);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W / 2.5) + 200 + (int)mem->level->player.motion + mem->level->player.recoil, (H / 2) + (int)mem->level->player.motion + mem->level->player.recoil);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, W / 2 - 16, H / 2 - 16);
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W * 0.4) + 200 + (int)mem->level->player.motion + mem->level->player.recoil, (H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
+	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, (W >> 1) - 16, (H >> 1) - 16);
 }
 
 void event_loop(t_mem *mem)
@@ -430,12 +430,12 @@ void shoot(t_mem *mem, char frame)
 	if (frame == 2)
 	{
 		change_color(&mem->color, 0xFF0000);
-		draw_to_line(W / 2, H / 2, W - 340, H - 150, mem);
+		draw_to_line(W >> 1, H >> 1, W - 340, H - 150, mem);
 	}
 	else
 	{
 
 		change_color(&mem->color, 0x0000FF);
-		draw_to_line(W / 2, H / 2, W - 340, H - 150, mem);
+		draw_to_line(W >> 1, H >> 1, W - 340, H - 150, mem);
 	}
 }
