@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   p_to_level.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 17:13:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 15:37:28 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/13 20:02:02 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,4 +82,15 @@ void			p_to_sector(t_level *level, t_parse *parse)
 		i++;
 		tmp = tmp->next;
 	}
+}
+
+void		p_to_spawn(t_level *level, t_parse *parse)
+{
+	level->spawn.x = parse->player.x;
+	level->spawn.y = parse->player.y;
+	level->spawn.z = parse->player.z;
+	level->spawn.camX = 1600;
+	level->spawn.camY = 0;
+	level->spawn.angle = parse->player.angle;
+	return ;
 }

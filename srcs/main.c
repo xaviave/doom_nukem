@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 16:10:47 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/20 18:59:21 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@ static void init_parse(t_parse *parse)
 	parse->sector = NULL;
 	parse->player.x = -1;
 	parse->player.y = -1;
+	parse->player.z = -1;
 	parse->nb = 0;
 }
 
@@ -64,6 +65,10 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->monsters[1].y = 280;
 
 	mem->FPS = 0;
+	mem->menu = 0;
+	mem->mouseShow = 0;
+	mem->mouse_sensi = 0.001;
+	mem->gravity = 0.0;
 	mem->tv1.tv_sec = 0;
 	mem->tv2.tv_sec = 0;
 
@@ -79,9 +84,6 @@ int main(int ac, char **av)
 	t_parse parse;
 	t_level level;
 	t_mem mem;
-
-	
-
 	int i;
 
 	i = 0;
@@ -91,7 +93,9 @@ int main(int ac, char **av)
 	init_level(&level);
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
-	mem.level->player.z = 5;
+	//mem.level->player.z = 5;
+	mem.camera_x = 500;
+	mem.camera_y = -100;
 	mem.level->player.motion_state = 0.40;
 	textures_init(&mem);
 	init_sound(&mem);

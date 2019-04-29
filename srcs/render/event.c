@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 18:12:28 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/31 20:48:03 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,24 +19,27 @@ int update_keys(t_mem *mem)
 	physics(mem);
 	mem->cos_angle = cos(mem->level->player.angle);
 	mem->sin_angle = sin(mem->level->player.angle);
+	//printf("angle = %f keyPress = %d cameraX = %d cameraY = %d\n", mem->playerOrientation, mem->level->player.keyspressed, mem->camera_x, mem->camera_y);
+	//printf("neighbors = %d, sector = %d, x = %f, y = %f, z = %f\n", mem->level->sector[mem->level->player.sector].nb_neighbors, mem->level->player.sector, mem->level->player.x, mem->level->player.y,mem->level->player.z);
+	
 	if (mem->level->player.recoil > 0)
 		mem->level->player.recoil -= 1.3;
-	if (mem->level->player.keyspressed & MOVE_LEFT)
+	if ((mem->level->player.keyspressed & MOVE_LEFT) && !mem->menu) //&& (mem->level->player.sector > 0))
 	{
 		mem->level->player.x += (1 * mem->sin_angle);
 		mem->level->player.y -= (1 * mem->cos_angle);
 	}
-	if (mem->level->player.keyspressed & MOVE_RIGHT)
+	if ((mem->level->player.keyspressed & MOVE_RIGHT) && !mem->menu) //&& (mem->level->player.sector > 0))
 	{
 		mem->level->player.x -= (1 * mem->sin_angle);
-		mem->level->player.y += (1 * mem->cos_angle );
+		mem->level->player.y += (1 * mem->cos_angle);
 	}
-	if (mem->level->player.keyspressed & MOVE_UP)
+	if ((mem->level->player.keyspressed & MOVE_UP) && !mem->menu) //&& (mem->level->player.sector > 0))
 	{
 		mem->level->player.x += (2 * mem->cos_angle);
 		mem->level->player.y += (2 * mem->sin_angle);
 	}
-	if (mem->level->player.keyspressed & MOVE_DOWN)
+	if ((mem->level->player.keyspressed & MOVE_DOWN) && !mem->menu) //&& (mem->level->player.sector > 0))
 	{
 		mem->level->player.x -= (2 * mem->cos_angle );
 		mem->level->player.y -= (2 * mem->sin_angle);
@@ -55,11 +58,12 @@ int update_keys(t_mem *mem)
 	{
 		//	mem->z += 0.05;
 	}
-	if (mem->level->player.keyspressed & JUMP)
+	if ((mem->level->player.keyspressed & JUMP) && !mem->menu)
 	{
+		//player_tp(&mem->level->player, 0, 0 ,0);
 		jump(mem);
 	}
-	if (mem->level->player.keyspressed & RELOAD)
+	if ((mem->level->player.keyspressed & RELOAD) && !mem->menu)
 	{
 		play_audio(mem->level->sounds.reload);
 	}
@@ -73,19 +77,29 @@ int update_keys(t_mem *mem)
 		player_animation(mem);
 		sort_dist_monsters(mem);
 	}
-	mem->level->player.last_position = mem->level->player.x + mem->level->player.y;
-	
+	/*if (mem->level->player.sector < 0)
+	{
+		mem->level->player.x = mem->lastX;
+		mem->level->player.y = mem->lastY;
+	}
+	else
+	{
+		mem->lastX = mem->level->player.x;
+		mem->lastY = mem->level->player.y;
+		mem->level->player.last_position = mem->level->player.x + mem->level->player.y;
+	}*/
 	if (!(mem->tv1.tv_sec))
 		gettimeofday(&mem->tv1, NULL);
 	refresh_screen(mem);
-	mem->FPS += 1;
+	draw_minimap(mem);
 	gettimeofday(&mem->tv2, NULL);
+	mem->FPS++;
 
 	if (mem->tv2.tv_sec - mem->tv1.tv_sec >= 1)
 	{
-		ft_putstr("FPS : ");
+		/*ft_putstr("FPS : ");
 		ft_putnbr(mem->FPS);
-		putchar('\n');
+		putchar('\n');*/
 		mem->FPS = 0;
 		mem->tv1.tv_sec = 0;
 		mem->tv2.tv_sec = 0;
@@ -119,7 +133,7 @@ int mouse_move_hook(int x, int y, t_mem *mem)
 
 int mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
-	if (k == 1)
+	if (!mem->menu && k == 1)
 	{
 		play_audio(mem->level->sounds.shoot1);
 		if (mem->level->player.recoil < 50)
@@ -129,6 +143,8 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 
 		mem->level->player.shoot = 2;
 	}
+	else if (mem->menu && x > 0 && y > 0)
+		mem->menu = !mem->menu;
 	if (k || x || y || mem)
 		return (0);
 	return (0);
@@ -154,20 +170,36 @@ int cross_close(t_mem *mem)
 	return (1);
 }
 
+void	camera_reset(t_mem *mem)
+{
+	mem->camera_x = mem->level->spawn.camX;
+	mem->camera_y = mem->level->spawn.camY;
+	return ;
+}
+
 int camera_move(t_mem *mem)
 {
-	mlx_mouse_get_pos(mem->win.win_ptr, &mem->mouse_x, &mem->mouse_y);
-	if (mem->mouse_y > H / 2)
-		mem->camera_y += (mem->mouse_y - H / 2);
-	else if (mem->mouse_y < H / 2)
-		mem->camera_y += (mem->mouse_y - H / 2);
-	if (mem->mouse_x > W / 2)
-		mem->camera_x += (mem->mouse_x - W / 2);
-	else if (mem->mouse_x < W / 2)
-		mem->camera_x += (mem->mouse_x - W / 2);
-	mem->level->player.angle = mem->camera_x * 0.001;
-
-	mlx_mouse_move(mem->win.win_ptr, W / 2, H / 2);
-	mlx_mouse_hide();
+	if ((mem->level->player.keyspressed & EXIT_GAME) && mem->lastkeyPress != mem->level->player.keyspressed)
+		mem->menu = !mem->menu;
+	if (!mem->menu)
+	{
+			mlx_mouse_get_pos(mem->win.win_ptr, &mem->mouse_x, &mem->mouse_y);
+			if (mem->mouse_y > H / 2)
+				mem->camera_y += (mem->mouse_y - H / 2);
+			else if (mem->mouse_y < H / 2)
+				mem->camera_y += (mem->mouse_y - H / 2);
+			if (mem->mouse_x > W / 2)
+				mem->camera_x += (mem->mouse_x - W / 2);
+			else if (mem->mouse_x < W / 2)
+				mem->camera_x += (mem->mouse_x - W / 2);
+			mem->level->player.angle = mem->camera_x * mem->mouse_sensi; //sensi souris
+			//mem->playerOrientation = 180.0*cos(((_PI)*mem->camera_x)/(6283.38*2));
+			//90*cos((_PI/180)*mem->camera_x/8); 180.0*cos(((_TWO_PI)*mem->camera_x)/(6283.38*2));
+			mlx_mouse_move(mem->win.win_ptr, W / 2, H / 2);
+			mlx_mouse_hide();
+	}
+	else
+		mlx_mouse_show();
+	mem->lastkeyPress = mem->level->player.keyspressed;
 	return (0);
 }

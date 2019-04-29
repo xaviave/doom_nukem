@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   math.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 15:22:26 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/20 18:28:21 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,24 +35,57 @@ int return_min(int x1, int x2)
 
 void physics(t_mem *mem)
 {
-	if (mem->level->player.on_jump == FALSE)
+	//printf("floor = %d\n", mem->level->sector[mem->level->player.sector - 1].h_floor);
+	//printf("camX = %d, camY = %d\n", mem->camera_x, mem->camera_y);
+	if (mem->level->player.sector > 0 && mem->level->player.z > mem->level->sector[mem->level->player.sector - 1].h_floor - 5)	
 	{
-		if (mem->level->player.z - 5 > mem->level->sector[mem->level->player.sector - 1].h_floor)
+
+		if (mem->level->player.on_jump == FALSE)
 		{
-			mem->level->player.z -= mem->level->player.inertia;
-			mem->level->player.inertia += 0.07;
+			if (mem->level->player.z - 5 > mem->level->sector[mem->level->player.sector - 1].h_floor)
+			{
+				mem->level->player.z -= mem->level->player.inertia;
+				mem->level->player.inertia += 0.07;
+			}
+			else if (mem->level->player.z - 5 < mem->level->sector[mem->level->player.sector - 1].h_floor)
+				mem->level->player.z = mem->level->sector[mem->level->player.sector - 1].h_floor + 5;
 		}
-		else if (mem->level->player.z - 5 < mem->level->sector[mem->level->player.sector - 1].h_floor)
-			mem->level->player.z = mem->level->sector[mem->level->player.sector - 1].h_floor + 5;
+		else
+		{
+			if (mem->level->player.z > mem->level->sector[mem->level->player.sector - 1].h_floor + 10)
+				mem->level->player.on_jump = FALSE;
+			mem->level->player.z += mem->level->player.inertia;
+			if (mem->level->player.inertia - 0.07 > 0)
+				mem->level->player.inertia -= 0.07;
+		}
+		mem->gravity = 0;
 	}
 	else
 	{
-		if (mem->level->player.z > mem->level->sector[mem->level->player.sector - 1].h_floor + 10)
-			mem->level->player.on_jump = FALSE;
-		mem->level->player.z += mem->level->player.inertia;
-		if (mem->level->player.inertia - 0.07 > 0)
-			mem->level->player.inertia -= 0.07;
+		mem->level->player.z -= 0.07*mem->gravity;
+		mem->gravity++;
 	}
+	
+	if (mem->level->player.z < -500)
+	{
+		player_die(&mem->level->player, mem->level);
+		camera_reset(mem);
+	}
+}
+
+void	player_tp(t_player *player, float x, float y, float z)
+{
+	player->x = x;
+	player->y = y;
+	player->z = z;
+	return ;
+}
+
+void	player_die(t_player *player, t_level *level)
+{
+	player->angle = level->spawn.angle;
+	player_tp(player, level->spawn.x, level->spawn.y, level->spawn.z);
+	return ;
 }
 
 void jump(t_mem *mem)

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_map.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 13:56:57 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/14 19:50:59 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ void			parse_player(t_parse *parse, char *str)
 		return_error(5, parse);
 	parse->player.x = (float)ft_atoi(&str[2]);
 	parse->player.y = (float)ft_atoi(&str[i]);
+	parse->player.z = 25;
 	parse->player.angle = 1.5707964;
 }
 

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:16:45 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/13 19:55:20 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,6 +95,7 @@ void			parse_to_level(t_parse *parse, t_level *level)
 {
 	level->player = parse->player;
 	keys_shortcuts(level);
+	p_to_spawn(level, parse);
 	p_to_vertex(level, parse);
 	p_to_linedef(level, parse);
 	p_to_sector(level, parse);

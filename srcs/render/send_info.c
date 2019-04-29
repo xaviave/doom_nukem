@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   send_info.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:38:22 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 16:46:05 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/03 21:38:35 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,6 +95,8 @@ int in_box(t_mem *mem, int nb)
 	return (i);
 }
 
+/*
+Produit scalaire */
 int is_inside(t_vertex v1, t_vertex v2, t_vertex v3, t_vertex player)
 {
 	double s1;
@@ -112,15 +114,21 @@ int is_inside(t_vertex v1, t_vertex v2, t_vertex v3, t_vertex player)
 	w2 = (s4 - w1 * s3) / s1;
 	return (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1);
 }
+/*Processe de triangulation du Player,
+L1: premier point d'un linedef
+L2: 2nd ...
+save = point d'encrage, propre au sector
 
+fn: création de triangle par L1 L2 Save & verification par produit scalaire pour verifier si player est a l'interieur*/
 int check_in_sector(t_mem *mem, int l1, int l2, int save)
 {
 	t_vertex vertex;
 
 	if (send_v_id(mem, save) == send_v_id(mem, l1) || send_v_id(mem, save) == send_v_id(mem, l2))
 		return (0);
-	vertex.x = mem->level->player.x;
-	vertex.y = mem->level->player.y;
+	vertex.x = mem->level->player.x + 4 * mem->sin_angle;
+	vertex.y = mem->level->player.y + 4 * mem->cos_angle;
+	printf("playerX = %f, playerY = %f, vertexX = %f, vertexY = %f sinAngle = %f CosAngle= %f\n", mem->level->player.x, mem->level->player.y, mem->level->vertex[send_v_id(mem, l1)].x, mem->level->vertex[send_v_id(mem, l1)].y, mem->sin_angle, mem->cos_angle);
 	if (is_inside(mem->level->vertex[send_v_id(mem, save)],
 				  mem->level->vertex[send_v_id(mem, l1)],
 				  mem->level->vertex[send_v_id(mem, l2)], vertex))
@@ -146,18 +154,24 @@ int player_sector(t_mem *mem)
 	int i;
 	int j;
 	int save;
+	int	box;
 
 	i = -1;
+	j = -1;
 	while (++i < mem->level->nb_sector)
 	{
 		save = mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[0])].id_v1;
-		if (in_box(mem, i) == 2)
+		if ((box = in_box(mem, i)) == 2)
 		{
 			j = 0;
 			while (++j < mem->level->sector[i].nb_linedef)
 				if (check_in_sector(mem, mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].id_v1, mem->level->linedef[send_l_id(mem, mem->level->sector[i].linedef[j])].id_v2, save))
+				{
+					mem->level->player.prev_sector = mem->level->player.sector;
 					mem->level->player.sector = mem->level->sector[i].id;
+				}	
 		}
+		printf("i = %d, save = %d, box = %d player.sector = %d\n", i ,save, box, mem->level->player.sector);
 	}
 	mem->level->n = 1;
 	mem->level->n_sector[0] = mem->level->player.sector;

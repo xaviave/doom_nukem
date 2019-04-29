@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:42:52 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 12:19:58 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/13 19:56:21 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,7 @@ typedef struct			s_parse
 	t_plinedef			*linedef;
 	t_psector			*sector;
 	t_player			player;
+	t_spawn				spawn;
 	int					nb;
 }						t_parse;
 
@@ -74,6 +75,7 @@ void					parse_to_level(t_parse *parse, t_level *level);
 void					p_to_vertex(t_level *level, t_parse *parse);
 void					p_to_linedef(t_level *level, t_parse *parse);
 void					p_to_sector(t_level *level, t_parse *parse);
+void					p_to_spawn(t_level *level, t_parse *parse);
 
 /*
 **	Error case & free

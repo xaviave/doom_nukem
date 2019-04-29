@@ -6,7 +6,7 @@
 /*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 13:55:07 by lloyet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/20 18:59:39 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,8 +21,8 @@
 ** Test graphique
 */ 
 
-# define W 1280
-# define H 800
+# define W 1200
+# define H 720
 
 typedef struct			s_line
 {
@@ -72,9 +72,13 @@ typedef struct			s_mem
 	float				z;
 	int					x;
 	int					y;
+	float				lastX;
+	float				lastY;
+	float				playerOrientation;
 	char				*fill_screen;
 	int					mouse_x;
 	int					mouse_y;
+	float				mouse_sensi;
 	int					camera_x;
 	int					camera_y;
 	t_coord				step_bot;
@@ -82,8 +86,12 @@ typedef struct			s_mem
 	t_img				crosshair;
 	t_img				monster;
 	float				cos_angle;
+	float				gravity;
 	float				sin_angle;
 	int					FPS;
+	int					menu;
+	int					mouseShow;
+	int					lastkeyPress;
 	struct timeval  	tv1, tv2;
 }						t_mem;
 
@@ -115,6 +123,7 @@ int						add_key(int k, t_mem *mem);
 int						remove_key(int k, t_mem *mem);
 int						cross_close(t_mem *mem);
 int						camera_move(t_mem *mem);
+void					camera_reset(t_mem *mem);
 int						update_keys(t_mem *mem);
 
 
@@ -146,6 +155,8 @@ int						player_sector(t_mem *mem);
 void					physics(t_mem *mem);
 void 					jump(t_mem *mem);
 void					player_animation(t_mem *mem);
+void					player_tp(t_player *player, float x, float y, float z);
+void					player_die(t_player *player, t_level *level);
 float					distance(float x1, float y1, float x2, float y2);
 
 /*

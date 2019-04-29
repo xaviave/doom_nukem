@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 18:03:30 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/20 18:13:51 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -317,7 +317,6 @@ void render(t_mem *mem, int sect)
 
 			if (!(mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]))
 				neighbour = next_sector(mem, mem->level->sector[sect].linedef[j], sect);
-
 			if (mem->level->sector[neighbour].h_floor >= mem->level->sector[sect].h_floor && neighbour > 0)
 			{
 				step.y1 = p2.y1;
@@ -387,6 +386,7 @@ void refresh_screen(t_mem *mem)
 	//draw_minimap(mem);
 	if (mem->level->player.shoot > 0)
 		shoot(mem, mem->level->player.shoot);
+	draw_minimap(mem);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr, (W * 0.4) + 200 + (int)mem->level->player.motion + mem->level->player.recoil, (H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr, (W >> 1) - 16, (H >> 1) - 16);

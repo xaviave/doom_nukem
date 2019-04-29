@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 11:58:08 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/20 18:36:34 by lloyet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,8 +67,8 @@ typedef struct			s_player
 	float				x;
 	float				y;
 	float				z;
-	float					last_position;
 	float				angle;
+	float				last_position;
 	int					on_jump;
 	float				inertia;
 	float				motion;
@@ -79,6 +79,7 @@ typedef struct			s_player
 	int					keys_shortcuts[256];
 	int					keyspressed;
 	int 				sector;
+	int					prev_sector;
 }						t_player;
 
 typedef struct			s_monster
@@ -127,6 +128,16 @@ typedef struct			s_sound
 	t_audio				reload;
 }						t_sound;
 
+typedef struct 			s_spawn
+{
+	float				x;
+	float				y;
+	float				z;
+	float				angle;
+	int					camX;
+	int					camY;
+}						t_spawn;
+
 typedef struct			s_level
 {
 	int					nb_vertex;
@@ -135,6 +146,7 @@ typedef struct			s_level
 	t_linedef			*linedef;
 	int					nb_sector;
 	int					nb_monsters;
+	t_spawn				spawn;
 	t_sector			*sector;
 	t_player			player;
 	t_monster			*monsters;
@@ -227,6 +239,8 @@ typedef struct			s_level
 # define RELOAD (1 << 9)
 // Other Ddefine
 
-#define MARGE 100
+# define MARGE	100
+# define _PI		3.14159
+# define _TWO_PI	6.28318
 
 #endif
