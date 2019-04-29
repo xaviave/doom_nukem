@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/03/04 17:05:24 by mel-akio    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/25 18:34:15 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -48,6 +48,7 @@ FILES = main.c \
 		tools/list_line.c \
 		tools/list_len.c \
 		tools/textures_tools.c \
+		tools/int_check.c \
 		render/error_graph.c \
 		render/draw.c \
 		render/img.c \
@@ -55,9 +56,14 @@ FILES = main.c \
 		render/render_map.c \
 		render/render_sprites.c \
 		render/event.c \
-		render/send_info.c \
 		render/math.c \
 		render/music.c \
+		render/send_infos/sector_infos.c \
+		render/send_infos/mob_infos.c \
+		render/send_infos/send_coords.c \
+		render/send_infos/send_ids.c \
+		render/send_infos/send_linedef_coords.c \
+		render/send_infos/triangulation_player.c \
 
 
 

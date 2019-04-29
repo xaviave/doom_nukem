@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 13:55:07 by lloyet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 19:05:31 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,15 +119,46 @@ int						update_keys(t_mem *mem);
 
 
 /*
-** send_info.c
+** send_info -------------- dir
 */
 
+typedef struct			s_inside
+{
+	double				s1;
+	double				s2;
+	double				s3;
+	double				s4;
+	double				w1;
+	double				w2;
+}						t_inside;
+
+/*
+** send_coords.c
+*/
+
+void					send_x(t_coord *coord, t_mem *mem, int l);
+void					send_y(t_coord *coord, t_mem *mem, int l);
 int						send_vx(t_level *level, int id);
 int						send_vy(t_level *level, int id);
+/*
+**
+*/
+
 int						send_l_vx(t_level *level, int id_l, int vertex);
 int						send_l_vy(t_level *level, int id_l, int vertex);
+
+/*
+** send_ids.c
+*/
+
 int						send_l_id(t_mem *mem, int id);
+int						send_v_id(t_mem *mem, int id);
 int						send_s_id(t_mem *mem, int id);
+
+/*
+** 
+*/
+
 int						next_sector(t_mem *mem, int linedef_id, int actual_sector);
 void					fill_n_sector(t_mem *mem, int i);
 int						double_int(int *tab, int nu, int nb);
@@ -142,7 +173,7 @@ int						return_min(int x1, int x2);
 void					intersect(float x1, float y1, float x2, float y2, float x3,
 	float y3, float x4, float y4, float *x, float *y);
 int						fn_cross(float x1, float y1, float x2, float y2);
-int						player_sector(t_mem *mem);
+int						player_sector(t_mem *mem, int prev);
 void					physics(t_mem *mem);
 void 					jump(t_mem *mem);
 void					player_animation(t_mem *mem);
@@ -173,4 +204,5 @@ void					init_sound(t_mem *mem);
 void					play_music(t_audio m);
 void					play_audio(t_audio m);
 void					free_audio(t_mem *mem);
+
 #endif

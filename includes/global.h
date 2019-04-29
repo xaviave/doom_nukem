@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/01 11:58:08 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 18:47:55 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,24 +50,24 @@ typedef struct			s_coord
 
 typedef struct			s_fcoord
 {
-	float					x1;
-	float					y1;
-	float					x2;
-	float					y2;
+	float				x1;
+	float				y1;
+	float				x2;
+	float				y2;
 }						t_fcoord;
 
-typedef struct		s_size
+typedef struct			s_size
 {
-	int width;
-	int lenght;
-}					t_size;
+	int					width;
+	int					lenght;
+}						t_size;
 
 typedef struct			s_player
 {
 	float				x;
 	float				y;
 	float				z;
-	float					last_position;
+	float				last_position;
 	float				angle;
 	int					on_jump;
 	float				inertia;
@@ -79,6 +79,7 @@ typedef struct			s_player
 	int					keys_shortcuts[256];
 	int					keyspressed;
 	int 				sector;
+	int					prev_sector;
 }						t_player;
 
 typedef struct			s_monster

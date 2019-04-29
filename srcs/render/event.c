@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 18:12:28 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 20:18:13 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,12 +15,17 @@
 
 int update_keys(t_mem *mem)
 {
+	float try_pos_x;
+	float try_pos_y;
+
 	camera_move(mem);
 	physics(mem);
 	mem->cos_angle = cos(mem->level->player.angle);
 	mem->sin_angle = sin(mem->level->player.angle);
 	if (mem->level->player.recoil > 0)
 		mem->level->player.recoil -= 1.3;
+	try_pos_x = mem->level->player.x;
+	try_pos_y = mem->level->player.y;
 	if (mem->level->player.keyspressed & MOVE_LEFT)
 	{
 		mem->level->player.x += (1 * mem->sin_angle);
@@ -29,7 +34,7 @@ int update_keys(t_mem *mem)
 	if (mem->level->player.keyspressed & MOVE_RIGHT)
 	{
 		mem->level->player.x -= (1 * mem->sin_angle);
-		mem->level->player.y += (1 * mem->cos_angle );
+		mem->level->player.y += (1 * mem->cos_angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
@@ -40,6 +45,11 @@ int update_keys(t_mem *mem)
 	{
 		mem->level->player.x -= (2 * mem->cos_angle );
 		mem->level->player.y -= (2 * mem->sin_angle);
+	}
+	if (player_sector(mem, 1) == -1)// rajouter la hauteur du joueur + hauteur du sol < next->sector hauteur du plafond
+	{
+		mem->level->player.x = try_pos_x;
+		mem->level->player.y = try_pos_y;
 	}
 	if (mem->level->player.keyspressed & ROTATE_LEFT)
 	{
@@ -69,7 +79,7 @@ int update_keys(t_mem *mem)
 	}
 	if (mem->level->player.last_position != mem->level->player.x + mem->level->player.y)
 	{
-		player_sector(mem);
+		player_sector(mem, 0);
 		player_animation(mem);
 		sort_dist_monsters(mem);
 	}
