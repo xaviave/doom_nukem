@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:42:52 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 12:19:58 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 18:49:04 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,6 +82,5 @@ void					p_to_sector(t_level *level, t_parse *parse);
 void					free_parse(t_parse *parse);
 void					free_level(t_level *level);
 void					return_error(int error, t_parse *parse);
-void					aff_debug(t_level *level);
 
 #endif

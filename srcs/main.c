@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 19:05:26 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 18:36:11 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,6 +69,9 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->tv1.tv_sec = 0;
 	mem->tv2.tv_sec = 0;
 
+	mem->level->player.god_mode = 0;
+	mem->level->player.heigth_player = 5;
+	
 	//dprintf(1, "%f %f\n", mem->level->player.x, mem->level->player.y);
 	if (level->nb_sector > 1) //sizeof(int) = 4 in gcc *64 macOSX
 		if (!(mem->level->n_sector = (int *)malloc(4 * level->nb_sector)))

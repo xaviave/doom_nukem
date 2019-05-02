@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:16:45 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 18:46:43 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,8 @@ static void		sector_neighbors(t_level *level)
 
 void			keys_shortcuts(t_level *level)
 {
-	ft_bzero(level->player.keys_shortcuts, sizeof(level->player.keys_shortcuts));
+	ft_bzero(level->player.keys_shortcuts,
+		sizeof(level->player.keys_shortcuts));
 	level->player.keys_shortcuts[TOUCH_W] = MOVE_UP;
 	level->player.keys_shortcuts[TOUCH_S] = MOVE_DOWN;
 	level->player.keys_shortcuts[TOUCH_A] = MOVE_LEFT;
@@ -87,8 +88,6 @@ void			keys_shortcuts(t_level *level)
 	level->player.keys_shortcuts[TOUCH_BACKSPACE] = JUMP;
 	level->player.keys_shortcuts[TOUCH_ECHAP] = EXIT_GAME;
 	level->player.keys_shortcuts[TOUCH_R] = RELOAD;
-
-
 }
 
 void			parse_to_level(t_parse *parse, t_level *level)
@@ -100,5 +99,4 @@ void			parse_to_level(t_parse *parse, t_level *level)
 	p_to_sector(level, parse);
 	free_parse(parse);
 	sector_neighbors(level);
-	//aff_debug(level);
 }

@@ -3,15 +3,15 @@
 /*                                                              /             */
 /*   img.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 17:11:52 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 21:24:50 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "../../../includes/doom.h"
 
 void		ft_put_pixel(t_mem *mem, int x, int y, t_color color)
 {

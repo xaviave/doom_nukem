@@ -3,15 +3,15 @@
 /*                                                              /             */
 /*   color.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 13:23:13 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 15:14:10 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 21:24:44 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/doom.h"
+#include "../../../includes/doom.h"
 
 t_color get_color(int a, t_mem *mem)
 {

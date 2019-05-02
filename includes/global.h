@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 18:47:55 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 18:56:16 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,8 +78,10 @@ typedef struct			s_player
 	int					last_hitting_floor;
 	int					keys_shortcuts[256];
 	int					keyspressed;
-	int 				sector;
+	int					sector;
 	int					prev_sector;
+	int					god_mode;
+	int					heigth_player;
 }						t_player;
 
 typedef struct			s_monster
@@ -87,7 +89,7 @@ typedef struct			s_monster
 	float				x;
 	float				y;
 	int					distance;
-	int 				sector;
+	int					sector;
 }						t_monster;
 
 typedef struct			s_sidedef
@@ -143,12 +145,13 @@ typedef struct			s_level
 	int					*n_sector;
 	int					n;
 	int					c[6];
-	struct s_level		*next; 
+	struct s_level		*next;
 }						t_level;
 
 /*
 ** keyboard touch value
 */
+
 # define TRUE 1
 # define FALSE 0
 
@@ -213,8 +216,6 @@ typedef struct			s_level
 # define MOTION_NOTIFY 6
 # define TOUCH_BACKSPACE 49
 
-// Define of actions
-
 # define MOVE_UP (1 << 0)
 # define MOVE_DOWN (1 << 1)
 # define MOVE_LEFT (1 << 2)
@@ -226,8 +227,7 @@ typedef struct			s_level
 # define ZOOM_OUT (1 << 8)
 # define JUMP (1 << 8)
 # define RELOAD (1 << 9)
-// Other Ddefine
 
-#define MARGE 100
+# define MARGE 100
 
 #endif

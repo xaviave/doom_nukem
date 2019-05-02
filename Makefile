@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/25 18:34:15 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/02 18:45:42 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -40,7 +40,6 @@ FILES = main.c \
 		parser/parse_sector.c \
 		parser/parse_to_level.c \
 		parser/p_to_level.c \
-		parser/info_debug.c \
 		tools/error_parsing.c \
 		tools/check_int.c \
 		tools/list.c \
@@ -55,7 +54,8 @@ FILES = main.c \
 		render/color.c \
 		render/render_map.c \
 		render/render_sprites.c \
-		render/event.c \
+		render/event/event.c \
+		render/event/event2.c \
 		render/math.c \
 		render/music.c \
 		render/send_infos/sector_infos.c \
