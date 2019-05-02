@@ -6,40 +6,51 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 21:21:17 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 19:44:37 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/doom.h"
 
+void		fps_counter(t_mem *mem)
+{
+	if (!(mem->tv1.tv_sec))
+		gettimeofday(&mem->tv1, NULL);
+	refresh_screen(mem);
+	mem->fps += 1;
+	gettimeofday(&mem->tv2, NULL);
+	if (mem->tv2.tv_sec - mem->tv1.tv_sec >= 1)
+	{
+		ft_putstr("fps : ");
+		ft_putnbr(mem->fps);
+		putchar('\n');
+		mem->fps = 0;
+		mem->tv1.tv_sec = 0;
+		mem->tv2.tv_sec = 0;
+	}
+}
+
 void		update_keys3(t_mem *mem)
 {
+	if (mem->level->player.last_position != mem->level->player.x
+		+ mem->level->player.y)
+	{
+		player_sector(mem, 0);
+		player_animation(mem);
+		sort_dist_monsters(mem);
+	}
 	if (mem->level->player.keyspressed & RELOAD)
 		play_audio(mem->level->sounds.reload);
 	if (mem->level->player.keyspressed & EXIT_GAME)
 		exit(1);
 	mem->level->player.last_position = mem->level->player.x
 		+ mem->level->player.y;
-	update_keys3(mem);
-	if (!(mem->tv1.tv_sec))
-		gettimeofday(&mem->tv1, NULL);
-	refresh_screen(mem);
-	mem->FPS += 1;
-	gettimeofday(&mem->tv2, NULL);
-	if (mem->tv2.tv_sec - mem->tv1.tv_sec >= 1)
-	{
-		ft_putstr("FPS : ");
-		ft_putnbr(mem->FPS);
-		putchar('\n');
-		mem->FPS = 0;
-		mem->tv1.tv_sec = 0;
-		mem->tv2.tv_sec = 0;
-	}
 	if (mem->level->player.shoot > 0)
 		mem->level->player.shoot--;
 	if (mem->level->player.keyspressed & JUMP)
 		jump(mem);
+	fps_counter(mem);
 }
 
 void		update_keys2(t_mem *mem, float try_pos_x, float try_pos_y)
@@ -56,19 +67,13 @@ void		update_keys2(t_mem *mem, float try_pos_x, float try_pos_y)
 	}
 	if (!mem->level->player.god_mode && (player_sector(mem, 1) == -1 ||
 		mem->level->player.heigth_player + mem->level->sector[send_s_id(mem,
-		mem->level->player.sector)].h_floor > mem->level->sector[send_s_id(mem,
+		mem->level->player.sector)].h_floor >= mem->level->sector[send_s_id(mem,
 		player_sector(mem, 1))].h_ceil))
 	{
 		mem->level->player.x = try_pos_x;
 		mem->level->player.y = try_pos_y;
 	}
-	if (mem->level->player.last_position != mem->level->player.x
-		+ mem->level->player.y)
-	{
-		player_sector(mem, 0);
-		player_animation(mem);
-		sort_dist_monsters(mem);
-	}
+	update_keys3(mem);
 }
 
 int			update_keys(t_mem *mem)

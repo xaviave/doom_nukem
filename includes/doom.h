@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 18:54:28 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 19:29:14 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,8 +94,7 @@ t_color					get_color(int a, t_mem *mem);
 void					render_map(t_mem *mem, int sect);
 void					render_sprites(t_mem *mem, int sect);
 void					draw_line(t_mem *mem);
-void					draw_to_line(int x1, int y1, int x2, int y2,
-	t_mem *mem);
+void					draw_to_line(t_coord *coord, t_mem *mem);
 void					fill_column(int x, t_coord p1, t_coord step_bot,
 	t_coord step_top, int sect, t_mem *mem);
 void					draw_camera(t_mem *mem);

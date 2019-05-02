@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:42:52 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 18:49:04 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 19:21:33 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,8 +44,6 @@ typedef struct			s_psector
 	int					id;
 	int					ceiling;
 	int					ground;
-	int					tex_ground; // no initialise
-	int					tex_ceil; // no initialise
 	int					*linedef;
 	int					nb_linedef;
 	int					nb_vertex;

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 18:03:30 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 19:31:03 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,16 +47,13 @@ void draw_minimap(t_mem *mem)
 			mem->coord.x2 = tx2 + 150;
 			mem->coord.y1 = tz1 + 150;
 			mem->coord.y2 = tz2 + 150;
-			draw_circle(mem);
 			draw_line(mem);
-			draw_circle(mem);
 		}
 	}
 	mem->coord.x1 = 150;
 	mem->coord.y1 = 150;
 	mem->coord.x2 = 150;
 	mem->coord.y2 = 150 + 30;
-	draw_circle(mem);
 	draw_line(mem);
 }
 
@@ -426,16 +423,20 @@ int further_sector(t_mem *mem, int sector)
 
 void shoot(t_mem *mem, char frame)
 {
+	t_coord		coord;
 
+	coord.x1 = W >> 1;
+	coord.y1 = H >> 1;
+	coord.x2 = W - 340;
+	coord.y2 = H - 150;
 	if (frame == 2)
 	{
 		change_color(&mem->color, 0xFF0000);
-		draw_to_line(W >> 1, H >> 1, W - 340, H - 150, mem);
+		draw_to_line(&coord, mem);
 	}
 	else
 	{
-
 		change_color(&mem->color, 0x0000FF);
-		draw_to_line(W >> 1, H >> 1, W - 340, H - 150, mem);
+		draw_to_line(&coord, mem);
 	}
 }

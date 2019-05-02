@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/02 18:45:42 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/02 18:58:51 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -49,15 +49,16 @@ FILES = main.c \
 		tools/textures_tools.c \
 		tools/int_check.c \
 		render/error_graph.c \
-		render/draw.c \
-		render/img.c \
-		render/color.c \
 		render/render_map.c \
 		render/render_sprites.c \
 		render/event/event.c \
 		render/event/event2.c \
 		render/math.c \
 		render/music.c \
+		render/mlx/img.c \
+		render/mlx/color.c \
+		render/mlx/draw.c \
+		render/mlx/draw2.c \
 		render/send_infos/sector_infos.c \
 		render/send_infos/mob_infos.c \
 		render/send_infos/send_coords.c \

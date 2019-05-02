@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 18:36:11 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 18:57:42 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,7 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->monsters[1].x = 460;
 	mem->level->monsters[1].y = 280;
 
-	mem->FPS = 0;
+	mem->fps = 0;
 	mem->tv1.tv_sec = 0;
 	mem->tv2.tv_sec = 0;
 
