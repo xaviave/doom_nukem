@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: lloyet <lloyet@student.le-101.fr>          +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 13:55:07 by lloyet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 17:44:00 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,30 @@ typedef struct			s_img
 	int					h;
 }						t_img;
 
+typedef struct 			s_vector
+{
+	float 				tx1;
+	float 				tx2;
+	float 				ty1;
+	float 				ty2;
+	float 				tz1;
+	float 				tz2;
+	float				iz1;
+	float				ix1;
+	float				iz2;
+	float				ix2;
+}						t_vector;
+
+typedef struct 			s_render
+{
+	t_fcoord			p1;
+	t_fcoord			p2;
+	t_fcoord			step;
+	t_fcoord			top;
+}						t_render;
+
+	
+
 typedef struct			s_mem
 {
 	t_win				win;
@@ -85,6 +109,17 @@ typedef struct			s_mem
 	float				sin_angle;
 	int					FPS;
 	struct timeval  	tv1, tv2;
+	t_line				line;
+	t_line				line2;
+	t_line				line3;
+	t_line				line4;
+	t_coord 			p3;
+	t_coord 			p4;
+	t_coord 			p5;
+	t_fcoord 			p1;
+	t_fcoord 			p2;
+	t_fcoord 			step;
+	t_fcoord 			top;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
@@ -94,7 +129,7 @@ void					render_map(t_mem *mem, int sect);
 void 					render_sprites(t_mem *mem, int sect);
 void					draw_line(t_mem *mem);
 void					draw_to_line(int x1, int y1, int x2, int y2, t_mem *mem);
-void					fill_column(int x, t_coord p1, t_coord step_bot, t_coord step_top, int sect, t_mem *mem);
+void					fill_column(int x, int sect, t_mem *mem);
 void					draw_camera(t_mem *mem);
 void					draw_minimap(t_mem *mem);
 void					draw_square(t_mem *mem);
