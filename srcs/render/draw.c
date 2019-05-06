@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:09 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 14:42:08 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 19:52:53 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,7 +94,7 @@ void fill_column(int x, int sect, t_mem *mem)
         mem->fill_screen[x] = 1;
 
     // cette partie dessine les plafond (hauteur murs  sur haut de l'ecran)
-    if (mem->level->sector[sect - 1].h_ceil > (int)mem->level->player.z - 5)
+    if (mem->level->sector[sect - 1].h_ceil > (int)mem->level->player.z)
         while (i < mem->p3.y1)
         {
             if (i >= 0 && i < H)
@@ -109,7 +109,7 @@ void fill_column(int x, int sect, t_mem *mem)
         mem->p5.y1++;
     }
     // cette partie dessine les murs
-    while (mem->p3.y1 < mem->p3.y2)
+      while (mem->p3.y1 < mem->p3.y2)
     {
         if (mem->p3.y1 >= 0 && mem->p3.y1 < H && mem->color.r != 255 && mem->color.g != 0 && mem->color.b != 0)
             ft_put_pixel(mem, x, mem->p3.y1, step);
@@ -125,7 +125,7 @@ void fill_column(int x, int sect, t_mem *mem)
     // cette partie dessine le sol
     mem->p3.y1 = mem->p4.y1;
 
-    if (mem->level->sector[sect - 1].h_floor < (int)mem->level->player.z + 5)
+    if (mem->level->sector[sect - 1].h_floor < (int)mem->level->player.z + 6)
         while (mem->p3.y1 < H)
         {
             if (mem->p3.y1 >= 0 && mem->p3.y1 < H)

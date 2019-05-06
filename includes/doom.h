@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 18:01:32 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 19:51:41 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,13 +79,6 @@ typedef struct 			s_vector
     float 				mx1;
 }						t_vector;
 
-typedef struct 			s_render
-{
-	t_fcoord			p1;
-	t_fcoord			p2;
-	t_fcoord			step;
-	t_fcoord			top;
-}						t_render;
 
 	
 
