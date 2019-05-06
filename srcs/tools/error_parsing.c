@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:30:06 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/15 17:30:38 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 18:20:31 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,9 +16,9 @@
 static void		free_parse2(t_parse *parse)
 {
 	t_plinedef	*tmp3;
+	t_pentity	*tmp4;
 
 	if (parse->linedef)
-	{
 		while (parse->linedef)
 		{
 			tmp3 = parse->linedef;
@@ -27,7 +27,13 @@ static void		free_parse2(t_parse *parse)
 			free(tmp3->text);
 			free(tmp3);
 		}
-	}
+	if (parse->entity)
+		while (parse->entity)
+		{
+			tmp4 = parse->entity;
+			parse->entity = parse->entity->next;
+			free(tmp4);
+		}
 }
 
 void			free_parse(t_parse *parse)
@@ -36,16 +42,13 @@ void			free_parse(t_parse *parse)
 	t_psector	*tmp2;
 
 	if (parse->vertex)
-	{
 		while (parse->vertex)
 		{
 			tmp = parse->vertex;
 			parse->vertex = parse->vertex->next;
 			free(tmp);
 		}
-	}
 	if (parse->sector)
-	{
 		while (parse->sector)
 		{
 			tmp2 = parse->sector;
@@ -53,8 +56,13 @@ void			free_parse(t_parse *parse)
 			free(tmp2->linedef);
 			free(tmp2);
 		}
-	}
 	free_parse2(parse);
+}
+
+static void		free_entity(t_level *level)
+{
+	if (level->entity)
+		free(level->entity);
 }
 
 void			free_level(t_level *level)
@@ -63,9 +71,8 @@ void			free_level(t_level *level)
 
 	if (level->vertex)
 		free(level->vertex);
-	if (level->linedef)
+	if (level->linedef && (i = -1))
 	{
-		i = -1;
 		while (++i < level->nb_linedef)
 		{
 			if (level->linedef[i].side.heigth)
@@ -84,6 +91,7 @@ void			free_level(t_level *level)
 			free(level->sector[i].neighbors);
 		free(level->sector);
 	}
+	free_entity(level);
 }
 
 void			return_error(int error, t_parse *parse)
@@ -107,7 +115,7 @@ void			return_error(int error, t_parse *parse)
 	else if (error == 8)
 		ft_printf("\nError 8 : Bad floor or ceiling heigth\n");
 	else if (error == 9)
-		ft_printf("\nError 9 : Bad linedef init\n");
+		ft_printf("\nError 9 : Bad linedef or entity init\n");
 	else if (error == -1)
 		ft_printf("\nError -1 : Bad texture heigth in linedef\n");
 	if (parse)

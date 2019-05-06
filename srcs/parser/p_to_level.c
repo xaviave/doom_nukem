@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 17:13:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 15:37:28 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 21:41:44 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,29 @@ void			p_to_sector(t_level *level, t_parse *parse)
 		level->sector[i].nb_vertex = tmp->nb_linedef;
 		level->sector[i].linedef = copy_int(tmp->linedef, tmp->nb_linedef);
 		level->sector[i].nb_neighbors = 0;
+		i++;
+		tmp = tmp->next;
+	}
+}
+
+void			p_to_entity(t_level *level, t_parse *parse)
+{
+	int			i;
+	t_pentity	*tmp;
+
+	level->nb_entity = list_len_e(parse->entity);
+	if (!(level->entity = (t_entity *)malloc(sizeof(t_entity)
+		* level->nb_entity)))
+		return ;
+	i = 0;
+	tmp = parse->entity;
+	while (tmp)
+	{
+		level->entity[i].id = tmp->id;
+		level->entity[i].x = tmp->x;
+		level->entity[i].y = tmp->y;
+		level->entity[i].z = tmp->z;
+		level->entity[i].text = tmp->text;
 		i++;
 		tmp = tmp->next;
 	}

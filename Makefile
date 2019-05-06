@@ -6,7 +6,7 @@
 #    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/02 18:58:51 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/02 21:07:15 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -38,6 +38,7 @@ FILES = main.c \
 		parser/parse_vertex.c \
 		parser/parse_linedef.c \
 		parser/parse_sector.c \
+		parser/parse_object_player.c \
 		parser/parse_to_level.c \
 		parser/p_to_level.c \
 		tools/error_parsing.c \
@@ -46,6 +47,7 @@ FILES = main.c \
 		tools/create_vertex.c \
 		tools/list_line.c \
 		tools/list_len.c \
+		tools/list_entity.c \
 		tools/textures_tools.c \
 		tools/int_check.c \
 		render/error_graph.c \

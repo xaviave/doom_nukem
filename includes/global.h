@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 19:21:27 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 18:20:09 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -122,6 +122,15 @@ typedef struct			s_sector
 	int					*neighbors;
 }						t_sector;
 
+typedef struct			s_entity
+{
+	int					id;
+	int					x;
+	int					y;
+	int					z;
+	int					text;
+}						t_entity;
+
 typedef struct			s_sound
 {
 	t_audio				music1;
@@ -137,9 +146,11 @@ typedef struct			s_level
 	int					nb_linedef;
 	t_linedef			*linedef;
 	int					nb_sector;
-	int					nb_monsters;
 	t_sector			*sector;
+	int					nb_entity;
+	t_entity			*entity;
 	t_player			player;
+	int					nb_monsters;
 	t_monster			*monsters;
 	t_sound				sounds;
 	int					*n_sector;

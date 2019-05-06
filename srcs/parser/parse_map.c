@@ -6,37 +6,12 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 13:56:57 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 21:19:09 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
-
-void			parse_player(t_parse *parse, char *str)
-{
-	int			i;
-	int			j;
-	int			error;
-
-	error = (ft_strlen(str) < 5) ? 1 : 0;
-	i = 0;
-	while (!error && str[++i])
-		if (!ft_isdigit(str[i]) && str[i] != '\t' && str[i] != ' ')
-			error = 1;
-	i = 1;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	i += pass_digit_space(&str[i]);
-	if (!error && (!check_int(&str[1]) || !check_int(&str[i])))
-		error = 1;
-	j = pass_digit_space(&str[i]);
-	if (error || i + j != (int)ft_strlen(str))
-		return_error(5, parse);
-	parse->player.x = (float)ft_atoi(&str[2]);
-	parse->player.y = (float)ft_atoi(&str[i]);
-	parse->player.angle = 1.5707964;
-}
 
 void			parse_file(int fd, t_parse *parse)
 {
@@ -57,11 +32,8 @@ void			parse_file(int fd, t_parse *parse)
 			parse_sector(parse, line);
 		else if (line[0] == 'p')
 			parse_player(parse, line);
-		else if (line[0] != '#' && line[0] != '\0')
-		{
-			free(line);
-			return_error(6, parse);
-		}
+		else
+			suite_parse(parse, line);
 		free(line);
 	}
 }
@@ -120,6 +92,6 @@ void			parse_map(int ac, char **av, t_parse *parse)
 	if (check_text_heigth(parse))
 		return_error(-1, parse);
 	if (list_len_s(parse->sector) < 1 || list_len_v(parse->vertex) < 3
-		|| list_len_l(parse->linedef) < 3)
+		|| list_len_l(parse->linedef) < 3 || list_len_e(parse->entity) < 1)
 		return_error(7, parse);
 }

@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 18:57:42 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 18:30:47 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,9 +84,6 @@ int main(int ac, char **av)
 	t_parse parse;
 	t_level level;
 	t_mem mem;
-
-	
-
 	int i;
 
 	i = 0;

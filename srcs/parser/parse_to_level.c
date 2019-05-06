@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 18:46:43 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 21:36:37 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,6 +97,7 @@ void			parse_to_level(t_parse *parse, t_level *level)
 	p_to_vertex(level, parse);
 	p_to_linedef(level, parse);
 	p_to_sector(level, parse);
+	p_to_entity(level, parse);
 	free_parse(parse);
 	sector_neighbors(level);
 }

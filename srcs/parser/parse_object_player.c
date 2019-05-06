@@ -1,52 +1,41 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   parse_linedef.c                                  .::    .:/ .      .::   */
+/*   parse_object_player.c                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/11 14:30:10 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 21:21:40 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/05/02 20:14:20 by xamartin     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/06 18:32:18 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-static int		id_ok(t_pvertex *v, char *str)
-{
-	int			ok;
-
-	ok = 0;
-	while (v)
-	{
-		if (v->id == ft_atoi(str))
-		{
-			ok++;
-			break ;
-		}
-		v = v->next;
-	}
-	return (ok);
-}
-
-static void		check_vertex(char *str, t_parse *parse, int *error)
+void			parse_player(t_parse *parse, char *str)
 {
 	int			i;
-	int			tmp;
-	t_pvertex	*v;
+	int			j;
+	int			error;
 
-	tmp = -1;
+	error = (ft_strlen(str) < 5) ? 1 : 0;
 	i = 0;
-	while (!(*error) && ++tmp < 2)
-	{
-		*error += (!(*error) && !check_int(&str[i])) ? 1 : 0;
-		v = parse->vertex;
-		*error += (id_ok(v, &str[i]) != 1) ? 1 : 0;
-		i += pass_digit_space(&str[i]);
-		i += (str[i] == ':') ? 1 : 0;
-	}
-	*error += (!(*error) && tmp >= 1) ? 0 : 1;
+	while (!error && str[++i])
+		if (!ft_isdigit(str[i]) && str[i] != '\t' && str[i] != ' ')
+			error = 1;
+	i = 1;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	i += pass_digit_space(&str[i]);
+	if (!error && (!check_int(&str[1]) || !check_int(&str[i])))
+		error = 1;
+	j = pass_digit_space(&str[i]);
+	if (error || i + j != (int)ft_strlen(str))
+		return_error(5, parse);
+	parse->player.x = (float)ft_atoi(&str[2]);
+	parse->player.y = (float)ft_atoi(&str[i]);
+	parse->player.angle = 1.5707964;
 }
 
 static void		check_nu(t_parse *parse, char *nu, int *error)
@@ -61,31 +50,16 @@ static void		check_nu(t_parse *parse, char *nu, int *error)
 		i++;
 	j = i + pass_digit_space(&nu[i]);
 	*error += !check_int(&nu[i]) ? 1 : 0;
-	while (!(*error) && ++tmp < 3)
+	while (!(*error) && ++tmp < 5)
 	{
 		i += pass_digit_space(&nu[i]) + 1;
 		*error += (!(*error) && !check_int(&nu[i])) ? 1 : 0;
 	}
-	check_vertex(&nu[j], parse, error);
 	if (!(*error))
-		add_list_l(&parse->linedef, nu);
+		add_list_e(&parse->entity, nu);
 }
 
-static int		check_same_id(t_parse *parse, int error)
-{
-	t_plinedef	*tmp;
-
-	tmp = parse->linedef;
-	while (tmp)
-	{
-		if (tmp->id_v1 == tmp->id_v2)
-			error++;
-		tmp = tmp->next;
-	}
-	return (error);
-}
-
-void			parse_linedef(t_parse *parse, char *str)
+static void		parse_entity(t_parse *parse, char *str)
 {
 	int			error;
 	int			i;
@@ -98,9 +72,20 @@ void			parse_linedef(t_parse *parse, char *str)
 			error = 1;
 	if (!error)
 		check_nu(parse, &str[1], &error);
-	if (check_same_id(parse, error))
+	if (error)
 	{
 		free(str);
 		return_error(9, parse);
+	}
+}
+
+void			suite_parse(t_parse *parse, char *line)
+{
+	if (line[0] == 'e')
+		parse_entity(parse, line);
+	else if (line[0] != '#' && line[0] != '\0')
+	{
+		free(line);
+		return_error(6, parse);
 	}
 }
