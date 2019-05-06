@@ -6,7 +6,7 @@
 #    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/03/04 17:05:24 by mel-akio    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/06 14:42:27 by mel-akio    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -52,11 +52,15 @@ FILES = main.c \
 		render/draw.c \
 		render/img.c \
 		render/color.c \
+		render/render_calculate.c \
+		render/render_calculate_2.c \
 		render/render_map.c \
+		render/render_map_2.c \
 		render/render_sprites.c \
 		render/event.c \
 		render/send_info.c \
 		render/math.c \
+		render/physics.c \
 		render/music.c \
 
 
