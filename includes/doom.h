@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 14:55:56 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 18:01:32 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -230,4 +230,5 @@ void					init_sound(t_mem *mem);
 void					play_music(t_audio m);
 void					play_audio(t_audio m);
 void					free_audio(t_mem *mem);
+
 #endif
