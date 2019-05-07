@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 18:06:19 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 19:46:14 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -246,6 +246,8 @@ typedef struct			s_level
 # define ZOOM_OUT (1 << 8)
 # define JUMP (1 << 8)
 # define RELOAD (1 << 9)
+# define FLY (1 << 10)
+# define CROUCH (1 << 11)
 
 # define MARGE 100
 

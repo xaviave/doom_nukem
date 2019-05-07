@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 20:04:58 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 19:45:33 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,6 @@ int			update_keys(t_mem *mem)
 	float	try_pos_y;
 
 	camera_move(mem);
-	physics(mem);
 	mem->cos_angle = cos(mem->level->player.angle);
 	mem->sin_angle = sin(mem->level->player.angle);
 	if (mem->level->player.recoil > 0)
@@ -99,6 +98,10 @@ int			update_keys(t_mem *mem)
 		mem->level->player.x -= (1 * mem->sin_angle);
 		mem->level->player.y += (1 * mem->cos_angle);
 	}
+	if (!(mem->level->player.keyspressed & FLY))
+		physics(mem);
+	if (mem->level->player.keyspressed & CROUCH)
+		mem->level->player.z -= 3;
 	update_keys2(mem, try_pos_x, try_pos_y);
 	return (0);
 }
