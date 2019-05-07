@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 19:51:41 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 13:01:58 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,9 +79,6 @@ typedef struct 			s_vector
     float 				mx1;
 }						t_vector;
 
-
-	
-
 typedef struct			s_mem
 {
 	t_win				win;
@@ -119,6 +116,7 @@ typedef struct			s_mem
 	t_fcoord 			top;
 	int					neighbour;
 }						t_mem;
+
 
 void					ft_create_img(t_mem *mem);
 void					ft_put_pixel(t_mem *mem, int x, int y, t_color color);
@@ -191,19 +189,20 @@ int						further_sector(t_mem *mem, int sector);
 ** render calc
 */
 t_vector 				calc_vec(t_vector vec);
-void 					calc_linedef_one(t_fcoord *pf1, t_fcoord *pf2, t_fcoord *step, t_fcoord *top, t_mem *mem);
-void 					calc_linedef_two(t_fcoord *pf1, t_fcoord *pf2, t_fcoord *step, t_fcoord *top, t_mem *mem);
+void 					calc_linedef_one(t_render *coor, t_mem *mem);
+void 					calc_linedef_two(t_render *coor,  t_mem *mem);
 t_vector 				calc_wall(t_mem *mem, t_vector vec, int sect, int j);
 void 					calc_minimap(t_mem *mem, int i, int j, t_vector *vec);
 void 					calc_linedef(t_fcoord pf1, t_mem *mem);
 t_vector 				pre_calc_vec(t_vector vec);
-void 					set_column(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, t_mem *mem);
+void 					set_column(t_render coor, t_mem *mem);
 int 					pre_render(t_mem *mem, int sect, int i);
 int 					further_sector(t_mem *mem, int sector);
 void 					shoot(t_mem *mem, char frame);
 void 					draw_minimap(t_mem *mem);
 t_line 					line_init(t_fcoord p);
 void 					paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int sect, t_mem *mem);
+void					render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect);
 /*
 ** textures process
 */

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 19:51:58 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 13:00:28 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,14 +68,19 @@ t_line			line_init(t_fcoord p)
 void			paint_linedef(t_fcoord p1, t_fcoord p2, t_fcoord step, t_fcoord top, int sect, t_mem *mem)
 {
 	int			i;
+	t_render	coor;
 
+	coor.p1 = p1;
+	coor.p2 = p2;
+	coor.step = step;
+	coor.top = top;
 	i = 0;
 
 	mem->line = line_init(p1);
 	mem->line2 = line_init(p2);
 	mem->line3 = line_init(step);
 	mem->line4 = line_init(top);
-	while ((int)p1.x1 != (int)p1.x2)
+	while ((int)coor.p1.x1 != (int)coor.p1.x2)
 	{
 		mem->line.e2 = mem->line.err;
 		mem->line2.e2 = mem->line2.err;
@@ -83,13 +88,13 @@ void			paint_linedef(t_fcoord p1, t_fcoord p2, t_fcoord step, t_fcoord top, int 
 		mem->line4.e2 = mem->line4.err;
 		if (i++)
 		{
-			calc_linedef_one(&p1, &p2, &step, &top, mem);
-			calc_linedef_two(&p1, &p2, &step, &top, mem);
+			calc_linedef_one(&coor, mem);
+			calc_linedef_two(&coor, mem);
 		}
-		if (((int)p1.x1 >= 0 && (int)p1.x1 < W))
+		if (((int)coor.p1.x1 >= 0 && (int)coor.p1.x1 < W))
 		{
-			set_column(p1, p2, step, top, mem);
-			fill_column((int)p1.x1, sect, mem);
+			set_column(coor, mem);
+			fill_column((int)coor.p1.x1, sect, mem);
 		}
 	}
 }

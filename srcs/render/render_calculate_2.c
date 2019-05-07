@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 14:07:23 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 11:59:50 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,13 +49,13 @@ t_vector pre_calc_vec(t_vector vec)
     return (vec);
 }
 
-void set_column(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, t_mem *mem)
+void set_column(t_render coor, t_mem *mem)
 {
-    mem->p3.y1 = (int)pf1.y1 - mem->camera_y + mem->level->player.recoil;
-    mem->p3.y2 = (int)pf2.y1 - mem->camera_y + mem->level->player.recoil;
+    mem->p3.y1 = (int)coor.p1.y1 - mem->camera_y + mem->level->player.recoil;
+    mem->p3.y2 = (int)coor.p2.y1 - mem->camera_y + mem->level->player.recoil;
     mem->p4.y1 = mem->p3.y2;
-    mem->p4.y2 = (int)step.y1 - mem->camera_y + mem->level->player.recoil;
-    mem->p5.y1 = (int)top.y1 - mem->camera_y + mem->level->player.recoil;
+    mem->p4.y2 = (int)coor.step.y1 - mem->camera_y + mem->level->player.recoil;
+    mem->p5.y1 = (int)coor.top.y1 - mem->camera_y + mem->level->player.recoil;
     mem->p5.y2 = mem->p3.y1;
 }
 
