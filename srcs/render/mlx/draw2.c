@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 21:23:50 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 18:38:57 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 22:08:14 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ void		fill_column(int x, int sect, t_mem *mem)
 	if (x >= 0 && x < W)
 		mem->fill_screen[x] = 1;
 	// cette partie dessine les plafond (hauteur murs  sur haut de l'ecran)
-	if (mem->level->sector[sect - 1].h_ceil > (int)mem->level->player.z)
+	if (mem->level->sector[sect - 1].h_ceil > (int)mem->level->player.z - 6)
 		while (i < mem->p3.y1)
 		{
 			if (i >= 0 && i < H)

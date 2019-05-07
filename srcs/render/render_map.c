@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 17:56:04 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 21:50:02 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,6 +119,7 @@ void			refresh_screen(t_mem *mem)
 	i = -1;
 	while (++i < mem->level->nb_sector && j == -1)
 		j = pre_render(mem, send_s_id(mem, mem->level->n_sector[i]), i);
+	skybox(mem, &mem->skybox);
 	while (i > -1)
 	{
 		render(mem, send_s_id(mem, mem->level->n_sector[i]));
@@ -132,4 +133,5 @@ void			refresh_screen(t_mem *mem)
 (H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr,
 (W >> 1) - 16, (H >> 1) - 16);
+
 }

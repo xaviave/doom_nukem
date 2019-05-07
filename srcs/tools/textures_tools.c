@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   textures_tools.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 19:44:48 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 22:06:25 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,9 +21,12 @@ void				textures_init(t_mem *mem)
 	mem->crosshair.h = 32;
 	mem->monster.w = 285;
 	mem->monster.h = 365;
+	mem->skybox.w = 1280;
+	mem->skybox.h = 800;
 	make_mask(mem, &mem->gun, "backgrounds/gun2.xpm");
 	make_mask(mem, &mem->crosshair, "backgrounds/crosshair.xpm");
 	make_mask(mem, &mem->monster, "backgrounds/monster.xpm");
+	make_mask(mem, &mem->skybox, "backgrounds/sky.xpm");
 }
 
 void				make_mask(t_mem *mem, t_img *img, char xpm[255])
@@ -90,5 +93,27 @@ void				put_img_to_img(t_mem *mem, t_img *img,
 			pos.x1 = k * zoom;
 		}
 		pos.y1 = j * zoom;
+	}
+}
+
+void				skybox(t_mem *mem, t_img *img)
+{
+	int				i;
+	int				j;
+	int				k;
+	unsigned int	color;
+
+	i = 0;
+	j = -1;
+	while (++j < img->h)
+	{
+		k = -1;
+		while (++k < img->w)
+		{
+			color = rgb(img->data[i + 3], img->data[i + 2], img->data[i + 1], 
+			img->data[i]);
+				ft_put_pixel(mem, k, j, set_color(color));
+			i += 4;
+		}
 	}
 }

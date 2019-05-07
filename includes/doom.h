@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 18:18:51 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 21:46:55 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,6 +99,7 @@ typedef struct			s_mem
 	t_img				gun;
 	t_img				crosshair;
 	t_img				monster;
+	t_img				skybox;
 	float				cos_angle;
 	float				sin_angle;
 	int					fps;
@@ -250,6 +251,7 @@ void					render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect);
 void					textures_init(t_mem *mem);
 void					put_img_to_img(t_mem *mem, t_img *img, int x,
 	int y, float dist);
+void					skybox(t_mem *mem, t_img *img);
 
 /*
 ** animation
