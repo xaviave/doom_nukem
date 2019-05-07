@@ -6,14 +6,14 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/09 13:23:13 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 15:14:10 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 13:37:05 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-t_color get_color(int a, t_mem *mem)
+t_color	get_color(int a, t_mem *mem)
 {
 	t_color color;
 
@@ -23,14 +23,14 @@ t_color get_color(int a, t_mem *mem)
 	return (color);
 }
 
-void change_color(t_color *color, int hex)
+void	change_color(t_color *color, int hex)
 {
 	color->r = hex >> 16;
 	color->g = hex >> 8;
 	color->b = hex;
 }
 
-t_color set_color(int a)
+t_color	set_color(int a)
 {
 	t_color color;
 

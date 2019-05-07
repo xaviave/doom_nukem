@@ -6,17 +6,17 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 11:39:31 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 15:12:44 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-t_vector calc_vec(t_vector vec)
+t_vector		calc_vec(t_vector vec)
 {
-	intersect(vec, &vec.ix1, &vec.iz1);		 // 7eme argument definit la precision
-	intersect_down(vec, &vec.ix2, &vec.iz2); // 7eme argument definit la precision
+	intersect(vec, &vec.ix1, &vec.iz1);
+	intersect_down(vec, &vec.ix2, &vec.iz2);
 	if (vec.iz1 > 0 && vec.tz1 <= 0)
 	{
 		vec.tx1 = vec.ix1;
@@ -40,7 +40,7 @@ t_vector calc_vec(t_vector vec)
 	return (vec);
 }
 
-void calc_linedef_one(t_render *coor, t_mem *mem)
+void			calc_linedef_one(t_render *coor, t_mem *mem)
 {
 	if (mem->line.e2 > -mem->line.dx)
 	{
@@ -55,7 +55,7 @@ void calc_linedef_one(t_render *coor, t_mem *mem)
 	}
 }
 
-void calc_linedef_two(t_render *coor, t_mem *mem)
+void			calc_linedef_two(t_render *coor, t_mem *mem)
 {
 	if (mem->line.e2 < mem->line.dy)
 	{
@@ -79,12 +79,12 @@ void calc_linedef_two(t_render *coor, t_mem *mem)
 	}
 }
 
-t_vector calc_wall(t_mem *mem, t_vector vec, int sect, int j)
+t_vector		calc_wall(t_mem *mem, t_vector vec, int s, int j)
 {
-	mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 1);
-	mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[sect].linedef[j], 1);
-	mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[sect].linedef[j], 2);
-	mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[sect].linedef[j], 2);
+	mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[s].linedef[j], 1);
+	mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[s].linedef[j], 1);
+	mem->coord.x2 = send_l_vx(mem->level, mem->level->sector[s].linedef[j], 2);
+	mem->coord.y2 = send_l_vy(mem->level, mem->level->sector[s].linedef[j], 2);
 	vec.tx1 = mem->coord.x1 - mem->level->player.x;
 	vec.tx2 = mem->coord.x2 - mem->level->player.x;
 	vec.ty1 = mem->coord.y1 - mem->level->player.y;
@@ -96,7 +96,7 @@ t_vector calc_wall(t_mem *mem, t_vector vec, int sect, int j)
 	return (vec);
 }
 
-void calc_minimap(t_mem *mem, int i, int j, t_vector *vec)
+void			calc_minimap(t_mem *mem, int i, int j, t_vector *vec)
 {
 	mem->coord.x1 = send_l_vx(mem->level, mem->level->sector[i].linedef[j], 1);
 	mem->coord.y1 = send_l_vy(mem->level, mem->level->sector[i].linedef[j], 1);

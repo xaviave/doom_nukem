@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 13:00:28 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 14:48:01 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,21 +65,16 @@ t_line			line_init(t_fcoord p)
 	return (line);
 }
 
-void			paint_linedef(t_fcoord p1, t_fcoord p2, t_fcoord step, t_fcoord top, int sect, t_mem *mem)
+void			paint_linedef(t_render coor, int sect, t_mem *mem)
 {
 	int			i;
-	t_render	coor;
 
-	coor.p1 = p1;
-	coor.p2 = p2;
-	coor.step = step;
-	coor.top = top;
 	i = 0;
 
-	mem->line = line_init(p1);
-	mem->line2 = line_init(p2);
-	mem->line3 = line_init(step);
-	mem->line4 = line_init(top);
+	mem->line = line_init(coor.p1);
+	mem->line2 = line_init(coor.p2);
+	mem->line3 = line_init(coor.step);
+	mem->line4 = line_init(coor.top);
 	while ((int)coor.p1.x1 != (int)coor.p1.x2)
 	{
 		mem->line.e2 = mem->line.err;

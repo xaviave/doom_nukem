@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 13:01:58 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 14:47:36 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -201,7 +201,7 @@ int 					further_sector(t_mem *mem, int sector);
 void 					shoot(t_mem *mem, char frame);
 void 					draw_minimap(t_mem *mem);
 t_line 					line_init(t_fcoord p);
-void 					paint_linedef(t_fcoord pf1, t_fcoord pf2, t_fcoord step, t_fcoord top, int sect, t_mem *mem);
+void 					paint_linedef(t_render coor, int sect, t_mem *mem);
 void					render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect);
 /*
 ** textures process

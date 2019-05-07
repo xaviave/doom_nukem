@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 13:00:27 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 15:18:31 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,7 @@ void			render(t_mem *mem, int sect)
 	t_render	coor;
 	t_vector	vec;
 
-	//mem->neighbour = -1;
+	ft_bzero(&coor, sizeof(coor));
 	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 	j = -1;
 	while (++j < mem->level->sector[sect].nb_linedef)
@@ -97,10 +97,13 @@ void			render(t_mem *mem, int sect)
 			change_color(&mem->color, mem->level->c[mem->level->linedef
 [send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
 		}
-		paint_linedef(coor.p1, coor.p2, coor.step, coor.top, sect, mem);
+		mem->p1 = coor.p1;
+		mem->p2 = coor.p2;
+		mem->step = coor.step;
+		mem->top = coor.top;
+		paint_linedef(coor, sect, mem);
 		further_sector(mem, sect);
 	}
-	//draw_minimap(mem);
 }
 
 void			refresh_screen(t_mem *mem)

@@ -6,21 +6,22 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 14:44:36 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 15:09:37 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-int fn_cross(float x1, float y1, float x2, float y2)
+int			fn_cross(float x1, float y1, float x2, float y2)
 {
 	return ((x1 * y2) - (y1 * x2));
 }
 
-void intersect(t_vector vec, float *x, float *y)
+void		intersect(t_vector vec, float *x, float *y)
 {
-	float det;
+	float	det;
+
 	*x = fn_cross(vec.tx1, vec.tz1, vec.tx2, vec.tz2);
 	*y = fn_cross(2, 5, -20, 5);
 	det = fn_cross(vec.tx1 - vec.tx2, vec.tz1 - vec.tz2, 2 - -20, 5 - 5);
@@ -28,9 +29,10 @@ void intersect(t_vector vec, float *x, float *y)
 	*y = fn_cross(*x, vec.tz1 - vec.tz2, *y, 5 - 5) / det;
 }
 
-void intersect_down(t_vector vec, float *x, float *y)
+void		intersect_down(t_vector vec, float *x, float *y)
 {
 	float det;
+
 	*x = fn_cross(vec.tx1, vec.tz1, vec.tx2, vec.tz2);
 	*y = fn_cross(5, 5, 20, 5);
 	det = fn_cross(vec.tx1 - vec.tx2, vec.tz1 - vec.tz2, 5 - 20, 5 - 5);
@@ -38,7 +40,7 @@ void intersect_down(t_vector vec, float *x, float *y)
 	*y = fn_cross(*x, vec.tz1 - vec.tz2, *y, 5 - 5) / det;
 }
 
-int return_min(int x1, int x2)
+int			return_min(int x1, int x2)
 {
 	return ((x1 > x2 ? x2 : x1));
 }

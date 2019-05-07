@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/04 18:12:28 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 14:28:17 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ int update_keys(t_mem *mem)
 	if (mem->level->player.keyspressed & MOVE_RIGHT)
 	{
 		mem->level->player.x -= (1 * mem->sin_angle);
-		mem->level->player.y += (1 * mem->cos_angle );
+		mem->level->player.y += (1 * mem->cos_angle);
 	}
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
@@ -38,35 +38,15 @@ int update_keys(t_mem *mem)
 	}
 	if (mem->level->player.keyspressed & MOVE_DOWN)
 	{
-		mem->level->player.x -= (2 * mem->cos_angle );
+		mem->level->player.x -= (2 * mem->cos_angle);
 		mem->level->player.y -= (2 * mem->sin_angle);
 	}
-	if (mem->level->player.keyspressed & ROTATE_LEFT)
-	{
-	}
-	if (mem->level->player.keyspressed & ROTATE_RIGHT)
-	{
-	}
-	if (mem->level->player.keyspressed & ZOOM_OUT)
-	{
-		//	mem->z -= 0.05;
-	}
-	if (mem->level->player.keyspressed & ZOOM_IN)
-	{
-		//	mem->z += 0.05;
-	}
 	if (mem->level->player.keyspressed & JUMP)
-	{
 		jump(mem);
-	}
 	if (mem->level->player.keyspressed & RELOAD)
-	{
 		play_audio(mem->level->sounds.reload);
-	}
 	if (mem->level->player.keyspressed & EXIT_GAME)
-	{
 		exit(1);
-	}
 	if (mem->level->player.last_position != mem->level->player.x + mem->level->player.y)
 	{
 		player_sector(mem);
@@ -74,13 +54,11 @@ int update_keys(t_mem *mem)
 		sort_dist_monsters(mem);
 	}
 	mem->level->player.last_position = mem->level->player.x + mem->level->player.y;
-	
 	if (!(mem->tv1.tv_sec))
 		gettimeofday(&mem->tv1, NULL);
 	refresh_screen(mem);
 	mem->FPS += 1;
 	gettimeofday(&mem->tv2, NULL);
-
 	if (mem->tv2.tv_sec - mem->tv1.tv_sec >= 1)
 	{
 		ft_putstr("FPS : ");
@@ -90,34 +68,19 @@ int update_keys(t_mem *mem)
 		mem->tv1.tv_sec = 0;
 		mem->tv2.tv_sec = 0;
 	}
-	/*printf ("Total time = %f seconds\n",
-        (double) (mem->tv2.tv_usec - mem->tv1.tv_usec) / 1000000 +
-        (double) (mem->tv2.tv_sec - mem->tv1.tv_sec));*/
 	if (mem->level->player.shoot > 0)
 		mem->level->player.shoot--;
 	return (0);
 }
 
-int mouse_move_hook(int x, int y, t_mem *mem)
+int	mouse_move_hook(int x, int y, t_mem *mem)
 {
 	if (x || y || mem)
 		;
-	/*	if (mem->mouse_x > x)
-		mem->level->player.angle -= 0.10;
-		else if (mem->mouse_x + 2 < x)
-		mem->level->player.angle += 0.10;
-
-
-		mlx_mouse_get_pos(mem->win.win_ptr, &x, &y);
-		*/
-	/*	mem->mouse_x = x;
-		mem->mouse_y = y;
-		if (x == W / 2 && y == H / 2)
-		mlx_mouse_move(mem->win.win_ptr, W / 2, H / 2);*/
 	return (0);
 }
 
-int mouse_click_hook(int k, int x, int y, t_mem *mem)
+int	mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
 	if (k == 1)
 	{
@@ -126,7 +89,6 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 			mem->level->player.recoil += 14;
 		else
 			mem->level->player.recoil += 3;
-
 		mem->level->player.shoot = 2;
 	}
 	if (k || x || y || mem)
@@ -134,19 +96,19 @@ int mouse_click_hook(int k, int x, int y, t_mem *mem)
 	return (0);
 }
 
-int add_key(int k, t_mem *mem)
+int	add_key(int k, t_mem *mem)
 {
 	mem->level->player.keyspressed |= mem->level->player.keys_shortcuts[k];
 	return (0);
 }
 
-int remove_key(int k, t_mem *mem)
+int	remove_key(int k, t_mem *mem)
 {
 	mem->level->player.keyspressed &= ~mem->level->player.keys_shortcuts[k];
 	return (0);
 }
 
-int cross_close(t_mem *mem)
+int	cross_close(t_mem *mem)
 {
 	if (mem)
 		;
@@ -154,7 +116,7 @@ int cross_close(t_mem *mem)
 	return (1);
 }
 
-int camera_move(t_mem *mem)
+int	camera_move(t_mem *mem)
 {
 	mlx_mouse_get_pos(mem->win.win_ptr, &mem->mouse_x, &mem->mouse_y);
 	if (mem->mouse_y > H / 2)
@@ -166,7 +128,6 @@ int camera_move(t_mem *mem)
 	else if (mem->mouse_x < W / 2)
 		mem->camera_x += (mem->mouse_x - W / 2);
 	mem->level->player.angle = mem->camera_x * 0.001;
-
 	mlx_mouse_move(mem->win.win_ptr, W / 2, H / 2);
 	mlx_mouse_hide();
 	return (0);
