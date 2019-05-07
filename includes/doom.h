@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 18:20:21 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 18:18:51 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,24 @@ typedef struct			s_img
 	int					h;
 }						t_img;
 
+typedef struct 			s_vector
+{
+	float 				tx1;
+	float 				tx2;
+	float 				ty1;
+	float 				ty2;
+	float 				tz1;
+	float 				tz2;
+	float				iz1;
+	float				ix1;
+	float				iz2;
+	float				ix2;
+	float 				mx;
+    float 				my;
+    float 				mz1;
+    float 				mx1;
+}						t_vector;
+
 typedef struct			s_mem
 {
 	t_win				win;
@@ -86,6 +104,18 @@ typedef struct			s_mem
 	int					fps;
 	struct timeval		tv1;
 	struct timeval		tv2;
+	t_line				line;
+	t_line				line2;
+	t_line				line3;
+	t_line				line4;
+	t_coord 			p3;
+	t_coord 			p4;
+	t_coord 			p5;
+	t_fcoord 			p1;
+	t_fcoord 			p2;
+	t_fcoord 			step;
+	t_fcoord 			top;
+	int					neighbour;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
@@ -95,12 +125,10 @@ void					render_map(t_mem *mem, int sect);
 void					render_sprites(t_mem *mem, int sect);
 void					draw_line(t_mem *mem);
 void					draw_to_line(t_coord *coord, t_mem *mem);
-void					fill_column(int x, t_coord p1, t_coord step_bot,
-	t_coord step_top, int sect, t_mem *mem);
+void					fill_column(int x, int sect, t_mem *mem);
 void					draw_camera(t_mem *mem);
 void					draw_minimap(t_mem *mem);
 void					draw_square(t_mem *mem);
-void					draw_circle(t_mem *mem);
 void					refresh_screen(t_mem *mem);
 void					event_loop(t_mem *mem);
 void					change_color(t_color *color, int hex);
@@ -181,8 +209,8 @@ void					sort_dist_monsters(t_mem *mem);
 */
 
 int						return_min(int x1, int x2);
-void					intersect(float x1, float y1, float x2, float y2,
-	float x3, float y3, float x4, float y4, float *x, float *y);
+void 					intersect(t_vector vec, float *x, float *y);
+void 					intersect_down(t_vector vec, float *x, float *y);
 int						fn_cross(float x1, float y1, float x2, float y2);
 int						player_sector(t_mem *mem, int prev);
 void					physics(t_mem *mem);
@@ -195,6 +223,25 @@ float					distance(float x1, float y1, float x2, float y2);
 */
 
 int						further_sector(t_mem *mem, int sector);
+
+/*
+** render calc
+*/
+t_vector 				calc_vec(t_vector vec);
+void 					calc_linedef_one(t_render *coor, t_mem *mem);
+void 					calc_linedef_two(t_render *coor,  t_mem *mem);
+t_vector 				calc_wall(t_mem *mem, t_vector vec, int sect, int j);
+void 					calc_minimap(t_mem *mem, int i, int j, t_vector *vec);
+void 					calc_linedef(t_fcoord pf1, t_mem *mem);
+t_vector 				pre_calc_vec(t_vector vec);
+void 					set_column(t_render coor, t_mem *mem);
+int 					pre_render(t_mem *mem, int sect, int i);
+int 					further_sector(t_mem *mem, int sector);
+void 					shoot(t_mem *mem, char frame);
+void 					draw_minimap(t_mem *mem);
+t_line 					line_init(t_fcoord p);
+void 					paint_linedef(t_render coor, int sect, t_mem *mem);
+void					render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect);
 
 /*
 ** textures process

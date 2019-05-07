@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/02 21:07:15 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/07 18:41:01 by mel-akio    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -52,7 +52,6 @@ FILES = main.c \
 		tools/int_check.c \
 		render/error_graph.c \
 		render/render_map.c \
-		render/render_sprites.c \
 		render/event/event.c \
 		render/event/event2.c \
 		render/math.c \
@@ -67,6 +66,11 @@ FILES = main.c \
 		render/send_infos/send_ids.c \
 		render/send_infos/send_linedef_coords.c \
 		render/send_infos/triangulation_player.c \
+		render/render_calculate.c \
+		render/render_calculate_2.c \
+		render/render_map_2.c \
+		render/render_sprites.c \
+		render/physics.c \
 
 
 
