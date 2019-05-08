@@ -82,7 +82,6 @@ void			render(t_mem *mem, int sect)
 	t_vector	vec;
 
 	ft_bzero(&coor, sizeof(coor));
-	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 	j = -1;
 	while (++j < mem->level->sector[sect].nb_linedef)
 	{
@@ -113,9 +112,7 @@ void			refresh_screen(t_mem *mem)
 
 	j = -1;
 	bzero(mem->fill_screen, (sizeof(char) * W));
-	if (mem->img.ptr)
-		mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
-	ft_create_img(mem);
+	ft_bzero(mem->img.data, W * H * 4);
 	i = -1;
 	while (++i < mem->level->nb_sector && j == -1)
 		j = pre_render(mem, send_s_id(mem, mem->level->n_sector[i]), i);
@@ -133,5 +130,5 @@ void			refresh_screen(t_mem *mem)
 (H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr,
 (W >> 1) - 16, (H >> 1) - 16);
-set_hud(mem);
+	set_hud(mem);
 }

@@ -38,7 +38,6 @@ void		update_keys3(t_mem *mem)
 	{
 		player_sector(mem, 0);
 		player_animation(mem);
-		// sort_dist_monsters(mem);
 	}
 	if (mem->level->player.keyspressed & RELOAD)
 		on_reload(mem);

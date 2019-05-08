@@ -30,6 +30,9 @@ void			helper(t_mem *mem, t_vector vec, int i)
 
 void			set_vecs(t_vector *vec, t_mem *mem, int i)
 {
+	mem->level->monsters[i].distance = distance(mem->level->monsters[i].x,
+			mem->level->monsters[i].y, mem->level->player.x,
+			mem->level->player.y);
 	vec->mx = mem->level->monsters[i].x - mem->level->player.x;
 	vec->my = mem->level->monsters[i].y - mem->level->player.y;
 	vec->mz1 = vec->mx * mem->cos_angle + vec->my * mem->sin_angle;
@@ -57,7 +60,6 @@ void			render_sprites(t_mem *mem, int sect)
 			[sect].h_floor) / vec.mz1 + H * 0.5 + mem->level->player.recoil;
 				if (vec.mx > 0 && vec.mx < W)
 					helper(mem, vec, i);
-					
 			}
 		}
 	}
