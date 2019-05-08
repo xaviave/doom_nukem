@@ -24,6 +24,17 @@
 # include "../libft/header/libft.h"
 
 /*
+** Items
+*/
+
+enum					e_items
+{
+	HEALTH_BOX = 1,
+	AMMO_BOX,
+	MOB
+};
+
+/*
 ** Structures & Binary tree
 */
 
@@ -142,10 +153,16 @@ typedef struct			s_sector
 typedef struct			s_entity
 {
 	int					id;
+	int					alive;
+	int					shooting;
 	int					x;
 	int					y;
 	int					z;
+	int					s_x;
+	int					s_y;
 	int					text;
+	int					sector;
+	int					distance;
 }						t_entity;
 
 typedef struct			s_sound
@@ -259,6 +276,7 @@ typedef struct			s_level
 # define RELOAD (1 << 9)
 # define FLY (1 << 10)
 # define CROUCH (1 << 11)
+# define PICKUP (1 << 12)
 
 # define MARGE 100
 

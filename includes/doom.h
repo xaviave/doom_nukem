@@ -106,14 +106,6 @@ typedef struct			s_mem
 	void				*mlx_ptr;
 	t_coord				coord;
 	t_level				*level;
-	float				z;
-	int					x;
-	int					y;
-	char				*fill_screen;
-	int					mouse_x;
-	int					mouse_y;
-	int					camera_x;
-	int					camera_y;
 	t_hud				hud;
 	t_coord				step_bot;
 	t_img				gun;
@@ -121,6 +113,8 @@ typedef struct			s_mem
 	t_img				skybox;
 	t_img				monster;
 	t_img				shooting_monster;
+	t_img				hp_box;
+	t_img				ammo_box;
 	float				cos_angle;
 	float				sin_angle;
 	int					fps;
@@ -139,6 +133,14 @@ typedef struct			s_mem
 	t_fcoord			p2;
 	t_fcoord			step;
 	t_fcoord			top;
+	float				z;
+	int					x;
+	int					y;
+	char				*fill_screen;
+	int					mouse_x;
+	int					mouse_y;
+	int					camera_x;
+	int					camera_y;
 	int					neighbour;
 }						t_mem;
 
@@ -222,11 +224,22 @@ int						next_sector(t_mem *mem, int linedef_id,
 	int actual_sector);
 void					fill_n_sector(t_mem *mem, int i);
 
+
 /*
 ** mob_infos.c
 */
 
 void					sort_dist_monsters(t_mem *mem);
+void					entity_sector(t_mem *mem);
+
+/*
+** triangulation_player.c
+*/
+
+int						check_in_sector(t_mem *mem, int l1, int l2, int save);
+int						is_inside(t_vertex v1, t_vertex v2,
+	t_vertex v3, t_vertex m);
+int						in_box(t_mem *mem, int nb);
 
 /*
 ** math.c
@@ -314,7 +327,7 @@ void					ai_think(t_mem *mem);
 
 void					on_shoot(t_mem *mem);
 void					on_reload(t_mem *mem);
-void					on_collision(t_mem *mem, int id);
+void					on_collision(t_mem *mem);
 
 
 #endif

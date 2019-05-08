@@ -30,6 +30,8 @@ void				textures_init(t_mem *mem)
 	make_mask(mem, &mem->skybox, "backgrounds/sky.xpm");
 	make_mask(mem, &mem->hud.hp, "backgrounds/hp.xpm");
 	make_mask(mem, &mem->hud.ammo, "backgrounds/ammo.xpm");
+	make_mask(mem, &mem->ammo_box, "backgrounds/ammobox.xpm");
+	make_mask(mem, &mem->hp_box, "backgrounds/hpbox.xpm");
 }
 
 void				make_mask(t_mem *mem, t_img *img, char xpm[255])

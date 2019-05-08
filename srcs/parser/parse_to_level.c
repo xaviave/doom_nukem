@@ -90,6 +90,7 @@ void			keys_shortcuts(t_level *level)
 	level->player.keys_shortcuts[TOUCH_ECHAP] = EXIT_GAME;
 	level->player.keys_shortcuts[TOUCH_R] = RELOAD;
 	level->player.keys_shortcuts[TOUCH_C] = CROUCH;
+	level->player.keys_shortcuts[TOUCH_E] = PICKUP;
 }
 
 void			parse_to_level(t_parse *parse, t_level *level)

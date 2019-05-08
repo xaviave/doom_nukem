@@ -97,6 +97,9 @@ void			p_to_entity(t_level *level, t_parse *parse)
 	tmp = parse->entity;
 	while (tmp)
 	{
+		level->entity[i].alive = 1;
+		level->entity[i].shooting = 0;
+		level->entity[i].distance = 0;
 		level->entity[i].id = tmp->id;
 		level->entity[i].x = tmp->x;
 		level->entity[i].y = tmp->y;

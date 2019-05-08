@@ -57,15 +57,6 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->nb_monsters = 2;
 	if (!(mem->level->monsters = (t_monster *)malloc(sizeof(t_monster) * mem->level->nb_monsters)))
 		return ;
-	mem->level->monsters[0].sector = 3;
-	mem->level->monsters[0].alive = 1;
-	mem->level->monsters[0].x = 483;
-	mem->level->monsters[0].y = 299;
-
-	mem->level->monsters[1].sector = 3;
-	mem->level->monsters[1].alive = 1;
-	mem->level->monsters[1].x = 460;
-	mem->level->monsters[1].y = 280;
 	mem->fps = 0;
 	mem->tv1.tv_sec = 0;
 	mem->tv2.tv_sec = 0;
@@ -79,6 +70,7 @@ static void init_mem(t_mem *mem, t_level *level)
 	if (level->nb_sector > 1)
 		if (!(mem->level->n_sector = (int *)malloc(4 * level->nb_sector)))
 			return ;
+	entity_sector(mem);
 	ft_create_img(mem);
 }
 
@@ -97,7 +89,7 @@ int main(int ac, char **av)
 	init_level(&level);
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
-	mem.level->player.z = 5;
+	mem.level->player.z = 30;
 	mem.level->player.motion_state = 0.40;
 	textures_init(&mem);
 	init_sound(&mem);

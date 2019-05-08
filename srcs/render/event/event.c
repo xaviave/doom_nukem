@@ -13,23 +13,6 @@
 
 #include "../../../includes/doom.h"
 
-void		fps_counter(t_mem *mem)
-{
-	if (!(mem->tv1.tv_sec))
-		gettimeofday(&mem->tv1, NULL);
-	refresh_screen(mem);
-	mem->fps += 1;
-	gettimeofday(&mem->tv2, NULL);
-	if (mem->tv2.tv_sec - mem->tv1.tv_sec >= 1)
-	{
-		ft_putstr("fps : ");
-		ft_putnbr(mem->fps);
-		putchar('\n');
-		mem->fps = 0;
-		mem->tv1.tv_sec = 0;
-		mem->tv2.tv_sec = 0;
-	}
-}
 
 void		update_keys3(t_mem *mem)
 {
@@ -38,9 +21,12 @@ void		update_keys3(t_mem *mem)
 	{
 		player_sector(mem, 0);
 		player_animation(mem);
+		sort_dist_monsters(mem);
 	}
 	if (mem->level->player.keyspressed & RELOAD)
 		on_reload(mem);
+	if (mem->level->player.keyspressed & PICKUP)
+		on_collision(mem);
 	if (mem->level->player.keyspressed & EXIT_GAME)
 		free_mem(mem);
 	mem->level->player.last_position = mem->level->player.x
@@ -49,14 +35,14 @@ void		update_keys3(t_mem *mem)
 		mem->level->player.shoot--;
 	if (mem->level->player.keyspressed & JUMP)
 		jump(mem);
-	fps_counter(mem);
+	refresh_screen(mem);
 	ai_think(mem);
 }
 
 void		update_keys2(t_mem *mem, float try_pos_x, float try_pos_y)
 {
 	if (mem->level->player.keyspressed & CROUCH)
-		mem->level->player.z -= 3;
+		mem->level->player.z += 3;
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
 		mem->level->player.x += (2 * mem->cos_angle);
