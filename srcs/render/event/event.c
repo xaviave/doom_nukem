@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 19:45:33 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 13:31:00 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ void		update_keys3(t_mem *mem)
 	if (mem->level->player.keyspressed & RELOAD)
 		play_audio(mem->level->sounds.reload);
 	if (mem->level->player.keyspressed & EXIT_GAME)
-		exit(1);
+		free_mem(mem);
 	mem->level->player.last_position = mem->level->player.x
 		+ mem->level->player.y;
 	if (mem->level->player.shoot > 0)
@@ -55,6 +55,8 @@ void		update_keys3(t_mem *mem)
 
 void		update_keys2(t_mem *mem, float try_pos_x, float try_pos_y)
 {
+	if (mem->level->player.keyspressed & CROUCH)
+		mem->level->player.z -= 3;
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
 		mem->level->player.x += (2 * mem->cos_angle);
@@ -100,8 +102,6 @@ int			update_keys(t_mem *mem)
 	}
 	if (!(mem->level->player.keyspressed & FLY))
 		physics(mem);
-	if (mem->level->player.keyspressed & CROUCH)
-		mem->level->player.z -= 3;
 	update_keys2(mem, try_pos_x, try_pos_y);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:25:17 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 21:19:09 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 11:16:35 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,8 +88,9 @@ void			parse_map(int ac, char **av, t_parse *parse)
 	fd = open(av[1], O_RDONLY);
 	if (fd < 1)
 		return_error(2, NULL);
+	parse->player.angle = 0;
 	parse_file(fd, parse);
-	if (check_text_heigth(parse))
+	if (check_text_heigth(parse) || parse->player.angle == 0)
 		return_error(-1, parse);
 	if (list_len_s(parse->sector) < 1 || list_len_v(parse->vertex) < 3
 		|| list_len_l(parse->linedef) < 3 || list_len_e(parse->entity) < 1)

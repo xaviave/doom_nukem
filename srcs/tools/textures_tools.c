@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   textures_tools.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 22:06:25 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 10:20:25 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,9 +110,9 @@ void				skybox(t_mem *mem, t_img *img)
 		k = -1;
 		while (++k < img->w)
 		{
-			color = rgb(img->data[i + 3], img->data[i + 2], img->data[i + 1], 
+			color = rgb(img->data[i + 3], img->data[i + 2], img->data[i + 1],
 			img->data[i]);
-				ft_put_pixel(mem, k, j, set_color(color));
+			ft_put_pixel(mem, k, j, set_color(color));
 			i += 4;
 		}
 	}

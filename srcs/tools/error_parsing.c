@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:30:06 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 18:20:31 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 12:13:33 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,10 +59,14 @@ void			free_parse(t_parse *parse)
 	free_parse2(parse);
 }
 
-static void		free_entity(t_level *level)
+static void		free_level2(t_level *level)
 {
 	if (level->entity)
 		free(level->entity);
+	if (level->monsters)
+		free(level->monsters);
+	if (level->n_sector)
+		free(level->n_sector);
 }
 
 void			free_level(t_level *level)
@@ -91,7 +95,7 @@ void			free_level(t_level *level)
 			free(level->sector[i].neighbors);
 		free(level->sector);
 	}
-	free_entity(level);
+	free_level2(level);
 }
 
 void			return_error(int error, t_parse *parse)
@@ -117,7 +121,7 @@ void			return_error(int error, t_parse *parse)
 	else if (error == 9)
 		ft_printf("\nError 9 : Bad linedef or entity init\n");
 	else if (error == -1)
-		ft_printf("\nError -1 : Bad texture heigth in linedef\n");
+		ft_printf("\nError -1 : Bad texture heigth or Player not initialized\n");
 	if (parse)
 		free_parse(parse);
 	exit(0);

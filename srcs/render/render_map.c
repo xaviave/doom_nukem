@@ -3,22 +3,22 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 21:50:02 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 10:22:22 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-void		render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect)
+void			render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect)
 {
 	intersect(*vec, &vec->ix1, &vec->iz1);
 	intersect_down(*vec, &vec->ix2, &vec->iz2);
 	*vec = calc_vec(*vec);
-	coor->p1.x1 = -vec->tx1 * 800 / vec->tz1 + (W >> 1); // 800 (ratio map)
+	coor->p1.x1 = -vec->tx1 * 800 / vec->tz1 + (W >> 1);
 	coor->p1.x2 = -vec->tx2 * 800 / vec->tz2 + (W >> 1);
 	coor->p2.x1 = coor->p1.x1;
 	coor->p2.x2 = coor->p1.x2;
@@ -29,14 +29,14 @@ void		render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect)
 	coor->p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil)
 	/ vec->tz1 + (H >> 1);
 	coor->p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil)
-	/ vec->tz2 + (H >> 1); // transformer cette valeur pour plafond penché
+	/ vec->tz2 + (H >> 1);
 	coor->p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor)
 	/ vec->tz1 + (H >> 1);
 	coor->p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor)
-	/ vec->tz2 + (H >> 1); // // transformer cette valeur pour sol penché
+	/ vec->tz2 + (H >> 1);
 }
 
-void		calc_step(t_mem *mem, t_render *coor, t_vector vec, int sect)
+void			calc_step(t_mem *mem, t_render *coor, t_vector vec, int sect)
 {
 	if (!(mem->level->linedef[send_l_id(mem,
 mem->level->sector[sect].linedef[j])].side.text[0]))
@@ -59,7 +59,7 @@ mem->level->sector[mem->neighbour].h_floor)) / vec.tz2 + (H >> 1)
 	coor->step.y2 = coor->p2.y2;
 }
 
-void		calc_top(t_mem *mem, t_render *coor, t_vector vec, int sect)
+void			calc_top(t_mem *mem, t_render *coor, t_vector vec, int sect)
 {
 	if (mem->level->sector[mem->neighbour].h_ceil <=
 mem->level->sector[sect].h_ceil && mem->neighbour > 0)
@@ -133,5 +133,4 @@ void			refresh_screen(t_mem *mem)
 (H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr,
 (W >> 1) - 16, (H >> 1) - 16);
-
 }

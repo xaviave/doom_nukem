@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_calculate_2.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 15:16:51 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 10:46:04 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,9 @@ int				pre_render(t_mem *mem, int sect, int i)
 			p1.x1 = -vec.tx1 * 800 / vec.tz1 + (W >> 1);
 			p1.x2 = -vec.tx2 * 800 / vec.tz2 + (W >> 1);
 			mem->color.a = 0;
-			change_color(&mem->color, mem->level->c[mem->level->linedef[send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
+			change_color(&mem->color, mem->level->c
+			[mem->level->linedef[send_l_id(mem,
+			mem->level->sector[sect].linedef[j])].side.text[0]]);
 		}
 		if (!(mem->color.r == 255 && mem->color.g == 0 && mem->color.b == 0))
 			calc_linedef(p1, mem);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 21:46:55 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 13:31:29 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,7 +97,7 @@ typedef struct			s_mem
 	int					camera_y;
 	t_coord				step_bot;
 	t_img				gun;
-	t_img				crosshair;
+	t_img				crosshair; 
 	t_img				monster;
 	t_img				skybox;
 	float				cos_angle;
@@ -228,6 +228,7 @@ int						further_sector(t_mem *mem, int sector);
 /*
 ** render calc
 */
+
 t_vector 				calc_vec(t_vector vec);
 void 					calc_linedef_one(t_render *coor, t_mem *mem);
 void 					calc_linedef_two(t_render *coor,  t_mem *mem);
@@ -256,15 +257,18 @@ void					skybox(t_mem *mem, t_img *img);
 /*
 ** animation
 */
+
 void					shoot(t_mem *mem, char frame);
 
 /*
-** music // free
+** music free
 */
 
 void					init_sound(t_mem *mem);
 void					play_music(t_audio m);
 void					play_audio(t_audio m);
 void					free_audio(t_mem *mem);
+
+void					free_mem(t_mem *mem);
 
 #endif

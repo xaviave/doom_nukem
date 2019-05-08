@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 19:46:14 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 13:31:58 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@
 /*
 ** Structures & Binary tree
 */
+
 
 typedef struct			s_audio
 {
@@ -50,10 +51,10 @@ typedef struct			s_coord
 
 typedef struct			s_fcoord
 {
-	float					x1;
-	float					y1;
-	float					x2;
-	float					y2;
+	float				x1;
+	float				y1;
+	float				x2;
+	float				y2;
 }						t_fcoord;
 
 typedef struct 			s_render
@@ -121,8 +122,8 @@ typedef struct			s_sector
 	int					id;
 	int					h_floor;
 	int					h_ceil;
-	int					tex_floor; // no initialise
-	int					tex_ceil; // no initialise
+	int					tex_floor;// no initialise
+	int					tex_ceil;// no initialise
 	int					nb_vertex;
 	int					nb_linedef;
 	int					*linedef;

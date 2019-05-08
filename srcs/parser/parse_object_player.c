@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 20:14:20 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 18:32:18 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 11:13:31 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,10 +32,13 @@ void			parse_player(t_parse *parse, char *str)
 		error = 1;
 	j = pass_digit_space(&str[i]);
 	if (error || i + j != (int)ft_strlen(str))
+	{
+		free(str);
 		return_error(5, parse);
+	}
 	parse->player.x = (float)ft_atoi(&str[2]);
 	parse->player.y = (float)ft_atoi(&str[i]);
-	parse->player.angle = 1.5707964;
+	parse->player.angle = 1.570796;
 }
 
 static void		check_nu(t_parse *parse, char *nu, int *error)
