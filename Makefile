@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/08 22:20:03 by mel-akio    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/08 23:30:45 by xamartin    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,7 +20,7 @@ RM = rm -f
 NAME = doom_nukem
 LIBFT = libft/
 INC = includes/doom.h
-CFLAGS = -Wall -Wextra -Werror -I includes -F ./Frameworks -O2 -g
+CFLAGS = -Wall -Wextra -Werror -I includes -F ./Frameworks -O2 -g 
 MINILIBX = minilibx_macos/libmlx.a
 LIB_FLAG = -framework OpenGl -framework AppKit
 SDL_FLAG = -rpath ./Frameworks -F ./Frameworks  -framework SDL2 \

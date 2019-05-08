@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 22:00:20 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:53:16 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,10 +38,6 @@ void			render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect)
 
 void			calc_step(t_mem *mem, t_render *coor, t_vector vec, int sect)
 {
-	if (!(mem->level->linedef[send_l_id(mem,
-mem->level->sector[sect].linedef[j])].side.text[0]))
-		mem->neighbour = next_sector(mem, mem->level->sector[sect].linedef[j],
-sect);
 	if (mem->level->sector[mem->neighbour].h_floor
 	>= mem->level->sector[sect].h_floor && mem->neighbour > 0)
 	{

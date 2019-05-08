@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   draw2.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 21:23:50 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 21:59:52 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:19:21 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,12 +52,12 @@ void			ft_put_tex(t_mem *mem, int x, int y)
 	bpp2 = mem->wall.bpp >> 3;
 	dst = (int)(round(mem->tex_y) * bpp2 + mem->wall.sizeline *
 	((round(mem->tex_x) / (mem->h_wall * mem->max_x)))) * 32;
+	
 	dst = rgb(mem->wall.data[(int)dst + 3], mem->wall.data[(int)dst + 2],
 	mem->wall.data[(int)dst + 1], mem->wall.data[(int)dst]);
+	
 	if ((x > 0 && x < mem->win.width) && (y > 0 && y < mem->win.height))
-	{
 		ft_put_pixel(mem, x, y, set_color(dst));
-	}
 }
 
 void			fill_column_2(int x, int sect, t_mem *mem)
@@ -67,6 +67,7 @@ void			fill_column_2(int x, int sect, t_mem *mem)
 
 	floor.r = sect * 10;
 	step.b = 0;
+	mem->tex_y = 0;
 	while (mem->p3.y1 < mem->p3.y2)
 	{
 		if (mem->p3.y1 >= 0 && mem->p3.y1 < H && mem->color.r != 255 &&

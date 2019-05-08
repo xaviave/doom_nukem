@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 10:46:04 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:49:44 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,7 +94,7 @@ int				further_sector(t_mem *mem, int sector)
 
 	j = 0;
 	i = -1;
-	while (++i <= W)
+	while (++i < W)
 	{
 		if (mem->fill_screen[i])
 			j++;

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   music.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/27 17:08:16 by cmerel       #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 22:12:26 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:14:17 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,6 @@ void 	init_sound(t_mem *mem)
 	mem->level->sounds.jump.sound = Mix_LoadWAV("sound/jump2.wav");
 	mem->level->sounds.mobshoot.sound = Mix_LoadWAV("sound/gunshot.wav");
 	mem->level->sounds.hurt.sound = Mix_LoadWAV("sound/hurt.wav");
-
 	mem->level->sounds.shoot1.channel = ++i;
 	mem->level->sounds.reload.channel = ++i;
 	mem->level->sounds.jump.channel = ++i;
