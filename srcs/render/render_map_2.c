@@ -31,6 +31,7 @@ void			shoot(t_mem *mem, char frame)
 		change_color(&mem->color, 0x0000FF);
 		draw_to_line(&coord, mem);
 	}
+	on_shoot(mem);
 }
 
 void			draw_minimap(t_mem *mem)

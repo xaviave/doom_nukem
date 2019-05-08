@@ -25,8 +25,11 @@ void				textures_init(t_mem *mem)
 	mem->skybox.h = 800;
 	make_mask(mem, &mem->gun, "backgrounds/gun2.xpm");
 	make_mask(mem, &mem->crosshair, "backgrounds/crosshair.xpm");
-	make_mask(mem, &mem->monster, "backgrounds/monster.xpm");
+	make_mask(mem, &mem->monster, "backgrounds/shooting_monster.xpm");
+	make_mask(mem, &mem->shooting_monster, "backgrounds/shooting_monster2.xpm");
 	make_mask(mem, &mem->skybox, "backgrounds/sky.xpm");
+	make_mask(mem, &mem->hud.hp, "backgrounds/hp.xpm");
+	make_mask(mem, &mem->hud.ammo, "backgrounds/ammo.xpm");
 }
 
 void				make_mask(t_mem *mem, t_img *img, char xpm[255])

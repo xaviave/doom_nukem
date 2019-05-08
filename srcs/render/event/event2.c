@@ -24,6 +24,12 @@ int			mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
 	if (k == 1)
 	{
+		if (!mem->level->player.ammos)
+		{
+			play_audio(mem->level->sounds.reload);
+			return (0);
+		}
+		mem->level->player.ammos--;
 		play_audio(mem->level->sounds.shoot1);
 		if (mem->level->player.recoil < 50)
 			mem->level->player.recoil += 14;

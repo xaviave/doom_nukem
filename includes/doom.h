@@ -61,6 +61,25 @@ typedef struct			s_img
 	int					h;
 }						t_img;
 
+typedef struct			s_hud
+{
+	t_img				hp;
+	t_img				ammo;
+	int					x_hp;
+	int					y_hp;
+	int					x_ammo;
+	int					y_ammo;
+	int					x_str_hp;
+	int					y_str_hp;
+	int					x_str_ammo;
+	int					y_str_ammo;
+	int					x_str_magazine;
+	int					y_str_magazine;
+	char				*str_ammo;
+	char				*str_hp;
+	char				*str_magazine;
+}						t_hud;
+
 typedef struct			s_vector
 {
 	float				tx1;
@@ -95,16 +114,20 @@ typedef struct			s_mem
 	int					mouse_y;
 	int					camera_x;
 	int					camera_y;
+	t_hud				hud;
 	t_coord				step_bot;
 	t_img				gun;
 	t_img				crosshair;
-	t_img				monster;
 	t_img				skybox;
+	t_img				monster;
+	t_img				shooting_monster;
 	float				cos_angle;
 	float				sin_angle;
 	int					fps;
 	struct timeval		tv1;
 	struct timeval		tv2;
+	struct timeval		ai1;
+	struct timeval		ai2;
 	t_line				line;
 	t_line				line2;
 	t_line				line3;
@@ -271,5 +294,27 @@ void					play_audio(t_audio m);
 void					free_audio(t_mem *mem);
 
 void					free_mem(t_mem *mem);
+
+/*
+** hud
+*/
+
+void					init_hud(t_mem *mem);
+void					set_hud(t_mem *mem);
+
+/*
+** ai
+*/
+
+void					ai_think(t_mem *mem);
+
+/*
+** player events
+*/
+
+void					on_shoot(t_mem *mem);
+void					on_reload(t_mem *mem);
+void					on_collision(t_mem *mem, int id);
+
 
 #endif

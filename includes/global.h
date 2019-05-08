@@ -90,21 +90,30 @@ typedef struct			s_player
 	int					prev_sector;
 	int					god_mode;
 	int					heigth_player;
+	int					ammos;
+	int					magazine;
+	int					hp;
 }						t_player;
 
 typedef struct			s_monster
 {
 	float				x;
 	float				y;
+	float				s_x;
+	float				s_y;
 	int					distance;
 	int					sector;
+	int					alive;
+	int					shooting;
 }						t_monster;
 
 typedef struct			s_sidedef
 {
+	
 	int					*text;
 	int					*heigth;
 	int					nb_text;
+	
 }						t_sidedef;
 
 typedef struct			s_linedef
@@ -145,6 +154,8 @@ typedef struct			s_sound
 	t_audio				shoot1;
 	t_audio				jump;
 	t_audio				reload;
+	t_audio				hurt;
+	t_audio				mobshoot;
 }						t_sound;
 
 typedef struct			s_level

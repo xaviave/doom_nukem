@@ -33,6 +33,7 @@ static void init_level(t_level *level)
 
 static void init_mem(t_mem *mem, t_level *level)
 {
+	init_hud(mem);
 	mem->mlx_ptr = mlx_init();
 	mem->win.width = W;
 	mem->win.height = H;
@@ -57,16 +58,24 @@ static void init_mem(t_mem *mem, t_level *level)
 	if (!(mem->level->monsters = (t_monster *)malloc(sizeof(t_monster) * mem->level->nb_monsters)))
 		return ;
 	mem->level->monsters[0].sector = 3;
+	mem->level->monsters[0].alive = 1;
 	mem->level->monsters[0].x = 483;
 	mem->level->monsters[0].y = 299;
+
 	mem->level->monsters[1].sector = 3;
+	mem->level->monsters[1].alive = 1;
 	mem->level->monsters[1].x = 460;
 	mem->level->monsters[1].y = 280;
 	mem->fps = 0;
 	mem->tv1.tv_sec = 0;
 	mem->tv2.tv_sec = 0;
+	mem->ai1.tv_sec = 0;
+	mem->ai2.tv_sec = 0;
 	mem->level->player.god_mode = 0;
 	mem->level->player.heigth_player = 5;
+	level->player.hp = 100;
+	level->player.ammos = 30;
+	level->player.magazine = 1;
 	if (level->nb_sector > 1)
 		if (!(mem->level->n_sector = (int *)malloc(4 * level->nb_sector)))
 			return ;

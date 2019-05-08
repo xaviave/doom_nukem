@@ -38,10 +38,10 @@ void		update_keys3(t_mem *mem)
 	{
 		player_sector(mem, 0);
 		player_animation(mem);
-		sort_dist_monsters(mem);
+		// sort_dist_monsters(mem);
 	}
 	if (mem->level->player.keyspressed & RELOAD)
-		play_audio(mem->level->sounds.reload);
+		on_reload(mem);
 	if (mem->level->player.keyspressed & EXIT_GAME)
 		free_mem(mem);
 	mem->level->player.last_position = mem->level->player.x
@@ -51,6 +51,7 @@ void		update_keys3(t_mem *mem)
 	if (mem->level->player.keyspressed & JUMP)
 		jump(mem);
 	fps_counter(mem);
+	ai_think(mem);
 }
 
 void		update_keys2(t_mem *mem, float try_pos_x, float try_pos_y)

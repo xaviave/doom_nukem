@@ -20,7 +20,7 @@ RM = rm -f
 NAME = doom_nukem
 LIBFT = libft/
 INC = includes/doom.h
-CFLAGS = -Wall -Wextra -Werror -I includes -F ./Frameworks -O2
+CFLAGS = -Wall -Wextra -Werror -I includes -F ./Frameworks -O2 -g
 MINILIBX = minilibx_macos/libmlx.a
 LIB_FLAG = -framework OpenGl -framework AppKit
 SDL_FLAG = -rpath ./Frameworks -F ./Frameworks  -framework SDL2 \
@@ -48,12 +48,15 @@ FILES = main.c \
 		tools/list_line.c \
 		tools/list_len.c \
 		tools/list_entity.c \
+		tools/hud.c \
 		tools/textures_tools.c \
 		tools/int_check.c \
 		tools/free_mem.c \
 		render/error_graph.c \
 		render/render_map.c \
 		render/event/event.c \
+		render/event/ai.c \
+		render/event/player.c \
 		render/event/event2.c \
 		render/math.c \
 		render/music.c \

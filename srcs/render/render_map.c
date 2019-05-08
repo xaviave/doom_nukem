@@ -133,4 +133,5 @@ void			refresh_screen(t_mem *mem)
 (H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
 	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr,
 (W >> 1) - 16, (H >> 1) - 16);
+set_hud(mem);
 }
