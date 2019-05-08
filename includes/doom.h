@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 21:57:42 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:45:54 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -235,7 +235,6 @@ int						next_sector(t_mem *mem, int linedef_id,
 	int actual_sector);
 void					fill_n_sector(t_mem *mem, int i);
 
-
 /*
 ** mob_infos.c
 */
@@ -301,7 +300,7 @@ void					textures_init(t_mem *mem);
 void					put_img_to_img(t_mem *mem, t_img *img, int x,
 	int y, float dist);
 void					skybox(t_mem *mem, t_img *img);
-unsigned int			rgb(unsigned char o,unsigned char r,
+unsigned int			rgb(unsigned char o, unsigned char r,
 unsigned char g, unsigned char b);
 void					set_wall_size(t_mem *mem, t_render coor);
 void					set_wall_infos(t_mem *mem);
@@ -320,7 +319,6 @@ void					init_sound(t_mem *mem);
 void					play_music(t_audio m);
 void					play_audio(t_audio m);
 void					free_audio(t_mem *mem);
-
 void					free_mem(t_mem *mem);
 
 /*
@@ -343,6 +341,5 @@ void					ai_think(t_mem *mem);
 void					on_shoot(t_mem *mem);
 void					on_reload(t_mem *mem);
 void					on_collision(t_mem *mem);
-
 
 #endif

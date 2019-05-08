@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 22:11:33 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:46:10 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,11 +121,9 @@ typedef struct			s_monster
 
 typedef struct			s_sidedef
 {
-	
 	int					*text;
 	int					*heigth;
 	int					nb_text;
-	
 }						t_sidedef;
 
 typedef struct			s_linedef
