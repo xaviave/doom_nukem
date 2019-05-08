@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event2.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 21:17:41 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 13:31:04 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 01:26:51 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ int			mouse_click_hook(int k, int x, int y, t_mem *mem)
 {
 	if (k == 1)
 	{
+		mem->first_launch = 0;
 		if (!mem->level->player.ammos)
 		{
 			play_audio(mem->level->sounds.reload);

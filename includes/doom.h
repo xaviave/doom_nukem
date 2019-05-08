@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 00:54:08 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 01:42:02 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,6 +100,8 @@ typedef struct			s_vector
 
 typedef struct			s_mem
 {
+	int					first_launch;
+	int					end;
 	t_win				win;
 	t_img				img;
 	t_color				color;
@@ -313,6 +315,7 @@ void					draw_objects(t_mem *mem, t_vector coor,
 */
 
 void					shoot(t_mem *mem, char frame);
+void					process(t_mem *mem);
 
 /*
 ** music free
@@ -344,5 +347,8 @@ void					ai_think(t_mem *mem);
 void					on_shoot(t_mem *mem);
 void					on_reload(t_mem *mem);
 void					on_collision(t_mem *mem);
+void					first_screen(t_mem *mem);
+void					end_screen(t_mem *mem);
+void					check_mobs(t_mem *mem);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/09 00:42:00 by mel-akio    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/09 01:42:43 by mel-akio    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -48,6 +48,7 @@ FILES = main.c \
 		tools/list_line.c \
 		tools/list_len.c \
 		tools/list_entity.c \
+		tools/history.c \
 		tools/hud.c \
 		tools/textures_tools.c \
 		tools/textures_tools_2.c \
@@ -55,6 +56,7 @@ FILES = main.c \
 		tools/free_mem.c \
 		render/error_graph.c \
 		render/render_map.c \
+		render/render_map_3.c \
 		render/event/event.c \
 		render/event/ai.c \
 		render/wall_infos.c \

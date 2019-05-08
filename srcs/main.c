@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 22:30:46 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 01:21:41 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,6 +62,8 @@ static void	init_helper(t_mem *mem)
 
 static void	init_mem(t_mem *mem, t_level *level)
 {
+	mem->first_launch = 1;
+	mem->end = 0;
 	mem->z = 100;
 	mem->x = 100 - level->player.x * 10;
 	mem->y = 100 - level->player.y * 10;
@@ -95,6 +97,7 @@ int			main(int ac, char **av)
 	init_level(&level);
 	parse_to_level(&parse, &level);
 	init_mem(&mem, &level);
+	first_screen(&mem);
 	mem.level->player.z = 30;
 	mem.level->player.motion_state = 0.40;
 	textures_init(&mem);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 22:53:16 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 01:42:14 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,11 +119,8 @@ void			refresh_screen(t_mem *mem)
 	}
 	if (mem->level->player.shoot > 0)
 		shoot(mem, mem->level->player.shoot);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr,
-(W * 0.4) + 200 + (int)mem->level->player.motion + mem->level->player.recoil,
-(H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr,
-(W >> 1) - 16, (H >> 1) - 16);
+	process(mem);
 	set_hud(mem);
+	if (mem->end)
+		end_screen(mem);
 }
