@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/08 23:30:45 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/09 00:42:00 by mel-akio    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -50,6 +50,7 @@ FILES = main.c \
 		tools/list_entity.c \
 		tools/hud.c \
 		tools/textures_tools.c \
+		tools/textures_tools_2.c \
 		tools/int_check.c \
 		tools/free_mem.c \
 		render/error_graph.c \

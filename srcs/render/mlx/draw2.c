@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   draw2.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 21:23:50 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 23:41:12 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 00:52:43 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,8 @@ void			ft_put_tex(t_mem *mem, int x, int y)
 	bpp2 = mem->wall.bpp >> 3;
 	dst = (int)(round(mem->tex_y) * bpp2 + mem->wall.sizeline *
 	((round(mem->tex_x) / (mem->h_wall * mem->max_x)))) * 32;
+	if (dst == 0)
+		dst = 1;
 	dst = rgb(mem->wall.data[(int)dst + 3], mem->wall.data[(int)dst + 2],
 	mem->wall.data[(int)dst + 1], mem->wall.data[(int)dst]);
 	if ((x > 0 && x < mem->win.width) && (y > 0 && y < mem->win.height))

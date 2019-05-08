@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_sprites.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 23:42:07 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 00:55:08 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,19 +21,19 @@ void			helper(t_mem *mem, t_vector vec, int i)
 		mem->level->entity[i].s_y = vec.my;
 		if (!mem->level->entity[i].shooting)
 		{
-			put_img_to_img(mem, &mem->monster, vec.mx, vec.my,
+			put_img_to_img(mem, &mem->monster, vec,
 			(H * 0.02) / mem->level->entity[i].distance);
 			mem->level->entity[i].shooting = 0;
 		}
 		else
-			put_img_to_img(mem, &mem->shooting_monster, vec.mx, vec.my,
+			put_img_to_img(mem, &mem->shooting_monster, vec,
 			(H * 0.02) / mem->level->entity[i].distance);
 	}
 	else if (mem->level->entity[i].text == HEALTH_BOX)
-		put_img_to_img(mem, &mem->hp_box, vec.mx, vec.my,
+		put_img_to_img(mem, &mem->hp_box, vec,
 			(H * 0.01) / mem->level->entity[i].distance);
 	else
-		put_img_to_img(mem, &mem->ammo_box, vec.mx, vec.my,
+		put_img_to_img(mem, &mem->ammo_box, vec,
 		(H * 0.01) / mem->level->entity[i].distance);
 }
 

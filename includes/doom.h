@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 23:45:54 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 00:54:08 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,6 +119,7 @@ typedef struct			s_mem
 	float				cos_angle;
 	float				sin_angle;
 	int					fps;
+	unsigned int		colorize;
 	struct timeval		tv1;
 	struct timeval		tv2;
 	struct timeval		ai1;
@@ -297,13 +298,15 @@ void					render_calc(t_render *coor, t_vector *vec,
 */
 
 void					textures_init(t_mem *mem);
-void					put_img_to_img(t_mem *mem, t_img *img, int x,
-	int y, float dist);
+void					put_img_to_img(t_mem *mem, t_img *img,
+		t_vector coor, float zoom);
 void					skybox(t_mem *mem, t_img *img);
 unsigned int			rgb(unsigned char o, unsigned char r,
 unsigned char g, unsigned char b);
 void					set_wall_size(t_mem *mem, t_render coor);
 void					set_wall_infos(t_mem *mem);
+void					draw_objects(t_mem *mem, t_vector coor,
+		float zoom, int k);
 
 /*
 ** animation

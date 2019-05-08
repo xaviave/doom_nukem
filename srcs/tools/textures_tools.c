@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   textures_tools.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 23:44:25 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 00:41:33 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,44 +59,30 @@ unsigned int		rgb(unsigned char o, unsigned char r,
 }
 
 void				put_img_to_img(t_mem *mem, t_img *img,
-	int x, int y, float zoom)
+	t_vector coor, float zoom)
 {
 	int				i;
 	int				j;
 	int				k;
-	unsigned int	color;
-	t_coord			pos;
 
-	x -= img->w * zoom * 0.5;
-	y -= img->h * zoom + mem->camera_y;
+	ft_bzero(&mem->coord, sizeof(mem->coord));
+	coor.mx -= img->w * zoom * 0.5;
+	coor.my -= img->h * zoom + mem->camera_y;
 	i = 0;
 	j = -1;
 	while (++j < img->h)
 	{
 		k = -1;
-		while (++k < img->w)
+		while (++k < img->w && zoom < 1.5)
 		{
-			color = rgb(img->data[i + 3], img->data[i + 2],
+			mem->colorize = rgb(img->data[i + 3], img->data[i + 2],
 				img->data[i + 1], img->data[i]);
-			pos.y2 = 0;
-			while (pos.y2 < zoom)
-			{
-				while (pos.x1 < k * zoom)
-				{
-					if (color < 4278190080 && pos.x1 + x > 0 &&
-						pos.x1 + x < W && pos.y1 + pos.y2 + y > 0 &&
-						pos.y1 + pos.y2 + y < H)
-						ft_put_pixel(mem, pos.x1 + x,
-							pos.y1 + pos.y2 + y, set_color(color));
-					pos.x1++;
-				}
-				pos.x1 -= zoom;
-				pos.y2++;
-			}
+			mem->coord.y2 = -1;
+			draw_objects(mem, coor, zoom, k);
 			i += 4;
-			pos.x1 = k * zoom;
+			mem->coord.x1 = k * zoom;
 		}
-		pos.y1 = j * zoom;
+		mem->coord.y1 = j * zoom;
 	}
 }
 

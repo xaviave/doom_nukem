@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:39:18 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 15:09:37 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 00:54:52 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,9 +23,9 @@ void		intersect(t_vector vec, float *x, float *y)
 	float	det;
 
 	*x = fn_cross(vec.tx1, vec.tz1, vec.tx2, vec.tz2);
-	*y = fn_cross(2, 5, -20, 5);
-	det = fn_cross(vec.tx1 - vec.tx2, vec.tz1 - vec.tz2, 2 - -20, 5 - 5);
-	*x = fn_cross(*x, vec.tx1 - vec.tx2, *y, 2 - -20) / det;
+	*y = fn_cross(5, 5, -20, 5);
+	det = fn_cross(vec.tx1 - vec.tx2, vec.tz1 - vec.tz2, 5 - -20, 5 - 5);
+	*x = fn_cross(*x, vec.tx1 - vec.tx2, *y, 5 - -20) / det;
 	*y = fn_cross(*x, vec.tz1 - vec.tz2, *y, 5 - 5) / det;
 }
 
