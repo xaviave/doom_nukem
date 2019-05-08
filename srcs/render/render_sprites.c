@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_sprites.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 13:35:02 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:42:07 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,6 @@
 
 void			helper(t_mem *mem, t_vector vec, int i)
 {
-	
 	if (mem->level->entity[i].text == MOB)
 	{
 		mem->level->entity[i].s_x = vec.mx;
@@ -31,12 +30,11 @@ void			helper(t_mem *mem, t_vector vec, int i)
 			(H * 0.02) / mem->level->entity[i].distance);
 	}
 	else if (mem->level->entity[i].text == HEALTH_BOX)
-			put_img_to_img(mem, &mem->hp_box, vec.mx, vec.my,
+		put_img_to_img(mem, &mem->hp_box, vec.mx, vec.my,
 			(H * 0.01) / mem->level->entity[i].distance);
 	else
 		put_img_to_img(mem, &mem->ammo_box, vec.mx, vec.my,
 		(H * 0.01) / mem->level->entity[i].distance);
-	
 }
 
 void			set_vecs(t_vector *vec, t_mem *mem, int i)

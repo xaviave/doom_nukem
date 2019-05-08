@@ -6,17 +6,17 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/25 18:27:30 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 18:34:34 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:42:22 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../../includes/doom.h"
 
-void			sort_dist_monsters(t_mem *mem)
+void				sort_dist_monsters(t_mem *mem)
 {
-	int			i;
-	t_entity	swap;
+	int				i;
+	t_entity		swap;
 
 	i = 0;
 	while (i < mem->level->nb_entity)

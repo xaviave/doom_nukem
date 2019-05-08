@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ai.c                                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: izoukhai <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 16:29:19 by izoukhai     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 16:29:22 by izoukhai    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:39:59 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,6 @@ static void		ai_mob(t_mem *mem, int i)
 	else
 		mem->level->entity[i].shooting = 0;
 }
-
 
 void			ai_think(t_mem *mem)
 {

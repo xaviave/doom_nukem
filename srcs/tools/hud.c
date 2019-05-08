@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   hud.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: izoukhai <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/08 16:22:11 by izoukhai     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 16:22:13 by izoukhai    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:43:44 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,6 @@ void					init_hud(t_mem *mem)
 	mem->hud.y_str_ammo = H - 40;
 	mem->hud.x_str_magazine = mem->hud.x_str_ammo + 35;
 	mem->hud.y_str_magazine = H - 40;
-
 }
 
 void					set_hud(t_mem *mem)
