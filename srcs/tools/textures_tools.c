@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   textures_tools.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/02 11:28:45 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 10:20:25 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:21:42 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ void				textures_init(t_mem *mem)
 	mem->monster.h = 365;
 	mem->skybox.w = 1280;
 	mem->skybox.h = 800;
+	make_mask(mem, &mem->wall, "backgrounds/wood.xpm");
 	make_mask(mem, &mem->gun, "backgrounds/gun2.xpm");
 	make_mask(mem, &mem->crosshair, "backgrounds/crosshair.xpm");
 	make_mask(mem, &mem->monster, "backgrounds/shooting_monster.xpm");
@@ -36,12 +37,10 @@ void				textures_init(t_mem *mem)
 
 void				make_mask(t_mem *mem, t_img *img, char xpm[255])
 {
-	int				i[3];
-
 	img->ptr = mlx_xpm_file_to_image(mem->mlx_ptr,
 									xpm, &img->w, &img->h);
-	img->data = mlx_get_data_addr(img->ptr, &i[0], &i[1],
-								&i[2]);
+	img->data = mlx_get_data_addr(img->ptr, &img->bpp, &img->sizeline,
+								&img->endian);
 }
 
 unsigned int		rgb(unsigned char o, unsigned char r,

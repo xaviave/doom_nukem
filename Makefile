@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/08 12:00:23 by xamartin    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/08 22:20:03 by mel-akio    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -56,6 +56,7 @@ FILES = main.c \
 		render/render_map.c \
 		render/event/event.c \
 		render/event/ai.c \
+		render/wall_infos.c \
 		render/event/player.c \
 		render/event/event2.c \
 		render/math.c \

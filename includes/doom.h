@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   doom.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/03 16:03:34 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 13:45:36 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 21:57:42 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,6 +114,7 @@ typedef struct			s_mem
 	t_img				monster;
 	t_img				shooting_monster;
 	t_img				hp_box;
+	t_img				wall;
 	t_img				ammo_box;
 	float				cos_angle;
 	float				sin_angle;
@@ -142,6 +143,16 @@ typedef struct			s_mem
 	int					camera_x;
 	int					camera_y;
 	int					neighbour;
+	float				tex_x;
+	float				tex_y;
+	float				step_x;
+	float				step_y;
+	float				min_x;
+	float				min_y;
+	float				max_x;
+	float				max_y;
+	float				h_wall;
+	float				l_wall;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
@@ -290,6 +301,10 @@ void					textures_init(t_mem *mem);
 void					put_img_to_img(t_mem *mem, t_img *img, int x,
 	int y, float dist);
 void					skybox(t_mem *mem, t_img *img);
+unsigned int			rgb(unsigned char o,unsigned char r,
+unsigned char g, unsigned char b);
+void					set_wall_size(t_mem *mem, t_render coor);
+void					set_wall_infos(t_mem *mem);
 
 /*
 ** animation

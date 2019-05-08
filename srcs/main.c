@@ -3,17 +3,17 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 13:31:13 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:30:46 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/doom.h"
 
-static void init_parse(t_parse *parse)
+static void	init_parse(t_parse *parse)
 {
 	parse->linedef = NULL;
 	parse->vertex = NULL;
@@ -23,7 +23,7 @@ static void init_parse(t_parse *parse)
 	parse->nb = 0;
 }
 
-static void init_level(t_level *level)
+static void	init_level(t_level *level)
 {
 	level->vertex = NULL;
 	level->sector = NULL;
@@ -31,7 +31,7 @@ static void init_level(t_level *level)
 	level->linedef = NULL;
 }
 
-static void init_mem(t_mem *mem, t_level *level)
+static void	init_helper(t_mem *mem)
 {
 	init_hud(mem);
 	mem->mlx_ptr = mlx_init();
@@ -41,11 +41,6 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->camera_x = W / 2;
 	mem->win.win_ptr = mlx_new_window(mem->mlx_ptr, mem->win.width,
 									mem->win.height, "doomy nukoom");
-	mem->z = 100;
-	mem->x = 100 - level->player.x * 10;
-	mem->y = 100 - level->player.y * 10;
-	mem->z = 1;
-	mem->level = level;
 	mem->level->player.sector = player_sector(mem, 1);
 	mem->level->player.prev_sector = mem->level->player.sector;
 	mem->level->c[0] = 0xFF0000;
@@ -55,13 +50,24 @@ static void init_mem(t_mem *mem, t_level *level)
 	mem->level->c[4] = 0x63ffe5;
 	mem->level->c[5] = 0x00ffff;
 	mem->level->nb_monsters = 2;
-	if (!(mem->level->monsters = (t_monster *)malloc(sizeof(t_monster) * mem->level->nb_monsters)))
+	if (!(mem->level->monsters = (t_monster *)malloc(sizeof(t_monster) *
+	mem->level->nb_monsters)))
 		return ;
 	mem->fps = 0;
 	mem->tv1.tv_sec = 0;
 	mem->tv2.tv_sec = 0;
 	mem->ai1.tv_sec = 0;
 	mem->ai2.tv_sec = 0;
+}
+
+static void	init_mem(t_mem *mem, t_level *level)
+{
+	mem->z = 100;
+	mem->x = 100 - level->player.x * 10;
+	mem->y = 100 - level->player.y * 10;
+	mem->z = 1;
+	mem->level = level;
+	init_helper(mem);
 	mem->level->player.god_mode = 0;
 	mem->level->player.heigth_player = 5;
 	level->player.hp = 100;
@@ -74,12 +80,12 @@ static void init_mem(t_mem *mem, t_level *level)
 	ft_create_img(mem);
 }
 
-int main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	t_parse parse;
-	t_level level;
-	t_mem mem;
-	int i;
+	t_parse	parse;
+	t_level	level;
+	t_mem	mem;
+	int		i;
 
 	i = 0;
 	if (!(mem.fill_screen = (char *)malloc(sizeof(char) * W)))

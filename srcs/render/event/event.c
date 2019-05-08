@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   event.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/24 16:35:08 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 13:31:00 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:23:17 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ void		update_keys3(t_mem *mem)
 void		update_keys2(t_mem *mem, float try_pos_x, float try_pos_y)
 {
 	if (mem->level->player.keyspressed & CROUCH)
-		mem->level->player.z += 3;
+		mem->level->player.z -= 3;
 	if (mem->level->player.keyspressed & MOVE_UP)
 	{
 		mem->level->player.x += (2 * mem->cos_angle);

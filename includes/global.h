@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 13:47:08 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:11:33 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,7 @@ enum					e_items
 
 typedef struct			s_audio
 {
+	int					channel;
 	Mix_Chunk			*sound;
 	Mix_Music			*music;
 }						t_audio;

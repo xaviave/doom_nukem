@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_map_2.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 10:46:13 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:00:04 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,16 +73,10 @@ void			paint_linedef(t_render coor, int sect, t_mem *mem)
 	int			i;
 
 	i = 0;
-	mem->line = line_init(coor.p1);
-	mem->line2 = line_init(coor.p2);
-	mem->line3 = line_init(coor.step);
-	mem->line4 = line_init(coor.top);
+	set_wall_size(mem, coor);
 	while ((int)coor.p1.x1 != (int)coor.p1.x2)
 	{
-		mem->line.e2 = mem->line.err;
-		mem->line2.e2 = mem->line2.err;
-		mem->line3.e2 = mem->line3.err;
-		mem->line4.e2 = mem->line4.err;
+		set_wall_infos(mem);
 		if (i++)
 		{
 			calc_linedef_one(&coor, mem);
@@ -91,6 +85,10 @@ void			paint_linedef(t_render coor, int sect, t_mem *mem)
 		if (((int)coor.p1.x1 >= 0 && (int)coor.p1.x1 < W))
 		{
 			set_column(coor, mem);
+			mem->min_y = mem->p3.y1;
+			mem->max_y = mem->p3.y2;
+			mem->h_wall = mem->max_y - mem->min_y;
+			mem->l_wall = mem->max_x - mem->min_x;
 			fill_column((int)coor.p1.x1, sect, mem);
 		}
 	}
