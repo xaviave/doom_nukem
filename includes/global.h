@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 13:31:58 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 13:47:08 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,6 @@
 /*
 ** Structures & Binary tree
 */
-
 
 typedef struct			s_audio
 {
@@ -57,7 +56,7 @@ typedef struct			s_fcoord
 	float				y2;
 }						t_fcoord;
 
-typedef struct 			s_render
+typedef struct			s_render
 {
 	t_fcoord			p1;
 	t_fcoord			p2;
@@ -122,8 +121,8 @@ typedef struct			s_sector
 	int					id;
 	int					h_floor;
 	int					h_ceil;
-	int					tex_floor;// no initialise
-	int					tex_ceil;// no initialise
+	int					tex_floor;
+	int					tex_ceil;
 	int					nb_vertex;
 	int					nb_linedef;
 	int					*linedef;
