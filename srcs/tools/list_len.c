@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 13:02:31 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/11 18:14:37 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 21:34:22 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,21 @@ int				list_len_s(t_psector *list)
 {
 	int			i;
 	t_psector	*tmp;
+
+	i = 0;
+	tmp = list;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+int				list_len_e(t_pentity *list)
+{
+	int			i;
+	t_pentity	*tmp;
 
 	i = 0;
 	tmp = list;

@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 14:30:10 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 19:08:18 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 11:08:27 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,6 @@ static void		check_vertex(char *str, t_parse *parse, int *error)
 		i += (str[i] == ':') ? 1 : 0;
 	}
 	*error += (!(*error) && tmp >= 1) ? 0 : 1;
-
 }
 
 static void		check_nu(t_parse *parse, char *nu, int *error)
@@ -72,7 +71,7 @@ static void		check_nu(t_parse *parse, char *nu, int *error)
 		add_list_l(&parse->linedef, nu);
 }
 
-int				check_same_id(t_parse *parse, int error)
+static int		check_same_id(t_parse *parse, int error)
 {
 	t_plinedef	*tmp;
 

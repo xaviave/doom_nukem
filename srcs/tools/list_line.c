@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/11 14:42:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/28 17:56:08 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:46:43 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,8 +48,9 @@ static void				fill_sidedef(t_plinedef *list, char *str)
 	list->text[j] = ft_atoi(str);
 	list->heigth[j] = -1;
 	i = pass_digit_space(str);
-	while (++j < max + 1)
+	while (++j < max)
 	{
+		ft_printf("%s | %d | %d\n", &str[i], i, max);
 		list->heigth[j] = ft_atoi(&str[i]);
 		while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 			i++;

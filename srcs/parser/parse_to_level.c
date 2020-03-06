@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/27 17:16:45 by cmerel      ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 19:24:26 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,11 +75,13 @@ static void		sector_neighbors(t_level *level)
 
 void			keys_shortcuts(t_level *level)
 {
-	ft_bzero(level->player.keys_shortcuts, sizeof(level->player.keys_shortcuts));
+	ft_bzero(level->player.keys_shortcuts,
+		sizeof(level->player.keys_shortcuts));
 	level->player.keys_shortcuts[TOUCH_W] = MOVE_UP;
 	level->player.keys_shortcuts[TOUCH_S] = MOVE_DOWN;
 	level->player.keys_shortcuts[TOUCH_A] = MOVE_LEFT;
 	level->player.keys_shortcuts[TOUCH_D] = MOVE_RIGHT;
+	level->player.keys_shortcuts[TOUCH_F] = FLY;
 	level->player.keys_shortcuts[TOUCH_LEFT] = ROTATE_LEFT;
 	level->player.keys_shortcuts[TOUCH_RIGHT] = ROTATE_RIGHT;
 	level->player.keys_shortcuts[TOUCH_NUMPAD_LESS] = ZOOM_OUT;
@@ -87,8 +89,8 @@ void			keys_shortcuts(t_level *level)
 	level->player.keys_shortcuts[TOUCH_BACKSPACE] = JUMP;
 	level->player.keys_shortcuts[TOUCH_ECHAP] = EXIT_GAME;
 	level->player.keys_shortcuts[TOUCH_R] = RELOAD;
-
-
+	level->player.keys_shortcuts[TOUCH_C] = CROUCH;
+	level->player.keys_shortcuts[TOUCH_E] = PICKUP;
 }
 
 void			parse_to_level(t_parse *parse, t_level *level)
@@ -98,7 +100,7 @@ void			parse_to_level(t_parse *parse, t_level *level)
 	p_to_vertex(level, parse);
 	p_to_linedef(level, parse);
 	p_to_sector(level, parse);
+	p_to_entity(level, parse);
 	free_parse(parse);
 	sector_neighbors(level);
-	//aff_debug(level);
 }

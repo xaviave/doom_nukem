@@ -6,19 +6,19 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 15:18:31 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 01:42:14 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/doom.h"
 
-void		render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect)
+void			render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect)
 {
 	intersect(*vec, &vec->ix1, &vec->iz1);
 	intersect_down(*vec, &vec->ix2, &vec->iz2);
 	*vec = calc_vec(*vec);
-	coor->p1.x1 = -vec->tx1 * 800 / vec->tz1 + (W >> 1); // 800 (ratio map)
+	coor->p1.x1 = -vec->tx1 * 800 / vec->tz1 + (W >> 1);
 	coor->p1.x2 = -vec->tx2 * 800 / vec->tz2 + (W >> 1);
 	coor->p2.x1 = coor->p1.x1;
 	coor->p2.x2 = coor->p1.x2;
@@ -29,19 +29,15 @@ void		render_calc(t_render *coor, t_vector *vec, t_mem *mem, int sect)
 	coor->p1.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil)
 	/ vec->tz1 + (H >> 1);
 	coor->p1.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_ceil)
-	/ vec->tz2 + (H >> 1); // transformer cette valeur pour plafond penché
+	/ vec->tz2 + (H >> 1);
 	coor->p2.y1 = H * (mem->level->player.z - mem->level->sector[sect].h_floor)
 	/ vec->tz1 + (H >> 1);
 	coor->p2.y2 = H * (mem->level->player.z - mem->level->sector[sect].h_floor)
-	/ vec->tz2 + (H >> 1); // // transformer cette valeur pour sol penché
+	/ vec->tz2 + (H >> 1);
 }
 
-void		calc_step(t_mem *mem, t_render *coor, t_vector vec, int sect)
+void			calc_step(t_mem *mem, t_render *coor, t_vector vec, int sect)
 {
-	if (!(mem->level->linedef[send_l_id(mem,
-mem->level->sector[sect].linedef[j])].side.text[0]))
-		mem->neighbour = next_sector(mem, mem->level->sector[sect].linedef[j],
-sect);
 	if (mem->level->sector[mem->neighbour].h_floor
 	>= mem->level->sector[sect].h_floor && mem->neighbour > 0)
 	{
@@ -55,11 +51,11 @@ mem->level->sector[sect].h_floor)
 mem->level->sector[mem->neighbour].h_floor)) / vec.tz2 + (H >> 1)
 	- coor->p2.y2);
 	}
-	coor->step.y1 = coor->p2.y1;
-	coor->step.y2 = coor->p2.y2;
+	coor->step.y1 = coor->p2.y1 + 1;
+	coor->step.y2 = coor->p2.y2 + 1;
 }
 
-void		calc_top(t_mem *mem, t_render *coor, t_vector vec, int sect)
+void			calc_top(t_mem *mem, t_render *coor, t_vector vec, int sect)
 {
 	if (mem->level->sector[mem->neighbour].h_ceil <=
 mem->level->sector[sect].h_ceil && mem->neighbour > 0)
@@ -82,7 +78,6 @@ void			render(t_mem *mem, int sect)
 	t_vector	vec;
 
 	ft_bzero(&coor, sizeof(coor));
-	mlx_clear_window(mem->mlx_ptr, mem->win.win_ptr);
 	j = -1;
 	while (++j < mem->level->sector[sect].nb_linedef)
 	{
@@ -93,7 +88,6 @@ void			render(t_mem *mem, int sect)
 			render_calc(&coor, &vec, mem, sect);
 			calc_step(mem, &coor, vec, sect);
 			calc_top(mem, &coor, vec, sect);
-			mem->color.a = 0;
 			change_color(&mem->color, mem->level->c[mem->level->linedef
 [send_l_id(mem, mem->level->sector[sect].linedef[j])].side.text[0]]);
 		}
@@ -113,12 +107,11 @@ void			refresh_screen(t_mem *mem)
 
 	j = -1;
 	bzero(mem->fill_screen, (sizeof(char) * W));
-	if (mem->img.ptr)
-		mlx_destroy_image(mem->mlx_ptr, mem->img.ptr);
-	ft_create_img(mem);
+	ft_bzero(mem->img.data, W * H * 4);
 	i = -1;
 	while (++i < mem->level->nb_sector && j == -1)
 		j = pre_render(mem, send_s_id(mem, mem->level->n_sector[i]), i);
+	skybox(mem, &mem->skybox);
 	while (i > -1)
 	{
 		render(mem, send_s_id(mem, mem->level->n_sector[i]));
@@ -126,10 +119,8 @@ void			refresh_screen(t_mem *mem)
 	}
 	if (mem->level->player.shoot > 0)
 		shoot(mem, mem->level->player.shoot);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->img.ptr, 0, 0);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->gun.ptr,
-(W * 0.4) + 200 + (int)mem->level->player.motion + mem->level->player.recoil,
-(H >> 1) + (int)mem->level->player.motion + mem->level->player.recoil);
-	mlx_put_image_to_window(mem->mlx_ptr, mem->win.win_ptr, mem->crosshair.ptr,
-(W >> 1) - 16, (H >> 1) - 16);
+	process(mem);
+	set_hud(mem);
+	if (mem->end)
+		end_screen(mem);
 }

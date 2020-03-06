@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 13:07:09 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 23:46:10 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,11 +24,23 @@
 # include "../libft/header/libft.h"
 
 /*
+** Items
+*/
+
+enum					e_items
+{
+	HEALTH_BOX = 1,
+	AMMO_BOX,
+	MOB
+};
+
+/*
 ** Structures & Binary tree
 */
 
 typedef struct			s_audio
 {
+	int					channel;
 	Mix_Chunk			*sound;
 	Mix_Music			*music;
 }						t_audio;
@@ -50,13 +62,13 @@ typedef struct			s_coord
 
 typedef struct			s_fcoord
 {
-	float					x1;
-	float					y1;
-	float					x2;
-	float					y2;
+	float				x1;
+	float				y1;
+	float				x2;
+	float				y2;
 }						t_fcoord;
 
-typedef struct 			s_render
+typedef struct			s_render
 {
 	t_fcoord			p1;
 	t_fcoord			p2;
@@ -64,11 +76,11 @@ typedef struct 			s_render
 	t_fcoord			top;
 }						t_render;
 
-typedef struct		s_size
+typedef struct			s_size
 {
-	int width;
-	int lenght;
-}					t_size;
+	int					width;
+	int					lenght;
+}						t_size;
 
 typedef struct			s_player
 {
@@ -86,15 +98,25 @@ typedef struct			s_player
 	int					last_hitting_floor;
 	int					keys_shortcuts[256];
 	int					keyspressed;
-	int 				sector;
+	int					sector;
+	int					prev_sector;
+	int					god_mode;
+	int					heigth_player;
+	int					ammos;
+	int					magazine;
+	int					hp;
 }						t_player;
 
 typedef struct			s_monster
 {
 	float				x;
 	float				y;
+	float				s_x;
+	float				s_y;
 	int					distance;
-	int 				sector;
+	int					sector;
+	int					alive;
+	int					shooting;
 }						t_monster;
 
 typedef struct			s_sidedef
@@ -118,8 +140,8 @@ typedef struct			s_sector
 	int					id;
 	int					h_floor;
 	int					h_ceil;
-	int					tex_floor; // no initialise
-	int					tex_ceil; // no initialise
+	int					tex_floor;
+	int					tex_ceil;
 	int					nb_vertex;
 	int					nb_linedef;
 	int					*linedef;
@@ -127,12 +149,29 @@ typedef struct			s_sector
 	int					*neighbors;
 }						t_sector;
 
+typedef struct			s_entity
+{
+	int					id;
+	int					alive;
+	int					shooting;
+	int					x;
+	int					y;
+	int					z;
+	int					s_x;
+	int					s_y;
+	int					text;
+	int					sector;
+	int					distance;
+}						t_entity;
+
 typedef struct			s_sound
 {
 	t_audio				music1;
 	t_audio				shoot1;
 	t_audio				jump;
 	t_audio				reload;
+	t_audio				hurt;
+	t_audio				mobshoot;
 }						t_sound;
 
 typedef struct			s_level
@@ -142,20 +181,23 @@ typedef struct			s_level
 	int					nb_linedef;
 	t_linedef			*linedef;
 	int					nb_sector;
-	int					nb_monsters;
 	t_sector			*sector;
+	int					nb_entity;
+	t_entity			*entity;
 	t_player			player;
+	int					nb_monsters;
 	t_monster			*monsters;
 	t_sound				sounds;
 	int					*n_sector;
 	int					n;
 	int					c[6];
-	struct s_level		*next; 
+	struct s_level		*next;
 }						t_level;
 
 /*
 ** keyboard touch value
 */
+
 # define TRUE 1
 # define FALSE 0
 
@@ -220,8 +262,6 @@ typedef struct			s_level
 # define MOTION_NOTIFY 6
 # define TOUCH_BACKSPACE 49
 
-// Define of actions
-
 # define MOVE_UP (1 << 0)
 # define MOVE_DOWN (1 << 1)
 # define MOVE_LEFT (1 << 2)
@@ -233,8 +273,10 @@ typedef struct			s_level
 # define ZOOM_OUT (1 << 8)
 # define JUMP (1 << 8)
 # define RELOAD (1 << 9)
-// Other Ddefine
+# define FLY (1 << 10)
+# define CROUCH (1 << 11)
+# define PICKUP (1 << 12)
 
-#define MARGE 100
+# define MARGE 100
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 14:48:01 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 22:00:04 by mel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,16 +15,23 @@
 
 void			shoot(t_mem *mem, char frame)
 {
+	t_coord		coord;
+
+	coord.x1 = W >> 1;
+	coord.y1 = H >> 1;
+	coord.x2 = W - 340;
+	coord.y2 = H - 150;
 	if (frame == 2)
 	{
 		change_color(&mem->color, 0xFF0000);
-		draw_to_line(W >> 1, H >> 1, W - 340, H - 150, mem);
+		draw_to_line(&coord, mem);
 	}
 	else
 	{
 		change_color(&mem->color, 0x0000FF);
-		draw_to_line(W >> 1, H >> 1, W - 340, H - 150, mem);
+		draw_to_line(&coord, mem);
 	}
+	on_shoot(mem);
 }
 
 void			draw_minimap(t_mem *mem)
@@ -39,16 +46,12 @@ void			draw_minimap(t_mem *mem)
 	{
 		j = -1;
 		while (++j < mem->level->sector[i].nb_linedef)
-		{
 			calc_minimap(mem, i, j, &vec);
-			draw_circle(mem);
-		}
 	}
 	mem->coord.x1 = W / 2;
 	mem->coord.y1 = H / 2;
 	mem->coord.x2 = W / 2;
 	mem->coord.y2 = H / 2 + 30;
-	draw_circle(mem);
 	draw_line(mem);
 }
 
@@ -70,17 +73,10 @@ void			paint_linedef(t_render coor, int sect, t_mem *mem)
 	int			i;
 
 	i = 0;
-
-	mem->line = line_init(coor.p1);
-	mem->line2 = line_init(coor.p2);
-	mem->line3 = line_init(coor.step);
-	mem->line4 = line_init(coor.top);
+	set_wall_size(mem, coor);
 	while ((int)coor.p1.x1 != (int)coor.p1.x2)
 	{
-		mem->line.e2 = mem->line.err;
-		mem->line2.e2 = mem->line2.err;
-		mem->line3.e2 = mem->line3.err;
-		mem->line4.e2 = mem->line4.err;
+		set_wall_infos(mem);
 		if (i++)
 		{
 			calc_linedef_one(&coor, mem);
@@ -89,6 +85,10 @@ void			paint_linedef(t_render coor, int sect, t_mem *mem)
 		if (((int)coor.p1.x1 >= 0 && (int)coor.p1.x1 < W))
 		{
 			set_column(coor, mem);
+			mem->min_y = mem->p3.y1;
+			mem->max_y = mem->p3.y2;
+			mem->h_wall = mem->max_y - mem->min_y;
+			mem->l_wall = mem->max_x - mem->min_x;
 			fill_column((int)coor.p1.x1, sect, mem);
 		}
 	}

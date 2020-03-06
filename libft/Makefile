@@ -43,7 +43,7 @@ PRINTF_OBJ = $(addprefix printf/, $(addsuffix .o, $(SRC_PRINTF)))
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -O2
 
 .PHONY: all clean fclean re
 

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tools.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 17:02:03 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 12:08:04 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 18:20:14 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,9 +27,12 @@ void					add_list_v(t_pvertex **vertex, char *y,
 	char *x, char *id);
 void					add_list_l(t_plinedef **linedef, char *str);
 void					add_list_s(t_psector **sector, char *str);
+void					add_list_e(t_pentity **entity, char *str);
 int						list_len_l(t_plinedef *list);
 int						list_len_s(t_psector *list);
 int						list_len_v(t_pvertex *list);
+int						list_len_e(t_pentity *list);
 void					print_bits(int n);
+int						double_int(int *tab, int nu, int nb);
 
 #endif

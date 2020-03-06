@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   render_calculate.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/28 10:37:02 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 15:12:44 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 10:23:01 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,6 +114,5 @@ void			calc_minimap(t_mem *mem, int i, int j, t_vector *vec)
 	mem->coord.x2 = vec->tx2 + W / 2;
 	mem->coord.y1 = vec->tz1 + H / 2;
 	mem->coord.y2 = vec->tz2 + H / 2;
-	draw_circle(mem);
 	draw_line(mem);
 }

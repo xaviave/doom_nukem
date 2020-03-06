@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:42:52 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/22 12:19:58 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/08 11:59:50 by xamartin    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,27 +44,42 @@ typedef struct			s_psector
 	int					id;
 	int					ceiling;
 	int					ground;
-	int					tex_ground; // no initialise
-	int					tex_ceil; // no initialise
 	int					*linedef;
 	int					nb_linedef;
 	int					nb_vertex;
 	struct s_psector	*next;
 }						t_psector;
 
+typedef struct			s_pentity
+{
+	int					id;
+	int					x;
+	int					y;
+	int					z;
+	int					text;
+	struct s_pentity	*next;
+}						t_pentity;
+
 typedef struct			s_parse
 {
 	t_pvertex			*vertex;
 	t_plinedef			*linedef;
 	t_psector			*sector;
+	t_pentity			*entity;
 	t_player			player;
 	int					nb;
 }						t_parse;
 
-void					parse_map(int aac, char **av, t_parse *parse);
+/*
+** Parse functions
+*/
+
+void					suite_parse(t_parse *parse, char *line);
+void					parse_map(int ac, char **av, t_parse *parse);
 void					parse_vertex(t_parse *parse, char *str);
 void					parse_linedef(t_parse *parse, char *str);
 void					parse_sector(t_parse *parse, char *str);
+void					parse_player(t_parse *parse, char *str);
 
 /*
 **	Parse info to level structure
@@ -72,6 +87,7 @@ void					parse_sector(t_parse *parse, char *str);
 
 void					parse_to_level(t_parse *parse, t_level *level);
 void					p_to_vertex(t_level *level, t_parse *parse);
+void					p_to_entity(t_level *level, t_parse *parse);
 void					p_to_linedef(t_level *level, t_parse *parse);
 void					p_to_sector(t_level *level, t_parse *parse);
 
@@ -82,6 +98,5 @@ void					p_to_sector(t_level *level, t_parse *parse);
 void					free_parse(t_parse *parse);
 void					free_level(t_level *level);
 void					return_error(int error, t_parse *parse);
-void					aff_debug(t_level *level);
 
 #endif
