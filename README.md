@@ -2,20 +2,20 @@
 
 ## Introduction
 
-> Doom Nukem is a game created by @cmerel, @flombard, @mel-akio and me (@xamartin) who is an Doom and Duke Nukem inspired.
+> Doom Nukem is a game created by @mel-akio and me (@xamartin) who is an Doom and Duke Nukem inspired.
 We've recreate our own 3D engine ( jk ) who use the raycasting tech like the one of Duke Nukem. 
 
 ## Code Samples
 
 >  Our map generator is simple to use and do everything you want but if you really want to do your own map from scratch, here a diy to do this map                            
- (https://github.com/xaviave/doom_nukem/blob/master/test.dk) :
+ (https://github.com/xaviave/doom_nukem/blob/master/data/test.dk) :
 
 create all your point one by one on a paper an numbered them from the left to the right and from the top to the bottom (0 for the empty space)  :
 
 1-----2-----3   
-|0000|0000|   
+|00000|00000|   
 4-----5-----6   
-|0000|0000|      
+|00000|00000|      
 7-----8-----9  
 
 Then when you got this create your line which begin with a 'v' for vertex, the point Y axe for all the points then reference the x follow by a semi-colon ';' an the id of the point like this : 
