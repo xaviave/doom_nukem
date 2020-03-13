@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   global.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: kel-akio <kel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/15 14:44:33 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 23:46:10 by xamartin    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/13 13:56:38 by kel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -203,7 +203,7 @@ typedef struct			s_level
 
 # define MOUSE_ZOOM_IN 5
 # define MOUSE_ZOOM_OUT 4
-# define TOUCH_1 18
+/*# define TOUCH_1 18
 # define TOUCH_2 19
 # define TOUCH_3 20
 # define TOUCH_4 21
@@ -213,27 +213,27 @@ typedef struct			s_level
 # define TOUCH_8 28
 # define TOUCH_9 25
 # define TOUCH_0 29
-# define TOUCH_Q 12
+# define TOUCH_Q 12*/
 # define TOUCH_W 13
 # define TOUCH_E 14
 # define TOUCH_R 15
-# define TOUCH_T 17
-# define TOUCH_Y 16
+//# define TOUCH_T 17
+//# define TOUCH_Y 16
 # define TOUCH_A 0
 # define TOUCH_S 1
 # define TOUCH_D 2
 # define TOUCH_F 3
-# define TOUCH_G 5
-# define TOUCH_Z 6
-# define TOUCH_X 7
+//# define TOUCH_G 5
+//# define TOUCH_Z 6
+//# define TOUCH_X 7
 # define TOUCH_C 8
-# define TOUCH_V 9
-# define TOUCH_B 11
+//# define TOUCH_V 9
+//# define TOUCH_B 11
 # define TOUCH_ECHAP 53
-# define TOUCH_ENTER 36
+//# define TOUCH_ENTER 36
 # define TOUCH_LEFT 123
 # define TOUCH_RIGHT 124
-# define TOUCH_DOWN 125
+/*# define TOUCH_DOWN 125
 # define TOUCH_UP 126
 # define TOUCH_NUMPAD_0 82
 # define TOUCH_NUMPAD_1 83
@@ -257,7 +257,7 @@ typedef struct			s_level
 # define TOUCH_NUMPAD_DELL 117
 # define TOUCH_NUMPAD_PAGEUP 116
 # define TOUCH_NUMPAD_PAGEDOWN 121
-# define TOUCH_NUMPAD_HOME 115
+# define TOUCH_NUMPAD_HOME 115*/
 # define PTR_MOTION_MASK (1L<<6)
 # define MOTION_NOTIFY 6
 # define TOUCH_BACKSPACE 49
@@ -269,8 +269,8 @@ typedef struct			s_level
 # define ROTATE_LEFT (1 << 4)
 # define ROTATE_RIGHT (1 << 5)
 # define EXIT_GAME (1 << 6)
-# define ZOOM_IN (1 << 7)
-# define ZOOM_OUT (1 << 8)
+//# define ZOOM_IN (1 << 7)
+//# define ZOOM_OUT (1 << 8)
 # define JUMP (1 << 8)
 # define RELOAD (1 << 9)
 # define FLY (1 << 10)

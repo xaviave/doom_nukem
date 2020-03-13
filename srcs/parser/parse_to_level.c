@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   parse_to_level.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: kel-akio <kel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 11:12:12 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/07 19:24:26 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/13 13:35:51 by kel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,11 +81,11 @@ void			keys_shortcuts(t_level *level)
 	level->player.keys_shortcuts[TOUCH_S] = MOVE_DOWN;
 	level->player.keys_shortcuts[TOUCH_A] = MOVE_LEFT;
 	level->player.keys_shortcuts[TOUCH_D] = MOVE_RIGHT;
-	level->player.keys_shortcuts[TOUCH_F] = FLY;
+	//level->player.keys_shortcuts[TOUCH_F] = FLY;
 	level->player.keys_shortcuts[TOUCH_LEFT] = ROTATE_LEFT;
 	level->player.keys_shortcuts[TOUCH_RIGHT] = ROTATE_RIGHT;
-	level->player.keys_shortcuts[TOUCH_NUMPAD_LESS] = ZOOM_OUT;
-	level->player.keys_shortcuts[TOUCH_NUMPAD_PLUS] = ZOOM_IN;
+	/*level->player.keys_shortcuts[TOUCH_NUMPAD_LESS] = ZOOM_OUT;
+	level->player.keys_shortcuts[TOUCH_NUMPAD_PLUS] = ZOOM_IN;*/
 	level->player.keys_shortcuts[TOUCH_BACKSPACE] = JUMP;
 	level->player.keys_shortcuts[TOUCH_ECHAP] = EXIT_GAME;
 	level->player.keys_shortcuts[TOUCH_R] = RELOAD;
