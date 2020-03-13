@@ -1,17 +1,23 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   triangulation_player.c                           .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: xamartin <xamartin@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/24 18:18:06 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 20:24:42 by xamartin    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   triangulation_player.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/24 18:18:06 by xamartin          #+#    #+#             */
+/*   Updated: 2020/03/13 13:53:00 by xamartin         ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../../includes/doom.h"
+
+/*
+** in_box: take the biggest coord of linedef and
+** check if in the "box" of the coords.
+** the function optimize the enter in suite_sector()
+*/
 
 int				in_box(t_mem *mem, int nb)
 {
@@ -50,8 +56,19 @@ int				is_inside(t_vertex v1, t_vertex v2, t_vertex v3, t_vertex m)
 	i.w1 = (v1.x * i.s1 + i.s4 * i.s2 - m.x * i.s1) /
 		(i.s3 * i.s2 - (v2.x - v1.x) * i.s1);
 	i.w2 = (i.s4 - i.w1 * i.s3) / i.s1;
-	return (i.w1 >= 0 && i.w2 >= 0 && (i.w1 + i.w2) <= 1);
+	return (i.w1 > 0 && i.w2 > 0 && (i.w1 + i.w2) < 1);
 }
+
+/*
+** check_in_sector: if save, vertex1 of the first linedef of a given sector,
+** is equal to the last linedef vertex2 or to itself return 0
+** no triangulation possible.
+** else go in is_inside (triangulation of player between point)
+*/
+
+/*
+** todo: faire un rayon autour de mem_level_player.x | .y de dist et check si ok
+*/
 
 int				check_in_sector(t_mem *mem, int l1, int l2, int save)
 {

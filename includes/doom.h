@@ -6,7 +6,7 @@
 /*   By: xamartin <xamartin@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 16:03:34 by xamartin          #+#    #+#             */
-/*   Updated: 2020/03/13 09:51:22 by xamartin         ###   ########lyon.fr   */
+/*   Updated: 2020/03/13 13:21:26 by xamartin         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ typedef struct			s_mem
 	float				max_y;
 	float				h_wall;
 	float				l_wall;
+	float				col_x;
+	float				col_y;
 }						t_mem;
 
 void					ft_create_img(t_mem *mem);
@@ -191,6 +193,16 @@ int						mouse_click_hook(int k, int x, int y, t_mem *mem);
 int						add_key(int k, t_mem *mem);
 int						remove_key(int k, t_mem *mem);
 int						cross_close(t_mem *mem);
+
+
+/*
+** event3.c
+*/
+
+void					alloc_left(t_mem *mem);
+void					alloc_right(t_mem *mem);
+void					alloc_down(t_mem *mem);
+void					alloc_up(t_mem *mem);
 
 /*
 ** send_info -------------- dir
