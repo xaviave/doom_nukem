@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 01:21:41 by mel-akio    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: xamartin <xamartin@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 10:14:48 by xamartin          #+#    #+#             */
+/*   Updated: 2020/03/13 13:33:11 by xamartin         ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/doom.h"
 
@@ -69,6 +69,8 @@ static void	init_mem(t_mem *mem, t_level *level)
 	mem->y = 100 - level->player.y * 10;
 	mem->z = 1;
 	mem->level = level;
+	mem->col_x = mem->level->player.x;
+	mem->col_y = mem->level->player.y;
 	init_helper(mem);
 	mem->level->player.god_mode = 0;
 	mem->level->player.heigth_player = 5;
