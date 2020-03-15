@@ -1,15 +1,15 @@
 # **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2018/10/15 13:25:38 by xamartin     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/09 01:42:43 by mel-akio    ###    #+. /#+    ###.fr      #
-#                                                          /                   #
-#                                                         /                    #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: xamartin <xamartin@student.le-101.fr>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/10/15 13:25:38 by xamartin          #+#    #+#              #
+#    Updated: 2020/03/13 13:26:19 by xamartin         ###   ########lyon.fr    #
+#                                                                              #
 # **************************************************************************** #
+
 
 .PHONY: all clean fclean re
 
@@ -62,6 +62,7 @@ FILES = main.c \
 		render/wall_infos.c \
 		render/event/player.c \
 		render/event/event2.c \
+		render/event/event3.c \
 		render/math.c \
 		render/music.c \
 		render/mlx/img.c \

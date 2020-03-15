@@ -3,13 +3,14 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mel-akio <mel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: kel-akio <kel-akio@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 10:14:48 by xamartin     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 01:21:41 by mel-akio    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/03/13 15:15:54 by kel-akio    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
+
 
 #include "../includes/doom.h"
 
@@ -69,12 +70,14 @@ static void	init_mem(t_mem *mem, t_level *level)
 	mem->y = 100 - level->player.y * 10;
 	mem->z = 1;
 	mem->level = level;
+	mem->col_x = mem->level->player.x;
+	mem->col_y = mem->level->player.y;
 	init_helper(mem);
 	mem->level->player.god_mode = 0;
 	mem->level->player.heigth_player = 5;
 	level->player.hp = 100;
 	level->player.ammos = 30;
-	level->player.magazine = 1;
+	level->player.magazine = 1000;
 	if (level->nb_sector > 1)
 		if (!(mem->level->n_sector = (int *)malloc(4 * level->nb_sector)))
 			return ;
