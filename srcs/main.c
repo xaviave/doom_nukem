@@ -19,6 +19,7 @@ static void	init_parse(t_parse *parse)
 	parse->linedef = NULL;
 	parse->vertex = NULL;
 	parse->sector = NULL;
+    parse->entity = NULL;
 	parse->player.x = -1;
 	parse->player.y = -1;
 	parse->nb = 0;
