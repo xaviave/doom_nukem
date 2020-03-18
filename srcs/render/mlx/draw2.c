@@ -44,11 +44,11 @@ void			draw_to_line(t_coord *coord, t_mem *mem)
 
 void			ft_put_tex(t_mem *mem, int x, int y)
 {
-	int			bpp1;
+//	int			bpp1;
 	int			bpp2;
 	int			dst;
 
-	bpp1 = mem->img.bpp >> 3;
+//	bpp1 = mem->img.bpp >> 3;
 	bpp2 = mem->wall.bpp >> 3;
 	dst = (int)(round(mem->tex_y) * bpp2 + mem->wall.sizeline *
 	((round(mem->tex_x) / (mem->h_wall * mem->max_x)))) * 32;

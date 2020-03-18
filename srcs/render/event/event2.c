@@ -16,7 +16,9 @@
 int			mouse_move_hook(int x, int y, t_mem *mem)
 {
 	if (x || y || mem)
-		;
+	{
+	
+	}
 	return (0);
 }
 

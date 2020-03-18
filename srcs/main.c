@@ -19,7 +19,7 @@ static void	init_parse(t_parse *parse)
 	parse->linedef = NULL;
 	parse->vertex = NULL;
 	parse->sector = NULL;
-    parse->entity = NULL;
+	parse->entity = NULL;
 	parse->player.x = -1;
 	parse->player.y = -1;
 	parse->nb = 0;
@@ -91,9 +91,7 @@ int			main(int ac, char **av)
 	t_parse	parse;
 	t_level	level;
 	t_mem	mem;
-	int		i;
 
-	i = 0;
 	if (!(mem.fill_screen = (char *)malloc(sizeof(char) * W)))
 		return (0);
 	init_parse(&parse);

@@ -20,7 +20,7 @@
 # include <math.h>
 # include <time.h>
 # include <sys/time.h>
-# include <SDL2_mixer/SDL_mixer.h>
+# include <../Frameworks/SDL2_mixer.framework/Headers/SDL_mixer.h>
 # include "../libft/header/libft.h"
 
 /*

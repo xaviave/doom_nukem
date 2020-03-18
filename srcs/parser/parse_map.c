@@ -55,11 +55,9 @@ static int		return_line_h(t_plinedef *list, t_psector *sector)
 static int		check_text_heigth(t_parse *parse)
 {
 	int			i;
-	int			j;
 	t_plinedef	*tmp;
 	t_psector	*tmp1;
 
-	j = 0;
 	tmp1 = parse->sector;
 	while (tmp1)
 	{

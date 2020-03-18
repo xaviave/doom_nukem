@@ -15,11 +15,9 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	value;
 	char	*start;
 	char	*end;
 
-	value = (char)c;
 	start = (char *)s;
 	end = (char *)s;
 	while (*end)

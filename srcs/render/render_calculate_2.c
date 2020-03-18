@@ -15,10 +15,8 @@
 
 void			calc_linedef(t_fcoord pf1, t_mem *mem)
 {
-	int			i;
 	int			j;
 
-	i = 0;
 	if ((int)pf1.x1 < (int)pf1.x2)
 		j = 1;
 	else

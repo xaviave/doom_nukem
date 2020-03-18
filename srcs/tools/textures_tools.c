@@ -46,14 +46,6 @@ void				make_mask(t_mem *mem, t_img *img, char xpm[255])
 unsigned int		rgb(unsigned char o, unsigned char r,
 	unsigned char g, unsigned char b)
 {
-	if (r > 255)
-		r = 255;
-	if (r > 255)
-		g = 255;
-	if (r > 255)
-		b = 255;
-	if (o > 255)
-		o = 255;
 	return (((unsigned int)o * 16777216) + ((unsigned int)r * 65536) +
 		((unsigned int)g * 256) + (unsigned int)b);
 }

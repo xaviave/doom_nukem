@@ -44,14 +44,14 @@ void			parse_player(t_parse *parse, char *str)
 static void		check_nu(t_parse *parse, char *nu, int *error)
 {
 	int			i;
-	int			j;
+//	int			j;
 	int			tmp;
 
 	i = 0;
 	tmp = 0;
 	while (nu[i] && (nu[i] == ' ' || nu[i] == '\t'))
 		i++;
-	j = i + pass_digit_space(&nu[i]);
+	// j = i + pass_digit_space(&nu[i]);
 	*error += !check_int(&nu[i]) ? 1 : 0;
 	while (!(*error) && ++tmp < 5)
 	{

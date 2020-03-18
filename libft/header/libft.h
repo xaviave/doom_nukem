@@ -107,7 +107,7 @@ void					ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void					ft_lstprint_nb(t_list *lst);
 unsigned int			ft_lstlen(t_list *lst);
-void					ft_del(void *content, size_t content_size);
+void					ft_del(void *content);
 void					ft_swap(char *a, char *b);
 char					*ft_strrev(char *s);
 char					*ft_strtoupper(char *s);

@@ -13,8 +13,7 @@
 
 #include "../header/libft.h"
 
-void	ft_del(void *content, size_t content_size)
+void	ft_del(void *content)
 {
-	content_size = 0;
 	free(content);
 }
