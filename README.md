@@ -27,6 +27,7 @@ v 10 0;7 5;8 10;9
 for the linedef, define the linedef's id, then define it with the 2 points' ids who are on the side of the linedef and then the sprite define by the id of the sprite. The first char is 'l'.  (0 define transparent wall wich could be cross):
 
 l for linedef   1 for the lindef's id    1 & 2 for the vertex's id and 12 for the texture's id
+
 l 1 1 2 12   
 ...   
 l 5 2 5  0   
